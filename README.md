@@ -1,2 +1,2 @@
 # dut-scrum-app
-L'
+E
