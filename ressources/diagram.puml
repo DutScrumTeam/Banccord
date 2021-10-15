@@ -1,0 +1,20 @@
+@startuml
+!theme cyborg
+object lambdaUser
+object adminUser
+object controllerUser
+object poUser
+map index{
+admin *--> lambdaUser
+lambda *--> adminUser
+po *--> poUser
+controller *--> controllerUser
+}
+lambdaUser *--> treasury
+lambdaUser *--> account
+poUser *--> usersInfo
+controllerUser *--> unpaidUsersInfo
+lambdaUser *--> graph
+adminUser *--> manageAccounts
+poUser *--> sale
+@enduml
