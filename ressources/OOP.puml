@@ -15,14 +15,22 @@ class Preparator {
     private Preparator instance
     private Preparator()
     public getInstance()
+    public prepare(SQLType,Table,Object)
 }
 
 interface Table {
+    private ArrayList<Param> params
+    public getParams()
+}
 
+class Param{
+    private string name
+    private Integer number
+    private PDO:: ParamSTR type
 }
 
 interface SQLType {
-    private prepare(Object)
+    private getString(Table)
 }
 
 interface Client {
