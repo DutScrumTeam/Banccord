@@ -1,0 +1,80 @@
+@startuml
+!theme cyborg
+
+class BDDUtils {
+     private BDDUtils instance
+     private password
+     private login
+     private BDDUtils()
+     public getInstance(): Client
+     public connect()
+     public execute(PDOStatement)
+}
+
+class Preparator {
+    private Preparator instance
+    private Preparator()
+    public getInstance()
+}
+
+interface Table {
+
+}
+
+interface SQLType {
+    private prepare(Object)
+}
+
+interface Client {
+    private string login
+
+    public string getName
+    public dataToFile(): void
+}
+
+class ClientPO {
+    public getClient(string name): Client
+
+}
+
+class ClientUser {
+
+}
+
+class ClientAdmin {
+    public DeleteClient()
+}
+
+class ClientManager {
+}
+
+Client <|-- ClientPO
+Client <|-- ClientUser
+Client <|-- ClientAdmin
+Client <|-- ClientManager
+
+@enduml
+
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+Object[] elementData
+size()
+}
+
+enum TimeUnit {
+MINUTES
+DAYS
+HOURS
+}
+
