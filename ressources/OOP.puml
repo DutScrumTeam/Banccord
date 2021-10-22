@@ -3,11 +3,9 @@
 
 class BDDUtils {
      private BDDUtils instance
-     private password
-     private login
-     private BDDUtils()
-     public getInstance(): Client
-     public connect()
+
+     private BDDUtils(): BDDUtils
+     public connect(password, login): boolean | Client
      public execute(PDOStatement)
 }
 
@@ -32,28 +30,48 @@ class Param{
 interface SQLType {
     private getString(Table)
 }
+SQLType <|-- Insert
+SQLType <|-- Remove
+SQLType <|-- Update
+SQLType <|-- Select
+
+class Insert{
+}
+class Remove{
+}
+class Update{
+}
+
+enum FileFormat {
+    XLS,
+    CSV,
+    PDF
+}
 
 interface Client {
-    private string login
+    private login: string
 
-    public string getName
-    public dataToFile(): void
+    public getLogin(): string
+    public getGraphUnpaid(): string
+    public dataToFile(fileFormat: FileFormat): void
 }
 
 class ClientPO {
-    public getClient(string name): Client
-
+    public getAllInfos(): string
+    public getClientInfos(string login): string
 }
 
 class ClientUser {
-
+    public getInfos(): string
 }
 
 class ClientAdmin {
-    public DeleteClient()
+    public deleteClient(string login): boolean
+    public createClient(string login): boolean
 }
 
 class ClientManager {
+    public getAllInfos(): string
 }
 
 Client <|-- ClientPO
