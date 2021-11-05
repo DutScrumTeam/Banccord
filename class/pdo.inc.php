@@ -6,9 +6,9 @@ define("DEF_PDO", true);
 $user =  "guillaume.grisolet";
 $pass =  "guillaumé el famoso";
 try {
-  $pdo = new PDO('pgsql:host=sqletud.u-pem.fr;dbname=guillaume.grisolet_db',$user,$pass);
+	$pdo = new PDO('pgsql:host=sqletud.u-pem.fr;dbname=guillaume.grisolet_db',$user,$pass);
 } catch (PDOException $e) {
-  echo "ERREUR : La connexion a échouée.";
+	echo "ERREUR : La connexion a échouée.";
 }
 
 }?>
