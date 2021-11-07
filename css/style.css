@@ -1,2 +1,5 @@
 /* Fichier de style a utiliser dans TOUS les fichiers */
 
+.centered {
+	text-align: center;
+}
