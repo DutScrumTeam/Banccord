@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<title>Banccord | Nouveau compte</title>
 	<?php include("class/head.inc.php"); ?>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 	<title>Banccord | Se connecter</title>
 	<?php include("class/head.inc.php"); ?>
@@ -14,7 +14,7 @@
 
 					<div class="form-group">
 						<label for="pseudo">Nom d'utilisateur</label>
-						<input type="password" class="form-control" name="pseudo" id="pseudo" placeholder="Votre nom d'utliisateur" required>
+						<input type="password" class="form-control" name="pseudo" id="pseudo" placeholder="Votre nom d'utilisateur" required>
 					</div>
 					
 					<div class="form-group">
