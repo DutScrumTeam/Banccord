@@ -40,33 +40,45 @@
       </div>
     </div>
 
+    <div class="alert alert-primary centered" role="alert">
+      Résultat 1-3 / 97 au total.
+    </div>
+
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Date de payement</th>
+          <th scope="col">Siren</th>
+          <th scope="col">Type de carte</th>
+          <th scope="col">Numéro de carte</th>
+          <th scope="col">Code d'autorisation</th>
+          <th scope="col">Montant</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
+          <td scope="row">03/01/2021</th>
+          <td>489 025 603 68250</td>
+          <td>Issou</td>
+          <td>6942 6942 6942 6942</td>
+          <td>48</td>
+          <td>1.00€</td>
         </tr>
         <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
+          <td scope="row">02/01/2021</th>
+          <td>489 025 603 68250</td>
+          <td>Issou</td>
+          <td>6942 6942 6942 6942</td>
+          <td>29</td>
+          <td>1.00€</td>
         </tr>
         <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
+          <td scope="row">01/01/2021</th>
+          <td>489 025 603 68250</td>
+          <td>Issou</td>
+          <td>6942 6942 6942 6942</td>
+          <td>35</td>
+          <td>1.00€</td>
         </tr>
       </tbody>
     </table>
