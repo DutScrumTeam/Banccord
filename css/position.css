@@ -1,0 +1,10 @@
+.centered {
+	text-align: center;
+}
+
+.div-center-h {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
