@@ -3,6 +3,7 @@
 <head>
 	<title>Banccord | Se connecter</title>
 	<?php include("class/head.inc.php"); ?>
+	<link rel="stylesheet" href="css/connect.css">
 </head>
 <body>
 	<div class="container">
@@ -19,10 +20,14 @@
 					
 					<div class="form-group">
 						<label for="mdp">Mot de passe</label>
-						<input type="password" class="form-control" name="password" id="password" placeholder="Votre mot de passe" required>
+						<div class="password-container">
+							<input type="password" class="form-control" name="password" id="password" placeholder="Votre mot de passe" required>
+							<script src="js/eye-password.js"></script>
+							<button class="btn-eye" type="button" onclick="switchPasswordView()"></button>
+						</div>
 					</div>
 					
-					<button type="submit" class="btn btn-primary">Nouveau compte</button>
+					<button type="submit" class="btn btn-primary">Connexion</button>
 				</form>
 			</div>
 		</div>
