@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,11 +7,7 @@
 </head>
 
 <body>
-  <header>
-    <div class="header-disconnect"><p>
-      Se déconnecter
-    </p></div>
-  </header>
+  <?php include("class/header.inc.php"); ?>
 
   <div class="container">
     <div class="row">
@@ -18,7 +15,7 @@
       <div class="col titles">
         <h1>Compte de <b>Muchel Pabo</b></h1>
         <p>Siren : 749 547 487 47239</p>
-        <h2>Montant totale : 5€</h2>
+        <h2>Montant total : 5€</h2>
       </div>
       <!-- Le graphique -->
       <div class="col-auto" style="background-color:aqua;">
@@ -31,7 +28,9 @@
 			<div class="col-md-6">
         <div class="row action-option">
           <div class="col col-offset-4">
-            <input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
+            <form action="client-info.php">
+              <input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
+            </form>
           </div>
           <div class="col-auto">
             <button class="btn btn-primary">Exporter au format...</button>
@@ -41,9 +40,19 @@
     </div>
 
     <div class="alert alert-primary centered" role="alert">
-      Résultat 1-3 / 97 au total.
+      
     </div>
 
+    <div class="row justify-content-center">
+      <button class="col-auto">Page précédente</button>
+      <div class="col-auto">
+        Résultat 1-3<br>
+        97 résultat au total.
+      </div>
+      <button class="col-auto">Page suivante</button>
+    </div>
+
+    <!-- Tableau des remises -->
     <table class="table table-striped">
       <thead>
         <tr>

@@ -8,6 +8,12 @@
 	text-align: center;
 }
 
+.div-center-h {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
 .form-group {
 	margin: 10px 0;
 }
