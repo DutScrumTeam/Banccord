@@ -24,6 +24,7 @@
     </div>
   </div>
 
+  <!-- Choix de page de résultat -->
   <div class="row justify-content-center">
     <button class="col-auto">Page précédente</button>
     <div class="col-auto">
@@ -33,7 +34,7 @@
     <button class="col-auto">Page suivante</button>
   </div>
 
-  <!-- Tableau des remises -->
+  <!-- Tableau des comptes -->
   <table class="table table-striped">
     <thead>
       <tr>

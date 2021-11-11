@@ -23,15 +23,16 @@
       </div>
     </div>
 
-    <!-- Champ de recherche -->
     <div class="row justify-content-md-center">
-			<div class="col-md-6">
+      <div class="col-md-6">
         <div class="row action-option">
+          <!-- Champ de recherche -->
           <div class="col col-offset-4">
             <form action="client-info.php">
               <input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
             </form>
           </div>
+          <!-- Bouton d'export du fichier -->
           <div class="col-auto">
             <button class="btn btn-primary">Exporter au format...</button>
           </div>
@@ -39,10 +40,7 @@
       </div>
     </div>
 
-    <div class="alert alert-primary centered" role="alert">
-      
-    </div>
-
+    <!-- Choix de la page des résultats -->
     <div class="row justify-content-center">
       <button class="col-auto">Page précédente</button>
       <div class="col-auto">

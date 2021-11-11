@@ -13,11 +13,13 @@
 				<h1 class="centered">Se connecter</h1>
 				<form action="connect.php" method="post">
 
+					<!-- Champ pseudo -->
 					<div class="form-group">
 						<label for="pseudo">Nom d'utilisateur</label>
 						<input type="password" class="form-control" name="pseudo" id="pseudo" placeholder="Votre nom d'utilisateur" required>
 					</div>
 					
+					<!-- Champ mdp -->
 					<div class="form-group">
 						<label for="mdp">Mot de passe</label>
 						<div class="password-container">

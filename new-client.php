@@ -1,4 +1,7 @@
-<!-- Création de client atteignable seulement après avoir confirmer la création d'un compte client (new-account.php) -->
+<!--
+	Création de client atteignable SEULEMENT après avoir
+	confirmer la création d'un compte CLIENT (new-account.php)
+-->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
