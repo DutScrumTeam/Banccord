@@ -37,7 +37,12 @@ header {
 	margin-top: 40px;
 }
 
-.btn {
-    background-color: #00bcd4;
-    border-color: #00bcd4;
+.row {
+
 }
+
+.btn btn-primary {
+	color: #00915A;
+}
+
+
