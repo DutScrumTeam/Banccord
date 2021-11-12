@@ -12,6 +12,7 @@ header {
 	position: relative;
 	height: 60px;
 	background-color: #eee;
+	margin-bottom: 40px;
 }
 
 .header-disconnect {
@@ -19,7 +20,7 @@ header {
 	width: 200px;
 	height: 100%;
 	right: 0;
-	background-color: #ddd;
+	background-color: #E7E7E7;
 }
 
 .header-disconnect > p {
@@ -36,4 +37,13 @@ header {
 .action-option {
 	margin-top: 40px;
 }
+
+.row {
+
+}
+
+.btn btn-primary {
+	color: #00915A;
+}
+
 
