@@ -1,3 +1,5 @@
+<?php include("class/header.php"); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,7 +8,11 @@
 </head>
 
 <body>
-<?php include("class/header.inc.php"); ?>
+  <?php
+		echoHeader(
+			"Créer un compte", "new-account.php"
+		);
+	?>
 
 <div class="container">
 	<h1 class="centered">Admin</h1>
@@ -17,7 +23,7 @@
       <div class="row action-option">
         <div class="col col-offset-4">
           <form action="client-unpaid.php">
-              <label for="search-siren"></label><input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par numéro de Siret">
+            <input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par numéro de Siret">
           </form>
         </div>
       </div>

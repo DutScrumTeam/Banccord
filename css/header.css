@@ -1,0 +1,31 @@
+/* Mise en forme pour le header */
+header {
+	position: relative;
+	height: 60px;
+	background-color: #eee;
+}
+
+.header-disconnect {
+	position: absolute;
+	width: 200px;
+	height: 100%;
+	right: 0;
+	top: 0;
+	background-color: #ddd;
+}
+
+.header-disconnect > p {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	text-align: center;
+}
+
+header .header-elem {
+	display: inline-block;
+	height: 60px;
+	padding: 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0002;
+}
