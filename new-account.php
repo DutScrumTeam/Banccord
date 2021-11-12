@@ -3,6 +3,7 @@
 <head>
 	<title>Banccord | Nouveau compte</title>
 	<?php include("class/head.inc.php"); ?>
+    <link rel="stylesheet" href="css/connect.css">
 </head>
 
 <body>
@@ -33,15 +34,26 @@
 					<!-- Mdp -->
 					<div class="form-group">
 						<label for="password">Mot de passe</label>
-						<input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe de l'utilisateur" required>
-					</div>
+                        <div class="password-container">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe de l'utilisateur" required>
+                            <script src="js/eye-password.js"></script>
+                            <button class="btn-eye" type="button" onclick="switchPasswordView()"></button>
+                        </div>
+                    </div>
+                    <?php if ($_GET["error"]=="password"){
+                        echo "<div class=\"alert alert-primary\" role=\"alert\">
+                        Passwords do not match</div>";
+                    }?>
 					
 					<!-- Confirmation du mdp -->
 					<div class="form-group">
-						<label for="password-confirm">Confirmer le mot de passe</label>
-						<input type="password" class="form-control" name="password-confirm" id="password-confirm" placeholder="Retapez le mot de passe" required>
-					</div>
-					
+						<label for="passwordConfirm">Confirmer le mot de passe</label>
+                        <div class="password-container">
+                            <input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="Retapez le mot de passe" required>
+                            <script src="js/eye-password.js"></script>
+                            <button class="btn-eye" type="button" onclick='switchPasswordViewName("passwordConfirm")'></button>
+                        </div>
+                    </div>
 					<button type="submit" class="btn btn-primary">Nouveau compte</button>
 				</form>
 			</div>

@@ -1,2 +1,0 @@
-Création de compte :
-INSERT INTO compte (id, mdp, type) VALUES (<id>, <mdp>, <PO / ADM / CLI / GES>);
