@@ -27,7 +27,7 @@
 					<!-- Champ de recherche -->
 					<div class="col col-offset-4">
 						<form action="client-info.php">
-                            <label for="search-siren"></label><input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
+							<input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
 						</form>
 					</div>
 					<!-- Bouton d'export du fichier -->
