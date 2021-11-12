@@ -1,4 +1,4 @@
-<!--
+                                                                                        <!--
 	Création de client atteignable SEULEMENT après avoir
 	confirmer la création d'un compte CLIENT (new-account.php)
 -->
@@ -6,7 +6,7 @@
 <html lang="fr">
 <head>
 	<title>Banccord | Création d'un client</title>
-	<?php include("class/head.inc.php") ?>
+	<?php include("class/head.inc.php"); ?>
 </head>
 <body>
 	<div class="container">

@@ -16,12 +16,12 @@
 					<!-- Champ pseudo -->
 					<div class="form-group">
 						<label for="pseudo">Nom d'utilisateur</label>
-						<input type="password" class="form-control" name="pseudo" id="pseudo" placeholder="Votre nom d'utilisateur" required>
+						<input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Votre nom d'utilisateur" required>
 					</div>
 					
 					<!-- Champ mdp -->
 					<div class="form-group">
-						<label for="mdp">Mot de passe</label>
+						<label for="password">Mot de passe</label>
 						<div class="password-container">
 							<input type="password" class="form-control" name="password" id="password" placeholder="Votre mot de passe" required>
 							<script src="js/eye-password.js"></script>

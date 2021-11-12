@@ -32,13 +32,13 @@
 					
 					<!-- Mdp -->
 					<div class="form-group">
-						<label for="mdp">Mot de passe</label>
+						<label for="password">Mot de passe</label>
 						<input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe de l'utilisateur" required>
 					</div>
 					
 					<!-- Confirmation du mdp -->
 					<div class="form-group">
-						<label for="mdp-confirm">Confirmer le mot de passe</label>
+						<label for="password-confirm">Confirmer le mot de passe</label>
 						<input type="password" class="form-control" name="password-confirm" id="password-confirm" placeholder="Retapez le mot de passe" required>
 					</div>
 					
