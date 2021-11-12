@@ -27,7 +27,7 @@
 					<!-- Pseudo -->
 					<div class="form-group">
 						<label for="name">Nom d'utilisateur</label>
-						<input type="password" class="form-control" name="name" id="name" placeholder="Nom du nouvel utlisateur" required>
+						<input type="text" class="form-control" name="name" id="name" placeholder="Nom du nouvel utlisateur" required>
 					</div>
 					
 					<!-- Mdp -->
