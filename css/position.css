@@ -13,6 +13,6 @@
 .div-center-v {
 	position: relative;
 	top: 50%;
-	transform: translatY(-50%);
+	transform: translateY(-50%);
 }
 
