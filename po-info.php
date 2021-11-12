@@ -1,3 +1,5 @@
+<?php include("class/header.php"); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,7 +7,11 @@
 	<?php include("class/head.inc.php") ?>
 </head>
 <body>
-	<?php include("class/header.inc.php"); ?>
+	<?php
+		echoHeader(
+			"Impayés", "po-unpaid.php"
+		);
+	?>
 
 	<div class="container">
 		<div class="row">

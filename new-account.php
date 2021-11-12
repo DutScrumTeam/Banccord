@@ -1,11 +1,19 @@
+<?php include("class/header.php"); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<title>Banccord | Nouveau compte</title>
-	<?php include("class/head.inc.php"); ?>
-</head>
+	<head>
+		<title>Banccord | Nouveau compte</title>
+		<?php include("class/head.inc.php"); ?>
+	</head>
 
-<body>
+	<body>
+		<?php
+		echoHeader(
+			"Supprimer un compte", "admin.php"
+		);
+	?>
+
 	<div class="container">
 		<div class="row justify-content-md-center">
 			<div class="col-md-6">
