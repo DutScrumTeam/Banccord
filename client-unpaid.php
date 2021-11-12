@@ -43,7 +43,7 @@
 				</div>
 				<div class="col col-offset-4">
 					<form action="client-unpaid.php">
-							<label for="search-siren"></label><input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher">
+						<input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher">
 					</form>
 				</div>
 				<!-- Bouton d'export en fichier -->
