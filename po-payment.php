@@ -28,7 +28,7 @@
 					<!-- Champ de recherche -->
 					<div class="col col-offset-4">
 						<form action="client-info.php">
-							<input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
+                            <label for="search-siren"></label><input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
 						</form>
 					</div>
 					<!-- Bouton d'export du fichier -->
@@ -63,7 +63,7 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td scope="row">03/01/2021</th>
+					<th scope="row">03/01/2021</th>
 					<td>489 025 603 68250</td>
 					<td>Issou</td>
 					<td>6942 6942 6942 6942</td>
@@ -71,7 +71,7 @@
 					<td>1.00€</td>
 				</tr>
 				<tr>
-					<td scope="row">02/01/2021</th>
+					<th scope="row">02/01/2021</th>
 					<td>489 025 603 68250</td>
 					<td>Issou</td>
 					<td>6942 6942 6942 6942</td>
@@ -79,7 +79,7 @@
 					<td>1.00€</td>
 				</tr>
 				<tr>
-					<td scope="row">01/01/2021</th>
+					<th scope="row">01/01/2021</th>
 					<td>489 025 603 68250</td>
 					<td>Issou</td>
 					<td>6942 6942 6942 6942</td>

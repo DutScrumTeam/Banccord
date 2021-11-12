@@ -17,7 +17,7 @@
       <div class="row action-option">
         <div class="col col-offset-4">
           <form action="client-unpaid.php">
-            <input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par numéro de Siret">
+              <label for="search-siren"></label><input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par numéro de Siret">
           </form>
         </div>
       </div>
@@ -45,12 +45,12 @@
     </thead>
     <tbody>
       <tr>
-        <td scope="row">432 104 948 47380</th>
+        <th scope="row">432 104 948 47380</th>
         <td>Muchel</td>
         <td><button class="btn btn-danger">Supprimer</button></td>
       </tr>
       <tr>
-        <td scope="row">432 104 948 47380</th>
+        <th scope="row">432 104 948 47380</th>
         <td>Muchel</td>
         <td><button class="btn btn-danger">Supprimer</button></td>
       </tr>

@@ -33,15 +33,17 @@
     <div class="col-md-6">
       <div class="row action-option">
         <div class="col-auto">
-          <select class="form-control">
-            <option selected>Trier par...</option>
-            <option value="date">Date</option>
-            <option value="amount">Montant</option>
-          </select>
+            <label>
+                <select class="form-control">
+                  <option selected>Trier par...</option>
+                  <option value="date">Date</option>
+                  <option value="amount">Montant</option>
+                </select>
+            </label>
         </div>
         <div class="col col-offset-4">
           <form action="client-unpaid.php">
-            <input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher">
+              <label for="search-siren"></label><input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher">
           </form>
         </div>
         <!-- Bouton d'export en fichier -->
@@ -74,13 +76,13 @@
     </thead>
     <tbody>
       <tr>
-        <td scope="row">03/01/2021</th>
+        <th scope="row">03/01/2021</th>
         <td>03/02/2021</td>
         <td>titulaire décédé</td>
         <td>10€</td>
       </tr>
       <tr>
-        <td scope="row">03/01/2021</th>
+        <th scope="row">03/01/2021</th>
         <td>03/02/2021</td>
         <td>compte bloqué</td>
         <td>10€</td>
