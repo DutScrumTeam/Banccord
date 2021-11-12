@@ -17,7 +17,7 @@
 				<h2>Impayés total : 23479€</h2>
 			</div>
 			<!-- Le graphique -->
-			<div class="col-auto" style="background-color:aqua;">
+			<div class="col-auto" style="background-color:#2CB3E3;">
 				Schema goes brrrrr here.
 			</div>
 		</div>
@@ -37,16 +37,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- Choix de la page des résultats -->
-		<div class="row justify-content-center">
-			<button class="col-auto">Page précédente</button>
-			<div class="col-auto">
-				Résultat 1-3<br>
-				97 résultat au total.
-			</div>
-			<button class="col-auto">Page suivante</button>
 		</div>
 
 		<!-- Tableau des remises -->
@@ -88,6 +78,16 @@
 				</tr>
 			</tbody>
 		</table>
+        <!-- Choix de la page des résultats -->
+        <div class="row justify-content-center">
+            <button class="col-auto">Page précédente</button>
+            <div class="col-auto">
+                Résultat 1-3<br>
+                97 résultat au total.
+            </div>
+            <button class="col-auto">Page suivante</button>
+        </div>
+
 	</div>	
 </body>
 </html>
