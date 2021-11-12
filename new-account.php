@@ -11,7 +11,7 @@
 			<div class="col-md-6">
 				
 				<h1 class="centered">Créer un compte</h1>
-				<form action="new-client.php" method="post">
+				<form action="account.php" method="post">
 
 					<!-- Type du nouveau compte -->
 					<div class="form-group">
@@ -26,8 +26,8 @@
 					
 					<!-- Pseudo -->
 					<div class="form-group">
-						<label for="pseudo">Nom d'utilisateur</label>
-						<input type="password" class="form-control" name="pseudo" id="pseudo" placeholder="Nom du nouvel utlisateur" required>
+						<label for="name">Nom d'utilisateur</label>
+						<input type="password" class="form-control" name="name" id="name" placeholder="Nom du nouvel utlisateur" required>
 					</div>
 					
 					<!-- Mdp -->
