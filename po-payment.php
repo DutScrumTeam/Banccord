@@ -12,9 +12,9 @@
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
-				<h1>Compte de <b>Muchel Pabo</b></h1>
+				<h1>Liste des remises</h1>
 				<p>Siren : 749 547 487 47239</p>
-				<h2>Montant total : 5€</h2>
+				<h2>Impayés total : 23479€</h2>
 			</div>
 			<!-- Le graphique -->
 			<div class="col-auto" style="background-color:aqua;">
@@ -65,8 +65,8 @@
 				<tr>
 					<th scope="row">03/01/2021</th>
 					<td>489 025 603 68250</td>
-					<td>Issou</td>
-					<td>6942 6942 6942 6942</td>
+					<td>Visa</td>
+					<td>************6942</td>
 					<td>48</td>
 					<td>1.00€</td>
 				</tr>
