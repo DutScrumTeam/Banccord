@@ -1,2 +1,14 @@
+Type -> PO / ADM / CLI / GES
+
 Création de compte :
-INSERT INTO compte (id, mdp, type) VALUES (<id>, <mdp>, <PO / ADM / CLI / GES>);
+INSERT INTO banque.compte (id, mdp, type) VALUES ('<VARCHAR>', '<VARCHAR 50>', '<VARCHAR 3>');
+Exemple : INSERT INTO banque.compte (id, mdp, type) VALUES ('542457', 'motdepassedeuxmesdeux', 'PO');
+
+Création de client :
+
+!!! CONDITION : 'id_compte' doit exister !!!
+
+INSERT INTO banque.client (num_siren, raison_sociale, date_valeur, num_transaction, devise, montant, id_compte)
+	VALUES (<INTEGER>, '<VARCHAR 255>', '<DATE>', <INTEGER>, '<VARCHAR 3>', <INTEGER>, '<VARCHAR>'); 
+Exemple : INSERT INTO banque.client (num_siren, raison_sociale, date_valeur, num_transaction, devise, montant, id_compte)
+	VALUES (1645, 'Raison sociale', '2021-12-12',14, 'EUR', 10, '1');
