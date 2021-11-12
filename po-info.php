@@ -34,15 +34,7 @@
 			</div>
 		</div>
 
-		<!-- Choix de la page des résultats -->
-		<div class="row justify-content-center">
-			<button class="col-auto">Page précédente</button>
-			<div class="col-auto">
-				Résultat 1-3<br>
-				97 résultat au total.
-			</div>
-			<button class="col-auto">Page suivante</button>
-		</div>
+
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">
@@ -67,6 +59,15 @@
 				</tr>
 			</tbody>
 		</table>
+        <!-- Choix de la page des résultats -->
+        <div class="row justify-content-center">
+            <button class="col-auto">Page précédente</button>
+            <div class="col-auto">
+                Résultat 1-3<br>
+                97 résultat au total.
+            </div>
+            <button class="col-auto">Page suivante</button>
+        </div>
 	</div>
 </body>
 </html>

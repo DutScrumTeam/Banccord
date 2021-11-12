@@ -18,7 +18,7 @@
 	<h1 class="centered">Admin</h1>
 
   <!-- Champ de recherche -->
-  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center div-center-h">
     <div class="col-md-6">
       <div class="row action-option">
         <div class="col col-offset-4">
@@ -30,15 +30,7 @@
     </div>
   </div>
 
-  <!-- Choix de page de résultat -->
-  <div class="row justify-content-center">
-    <button class="col-auto">Page précédente</button>
-    <div class="col-auto">
-      Résultat 1-3<br>
-      97 résultat au total.
-    </div>
-    <button class="col-auto">Page suivante</button>
-  </div>
+
 
   <!-- Tableau des comptes -->
   <table class="table table-striped">
@@ -62,6 +54,16 @@
       </tr>
     </tbody>
   </table>
+
+    <!-- Choix de page de résultat -->
+    <div class="row justify-content-center">
+        <button class="col-auto">Page précédente</button>
+        <div class="col-auto">
+            Résultat 1-3<br>
+            97 résultat au total.
+        </div>
+        <button class="col-auto">Page suivante</button>
+    </div>
 </div>
 
 </body>
