@@ -25,12 +25,10 @@
 				<h1 class="div-center-v">Liste des remises</h1>
 			</div>
 			
-			<!-- Le graphique -->
-			<div class="col-6">
-				<?php echoPaymentChart(); ?>
-				<script>createPaymentChart([1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3]);</script>
-			</div>
 		</div>
+		<!-- Le graphique -->
+		<?php echoPaymentChart(); ?>
+		<script>createPaymentChart([1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3]);</script>
 
 		<!-- Champ de recherche -->
 		<script src="js/form-edit.js"></script>

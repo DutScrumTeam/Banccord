@@ -1,5 +1,7 @@
 <?php include("class/page-builder.inc.php"); ?>
+<?php include("class/highchart-builder.inc.php"); ?>
 <script src="js/page-manager.js"></script>
+<script src="js/highchart.js"></script>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,16 +20,20 @@
 
 	<div class="container">
 		<div class="row">
-			<!-- Graphique camembert (miam) -->
-			<div class="col-auto" style="background-color:aqua;">
-				<p>Schéma camembert des impayés par libellé.<p>
-			</div>
 			<!-- Les différents titres -->
 			<div class="col titles">
 				<h1>Liste des impayés</h1>
 			</div>
-			<!-- Le graphique -->
-			<div class="col-auto" style="background-color:aqua;">
+		</div>
+		
+		<div class="row">
+			<!-- Graphique camembert (miam) -->
+			<div class="col-6">
+				<?php echoPieUnpaid(); ?>
+				<script>createPieUnpaid();</script>
+			</div>
+			<!-- Le graphique courbe -->
+			<div class="col-6">
 				<p>Graphique des impayés au format<br>
 				"courbe" ou "histogramme".</p>
 			</div>
