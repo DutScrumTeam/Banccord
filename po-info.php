@@ -1,4 +1,6 @@
 <?php include("class/header.php"); ?>
+<script src="js/form-edit.js"></script>
+<script src="js/page-manager.js"></script>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,53 +23,97 @@
 			</div>
 		</div>
 
-		<div class="row justify-content-md-center">
-			<div class="col-md-6">
-				<div class="row action-option">
-					<!-- Champ de recherche -->
-					<div class="col col-offset-4">
-						<form action="client-info.php">
-							<input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher un numéro de Siren">
-						</form>
+		<!-- Champ de recherche -->
+		<form action="" method="get">
+			<div class="row action-option">
+
+				<!-- Type de recherche -->
+				<div class="col-auto">
+					<div class="form-group">
+						<select class="form-control" name="search-mod" id="search-mod">
+							<option 
+									value="siren" selected 
+									onclick="changeInput('search-value', 'Entrez le numéro de Siren', 'number');">
+								Recherche par Siren
+							</option>
+							<option 
+									value="name" 
+									onclick="changeInput('search-value', 'Entrez la raison sociale', 'text');">
+								Recherche par raison sociale
+							</option>
+						</select>
 					</div>
 				</div>
+
+				<!-- Valeur de recherche -->
+				<div class="col">
+					<div class="form-group">
+						<input type="number" class="form-control" id="search-value" name="search-value" placeholder="Entrez le numéro de Siren">
+					</div>
+				</div>
+
+				<!-- Bouton de confirmation -->
+				<div class="col-auto">
+					<button class="btn btn-primary div-center-v">Rechercher</button>
+				</div>
 			</div>
-		</div>
-
-
+		</form>
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th scope="col">Siren</th>
-					<th scope="col">Nom du compte</th>
+					<th scope="col">Raison sociale</th>
+					<th scope="col">Nombre de transaction</th>
+					<th scope="col">Trésorerie</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="table-result">
+				<?php
+					for ($i=0; $i < 50; $i++) { 
+						echo '
+							<tr>
+								<th scope="row">'.$i.'</th>
+								<td>Ikea</td>
+								<td>798</td>
+								<td>5000€</td>
+							</tr>
+						';
+					}
+				?>
 				<tr>
-					<th scope="row">489 025 603 68250</td>
+					<th scope="row">489 025 603 68250</th>
 					<td>Ikea</td>
+					<td>798</td>
+					<td>5000€</td>
 				</tr>
 				<tr>
-					<th scope="row">489 025 603 68250</td>
+					<th scope="row">489 025 603 68250</th>
 					<td>KFC</td>
+					<td>798</td>
+					<td>5000€</td>
 				</tr>
 				<tr>
-					<th scope="row">489 025 603 68250</td>
-					<td>Muchel</td>
+					<th scope="row">789 567 343 68250</th>
+					<td>Muchel Pabo</td>
+					<td>97</td>
+					<td>10€</td>
 				</tr>
 			</tbody>
 		</table>
-        <!-- Choix de la page des résultats -->
-        <div class="row justify-content-center">
-            <button class="col-auto">Page précédente</button>
-            <div class="col-auto">
-                Résultat 1-3<br>
-                97 résultat au total.
-            </div>
-            <button class="col-auto">Page suivante</button>
-        </div>
+		
+		<!-- Choix de la page des résultats -->
+		<div class="row justify-content-center">
+			<button type="button" class="btn btn-primary col-auto" onclick="previousPage()">Page précédente</button>
+			<div class="col-auto" id="result-count">
+				Résultat 1-3<br>
+				97 résultat au total.
+			</div>
+			<button type="button" class="btn btn-primary col-auto" onclick="nextPage()">Page suivante</button>
+		</div>
+		<script>initPageManager()</script>
+
 	</div>
 </body>
 </html>
