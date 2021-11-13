@@ -57,12 +57,6 @@ function echoPageChoice() {
  * );
  */
 function echoHeader() {
-	// echo '<pre>';
-	// foreach (func_get_args() as $param) {
-	// 	echo "$param\n";
-	// }
-	// echo '</pre>';
-
 	echo "<header>";
 
 	$args = func_get_args();
@@ -71,8 +65,9 @@ function echoHeader() {
 	}
 
 	echo "
-		<div class='header-disconnect'><p>Se déconnecter</p></div>
-		</header>";
+		<a class='header-disconnect' href='connect.php'><p>Se déconnecter</p></a>
+		</header>
+	";
 }
 
 }

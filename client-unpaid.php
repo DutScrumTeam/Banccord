@@ -24,7 +24,7 @@
 			</div>
 			<!-- Les différents titres -->
 			<div class="col titles">
-				<h1>Compte de <b>Muchel Pabo</b></h1>
+				<h1>Liste des impayés</h1>
 			</div>
 			<!-- Le graphique -->
 			<div class="col-auto" style="background-color:aqua;">
@@ -88,28 +88,28 @@
 			?>
 			<tbody id="table-result">
 				<tr>
-					<th scope="row">362</th>
+					<th scope="row">36262</th>
 					<td>03/11/2020</td>
 					<td>03/02/2021</td>
 					<td>7432 9579 2659 0269</td>
 					<td>titulaire décédé</td>
-					<td>10€</td>
+					<td>-10€</td>
 				</tr>
 				<tr>
-					<th scope="row">32</th>
+					<th scope="row">32023</th>
 					<td>03/11/2020</td>
 					<td>03/02/2021</td>
 					<td>7432 9579 2659 0269</td>
 					<td>titulaire décédé</td>
-					<td>99€</td>
+					<td>-99€</td>
 				</tr>
 				<tr>
-					<th scope="row">64</th>
+					<th scope="row">64145</th>
 					<td>03/11/2020</td>
 					<td>03/02/2021</td>
 					<td>7432 9579 2659 0269</td>
 					<td>fraude à la carte</td>
-					<td>1€</td>
+					<td>-1€</td>
 				</tr>
 			</tbody>
 		</table>
