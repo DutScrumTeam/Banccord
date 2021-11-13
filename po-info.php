@@ -11,7 +11,7 @@
 <body>
 	<?php
 		echoHeader(
-			"Impayés", "po-unpaid.php"
+			"Remises", "po-unpaid.php"
 		);
 	?>
 
@@ -63,10 +63,26 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">Siren</th>
-					<th scope="col">Raison sociale</th>
-					<th scope="col">Nombre de transaction</th>
-					<th scope="col">Trésorerie</th>
+					<th scope="col" id="col0">
+						Siren
+						<button type="button" class="order-btn" onclick="orderBy(0);"></button>
+					</th>
+					<th scope="col" id="col1">
+						Raison sociale
+						<button type="button" class="order-btn" onclick="orderBy(1);"></button>
+					</th>
+					<th scope="col" id="col2">
+						Nombre de transaction
+						<button type="button" class="order-btn" onclick="orderBy(2);"></button>
+					</th>
+					<th scope="col" id="col3">
+						Impayés total
+						<button type="button" class="order-btn" onclick="orderBy(3);"></button>
+					</th>
+					<th scope="col" id="col4">
+						Trésorerie
+						<button type="button" class="order-btn" onclick="orderBy(4);"></button>
+					</th>
 				</tr>
 			</thead>
 			<tbody id="table-result">
@@ -74,9 +90,10 @@
 					for ($i=0; $i < 50; $i++) { 
 						echo '
 							<tr>
-								<th scope="row">'.$i.'</th>
-								<td>Ikea</td>
+								<th scope="row">000 000 000 000'.$i.'</th>
+								<td>Nom de société here</td>
 								<td>798</td>
+								<td>9999€</td>
 								<td>5000€</td>
 							</tr>
 						';
@@ -86,19 +103,22 @@
 					<th scope="row">489 025 603 68250</th>
 					<td>Ikea</td>
 					<td>798</td>
-					<td>5000€</td>
-				</tr>
-				<tr>
-					<th scope="row">489 025 603 68250</th>
-					<td>KFC</td>
-					<td>798</td>
+					<td>69342€</td>
 					<td>5000€</td>
 				</tr>
 				<tr>
 					<th scope="row">789 567 343 68250</th>
 					<td>Muchel Pabo</td>
 					<td>97</td>
+					<td>1€</td>
 					<td>10€</td>
+				</tr>
+				<tr>
+					<th scope="row">489 025 603 68250</th>
+					<td>KFC</td>
+					<td>798</td>
+					<td>69342€</td>
+					<td>5000€</td>
 				</tr>
 			</tbody>
 		</table>

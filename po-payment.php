@@ -1,3 +1,7 @@
+<?php include("class/header.php"); ?>
+<script src="js/form-edit.js"></script>
+<script src="js/page-manager.js"></script>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,39 +9,55 @@
 	<?php include("class/head.inc.php") ?>
 </head>
 <body>
-
-<?php include("class/header.inc.php"); ?>
+	<?php
+		echoHeader(
+			"Comptes", "po-info.php"
+		);
+	?>
 
 	<div class="container">
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
 				<h1>Liste des remises</h1>
-				<p>Siren : 749 547 487 47239</p>
-				<h2>Impayés total : 23479€</h2>
-			</div>
-			<!-- Le graphique -->
-			<div class="col-auto" style="background-color:#2CB3E3;">
-				Schema goes brrrrr here.
 			</div>
 		</div>
 
-		<div class="row justify-content-md-center">
-			<div class="col-md-6">
-				<div class="row action-option">
-					<!-- Champ de recherche -->
-					<div class="col col-offset-4">
-						<form action="client-info.php">
-							<input type="number" class="form-control" id="search-siren" name="search-siren" placeholder="Rechercher par un numéro de Siren">
-						</form>
-					</div>
-					<!-- Bouton d'export du fichier -->
-					<div class="col-auto">
-						<button class="btn btn-primary">Exporter au format...</button>
+		<!-- Champ de recherche -->
+		<form action="" method="get">
+			<div class="row action-option">
+
+				<!-- Type de recherche -->
+				<div class="col-auto">
+					<div class="form-group">
+						<select class="form-control" name="search-mod" id="search-mod">
+							<option 
+									value="siren" selected 
+									onclick="changeInput('search-value', 'Entrez le numéro de Siren', 'number');">
+								Recherche par Siren
+							</option>
+							<option 
+									value="name" 
+									onclick="changeInput('search-value', 'Entrez la raison sociale', 'text');">
+								Recherche par raison sociale
+							</option>
+						</select>
 					</div>
 				</div>
+
+				<!-- Valeur de recherche -->
+				<div class="col">
+					<div class="form-group">
+						<input type="number" class="form-control" id="search-value" name="search-value" placeholder="Entrez le numéro de Siren">
+					</div>
+				</div>
+
+				<!-- Bouton de confirmation -->
+				<div class="col-auto">
+					<button class="btn btn-primary div-center-v">Rechercher</button>
+				</div>
 			</div>
-		</div>
+		</form>
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">

@@ -14,6 +14,9 @@ const idResults = "table-result";
 /** Id de la zone d'affichage du nombre de résultat. */
 const idResultCount = "result-count";
 
+var orderNum = null;
+var orderReverse = false;
+
 /** True si la page actuel est la dernière page. */
 function isCurrentPageMax() {
 	return currentPage >= lines.length/linePerPage -1;
@@ -44,7 +47,7 @@ function loadPage() {
 	// Maj affichage nombre de résultat.
 	let resultCountElem = document.getElementById(idResultCount);
 	resultCountElem.innerHTML = 
-		`Résultats ${currentPage * linePerPage + 1}-${isCurrentPageMax() ? lines.length : (currentPage+1) * linePerPage}<br>
+		`Résultats ${currentPage * linePerPage + 1} - ${isCurrentPageMax() ? lines.length : (currentPage+1) * linePerPage}<br>
 		${lines.length} résultats au total.`;
 
 	let tableElem = document.getElementById(idResults);
@@ -59,8 +62,26 @@ function loadPage() {
 function initPageManager() {
 	let tableElem = document.getElementById(idResults);
 	for (let i = 0; i < tableElem.children.length; i++) {
-		console.log(tableElem.children[i].innerHTML);
+		// console.log(tableElem.children[i].innerHTML);
 		lines.push(tableElem.children[i]);
 	}
 	loadPage();
+}
+
+/** Tri le tableau selon la colonne. */
+function orderBy(numColumn) {
+	// Mise en forme désélectionner de l'ancienne colonne triée
+	if (orderNum != null && orderNum != numColumn) {
+		let butElem = document.getElementById(`col${orderNum}`);
+		butElem.className = "order-btn";
+	}
+
+	// Mise en forme trié de la nouvelle colonne
+	let butElem = document.getElementById(`col${numColumn}`);
+	if (orderNum != null && orderNum != numColumn) {
+		butElem.className = "order-btn";
+	}
+
+	// Tri de l'array
+
 }
