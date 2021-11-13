@@ -1,5 +1,4 @@
-<?php include("class/header.php"); ?>
-<script src="js/form-edit.js"></script>
+<?php include("class/page-builder.inc.php"); ?>
 <script src="js/page-manager.js"></script>
 
 <!DOCTYPE html>
@@ -11,7 +10,7 @@
 <body>
 	<?php
 		echoHeader(
-			"Remises", "po-unpaid.php"
+			"Remises", "po-payment.php"
 		);
 	?>
 
@@ -19,11 +18,12 @@
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
-				<h1>Liste des comptes</b></h1>
+				<h1>Liste des comptes</h1>
 			</div>
 		</div>
 
 		<!-- Champ de recherche -->
+		<script src="js/form-edit.js"></script>
 		<form action="" method="get">
 			<div class="row action-option">
 
@@ -59,34 +59,23 @@
 			</div>
 		</form>
 
+		<!-- Bouton d'export -->
+		<?php echoExportButton(); ?>
+
 		<!-- Tableau des remises -->
 		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">
-						Siren
-						<button type="button" class="order-btn" onclick="orderBy(0);" id="col0"></button>
-					</th>
-					<th scope="col">
-						Raison sociale
-						<button type="button" class="order-btn" onclick="orderBy(1);" id="col1"></button>
-					</th>
-					<th scope="col">
-						Nombre de transaction
-						<button type="button" class="order-btn" onclick="orderBy(2);" id="col2"></button>
-					</th>
-					<th scope="col">
-						Impayés total
-						<button type="button" class="order-btn" onclick="orderBy(3);" id="col3"></button>
-					</th>
-					<th scope="col">
-						Trésorerie
-						<button type="button" class="order-btn" onclick="orderBy(4);" id="col4"></button>
-					</th>
-				</tr>
-			</thead>
+			<?php 
+				echoTableHead(
+					"Siren",
+					"Raison sociale",
+					"Nombre de transaction",
+					"Impayés total",
+					"Trésorerie");
+			?>
+
 			<tbody id="table-result">
 				<?php
+					// A changer, sert juste a tester la gestion de plein de lignes.
 					for ($i=0; $i < 50; $i++) { 
 						echo '
 							<tr>
@@ -124,14 +113,8 @@
 		</table>
 		
 		<!-- Choix de la page des résultats -->
-		<div class="row justify-content-center">
-			<button type="button" class="btn btn-primary col-auto" onclick="previousPage()">Page précédente</button>
-			<div class="col-auto" id="result-count">
-				Résultat 1-3<br>
-				97 résultat au total.
-			</div>
-			<button type="button" class="btn btn-primary col-auto" onclick="nextPage()">Page suivante</button>
-		</div>
+		<?php echoPageChoice() ?>
+
 		<script>initPageManager()</script>
 
 	</div>

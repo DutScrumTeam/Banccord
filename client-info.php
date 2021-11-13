@@ -20,9 +20,8 @@
 			<!-- Les différents titres -->
 			<div class="col titles">
 				<h1>Liste des remises</h1>
-				<p>Siren : 749 547 487 47239</p>
-				<h2>Trésorerie : 5€</h2>
 			</div>
+			
 			<!-- Le graphique -->
 			<div class="col-auto" style="background-color:aqua;">
 				Schema goes brrrrr here.
@@ -43,7 +42,17 @@
 			</div>
 		</div>
 		<!-- Bouton d'export du fichier -->
-		<button type="button" class="btn btn-primary">Exporter au format...</button>
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Dropdown button
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+			</div>
+		</div>
+		<!-- <button type="button" class="btn">Exporter au format...</button> -->
 		
 		<!-- Choix de la page des résultats -->
 		<div class="row justify-content-center">
