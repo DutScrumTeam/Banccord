@@ -1,5 +1,7 @@
 <?php include("class/page-builder.inc.php"); ?>
+<?php include("class/highchart-builder.inc.php"); ?>
 <script src="js/page-manager.js"></script>
+<script src="js/highchart.js"></script>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,12 +22,13 @@
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
-				<h1>Liste des remises</h1>
+				<h1 class="div-center-v">Liste des remises</h1>
 			</div>
 			
 			<!-- Le graphique -->
-			<div class="col-auto" style="background-color:aqua;">
-				Schema goes brrrrr here.
+			<div class="col-6">
+				<?php echoPaymentChart(); ?>
+				<script>createPaymentChart([1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3]);</script>
 			</div>
 		</div>
 
@@ -81,14 +84,14 @@
 			?>
 			<tbody id="table-result">
 				<tr>
-					<th scope="row">03/01/2021</th>
+					<th scope="row">03/03/2021</th>
 					<td>Issou</td>
 					<td>6942 6942 6942 6942</td>
 					<td>48</td>
 					<td>1.00€</td>
 				</tr>
 				<tr>
-					<th scope="row">02/01/2021</th>
+					<th scope="row">02/02/2021</th>
 					<td>Issou</td>
 					<td>6942 6942 6942 6942</td>
 					<td>29</td>
