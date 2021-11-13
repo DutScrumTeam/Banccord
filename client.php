@@ -1,4 +1,5 @@
-<?php include("class/header.php"); ?>
+<?php include("class/page-builder.inc.php"); ?>
+<script src="js/page-manager.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">

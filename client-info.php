@@ -1,4 +1,5 @@
-<?php include("class/header.php"); ?>
+<?php include("class/page-builder.inc.php"); ?>
+<script src="js/page-manager.js"></script>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,54 +29,57 @@
 			</div>
 		</div>
 
-		<div class="row justify-content-md-center">
-			<div class="col-md-6">
-				<form action="client-info.php" method="get">
-					<div class="form-group row">
-						<label for="date" class="col-sm-2 col-form-label">Date</label>
-						<div class="col-sm-10">
-							<input type="date" class="form-control" id="date" name="date">
-						</div>
+		<!-- Champ de recherche -->
+		<script src="js/form-edit.js"></script>
+		<form action="" method="get">
+			<div class="row action-option">
+
+				<!-- Type de recherche -->
+				<div class="col-auto">
+					<div class="form-group">
+						<select class="form-control" name="search-mod" id="search-mod">
+							<option 
+									value="siren" selected 
+									onclick="changeInput('search-value', 'Entrez le numéro de Siren', 'number');">
+								Recherche par Siren
+							</option>
+							<option 
+									value="name" 
+									onclick="changeInput('search-value', 'Entrez la raison sociale', 'text');">
+								Recherche par raison sociale
+							</option>
+						</select>
 					</div>
-					<button class="btn btn-success">Rechercher</button>
-				</form>
+				</div>
+
+				<!-- Valeur de recherche -->
+				<div class="col">
+					<div class="form-group">
+						<input type="number" class="form-control" id="search-value" name="search-value" placeholder="Entrez le numéro de Siren">
+					</div>
+				</div>
+
+				<!-- Bouton de confirmation -->
+				<div class="col-auto">
+					<button class="btn btn-primary div-center-v">Rechercher</button>
+				</div>
 			</div>
-		</div>
-		<!-- Bouton d'export du fichier -->
-		<div class="dropdown">
-			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				Dropdown button
-			</button>
-			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				<a class="dropdown-item" href="#">Action</a>
-				<a class="dropdown-item" href="#">Another action</a>
-				<a class="dropdown-item" href="#">Something else here</a>
-			</div>
-		</div>
-		<!-- <button type="button" class="btn">Exporter au format...</button> -->
-		
-		<!-- Choix de la page des résultats -->
-		<div class="row justify-content-center">
-			<button class="col-auto">Page précédente</button>
-			<div class="col-auto">
-				Résultat 1-3<br>
-				97 résultat au total.
-			</div>
-			<button class="col-auto">Page suivante</button>
-		</div>
+		</form>
+
+		<!-- Bouton d'export -->
+		<?php echoExportButton(); ?>
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Date de payement</th>
-					<th scope="col">Type de carte</th>
-					<th scope="col">Numéro de carte</th>
-					<th scope="col">Code d'autorisation</th>
-					<th scope="col">Montant</th>
-				</tr>
-			</thead>
-			<tbody>
+			<?php 
+				echoTableHead(
+					"Date de paiement",
+					"Type de carte",
+					"Numéro de carte",
+					"Code d'autorisation",
+					"Montant");
+			?>
+			<tbody id="table-result">
 				<tr>
 					<th scope="row">03/01/2021</th>
 					<td>Issou</td>
@@ -99,6 +103,12 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<!-- Choix de la page des résultats -->
+		<?php echoPageChoice() ?>
+
+		<script>initPageManager()</script>
+
 	</div>
 </body>
 </html>

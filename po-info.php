@@ -7,6 +7,7 @@
 	<title>Banccord | Remises</title>
 	<?php include("class/head.inc.php") ?>
 </head>
+
 <body>
 	<?php
 		echoHeader(
@@ -72,7 +73,6 @@
 					"Impayés total",
 					"Trésorerie");
 			?>
-
 			<tbody id="table-result">
 				<?php
 					// A changer, sert juste a tester la gestion de plein de lignes.
