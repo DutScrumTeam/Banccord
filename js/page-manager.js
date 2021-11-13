@@ -84,5 +84,31 @@ function orderBy(numColumn) {
 	if (orderReverse) butElem.classList.add("order-btn-reverse");
 	
 	// Tri de l'array
-	
+	for (let i = 0; i < lines.length; i++) {
+		let minId = i;
+		let minValue = stringToNumber(lines[i].children[orderNum].innerHTML);
+
+		for (let j = i+1; j < lines.length; j++) {
+			const value = stringToNumber(lines[j].children[orderNum].innerHTML);
+			if (orderReverse ? value > minValue : value < minValue) {
+				minValue = value;
+				minId = j;
+			}
+		}
+		//console.log(`${minValue} : ${isNaN(minValue)}`);
+		const tmp = lines[i];
+		lines[i] = lines[minId];
+		lines[minId] = tmp;
+	}
+	loadPage();
+}
+
+/** Essai de transformer un valeur de tableau en nombre. */
+function stringToNumber(value) {
+	const regex = /[ €]/gi;
+	value = value.replaceAll(regex, '');
+	if (isNaN(value)) {
+		return value;
+	}
+	return Number(value);
 }
