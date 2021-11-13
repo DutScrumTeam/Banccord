@@ -71,17 +71,18 @@ function initPageManager() {
 /** Tri le tableau selon la colonne. */
 function orderBy(numColumn) {
 	// Mise en forme désélectionner de l'ancienne colonne triée
-	if (orderNum != null && orderNum != numColumn) {
+	if (orderNum != null) {
 		let butElem = document.getElementById(`col${orderNum}`);
 		butElem.className = "order-btn";
 	}
 
 	// Mise en forme trié de la nouvelle colonne
-	let butElem = document.getElementById(`col${numColumn}`);
-	if (orderNum != null && orderNum != numColumn) {
-		butElem.className = "order-btn";
-	}
-
+	orderReverse = orderNum === numColumn ? !orderReverse : false;
+	orderNum = numColumn;
+	let butElem = document.getElementById(`col${orderNum}`);
+	butElem.classList.add("order-btn-selected");
+	if (orderReverse) butElem.classList.add("order-btn-reverse");
+	
 	// Tri de l'array
-
+	
 }

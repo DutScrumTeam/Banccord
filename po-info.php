@@ -63,25 +63,25 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col" id="col0">
+					<th scope="col">
 						Siren
-						<button type="button" class="order-btn" onclick="orderBy(0);"></button>
+						<button type="button" class="order-btn" onclick="orderBy(0);" id="col0"></button>
 					</th>
-					<th scope="col" id="col1">
+					<th scope="col">
 						Raison sociale
-						<button type="button" class="order-btn" onclick="orderBy(1);"></button>
+						<button type="button" class="order-btn" onclick="orderBy(1);" id="col1"></button>
 					</th>
-					<th scope="col" id="col2">
+					<th scope="col">
 						Nombre de transaction
-						<button type="button" class="order-btn" onclick="orderBy(2);"></button>
+						<button type="button" class="order-btn" onclick="orderBy(2);" id="col2"></button>
 					</th>
-					<th scope="col" id="col3">
+					<th scope="col">
 						Impayés total
-						<button type="button" class="order-btn" onclick="orderBy(3);"></button>
+						<button type="button" class="order-btn" onclick="orderBy(3);" id="col3"></button>
 					</th>
-					<th scope="col" id="col4">
+					<th scope="col">
 						Trésorerie
-						<button type="button" class="order-btn" onclick="orderBy(4);"></button>
+						<button type="button" class="order-btn" onclick="orderBy(4);" id="col4"></button>
 					</th>
 				</tr>
 			</thead>
