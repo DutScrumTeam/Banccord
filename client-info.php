@@ -28,7 +28,6 @@
 		</div>
 		<!-- Le graphique -->
 		<?php echoPaymentChart(); ?>
-		<script>createPaymentChart([1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3]);</script>
 
 		<!-- Champ de recherche -->
 		<script src="js/form-edit.js"></script>
@@ -82,22 +81,22 @@
 			?>
 			<tbody id="table-result">
 				<tr>
-					<th scope="row">03/03/2021</th>
-					<td>Issou</td>
+					<th scope="row">2021-03-03</th>
+					<td>Visa</td>
 					<td>6942 6942 6942 6942</td>
 					<td>48</td>
 					<td>1.00€</td>
 				</tr>
 				<tr>
-					<th scope="row">02/02/2021</th>
-					<td>Issou</td>
+					<th scope="row">2021-08-03</th>
+					<td>Visa</td>
 					<td>6942 6942 6942 6942</td>
 					<td>29</td>
 					<td>1.00€</td>
 				</tr>
 				<tr>
-					<th scope="row">01/01/2021</th>
-					<td>Issou</td>
+					<th scope="row">2021-05-03</th>
+					<td>Paypal</td>
 					<td>6942 6942 6942 6942</td>
 					<td>35</td>
 					<td>1.00€</td>
@@ -109,6 +108,18 @@
 		<?php echoPageChoice() ?>
 
 		<script>initPageManager()</script>
+		<script>
+			// Cas par défaut
+			let dateEnd = new Date();
+			let dateStart = new Date();
+			dateStart.setFullYear(dateEnd.getFullYear()-1);
+
+			// Cas avec les dates de début et de fin définis
+			// let dateStart = new Date(sqlDateToJsDate("2020-06-01"));
+			// let dateEnd = new Date(sqlDateToJsDate("2021-06-01"));
+
+			createPaymentChart(lines, dateStart, dateEnd);
+		</script>
 
 	</div>
 </body>

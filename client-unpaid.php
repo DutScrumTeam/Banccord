@@ -127,6 +127,11 @@
 			let dateEnd = new Date();
 			let dateStart = new Date();
 			dateStart.setFullYear(dateEnd.getFullYear()-1);
+
+			// Cas avec les dates de début et de fin définis
+			// let dateStart = new Date(sqlDateToJsDate("2020-06-01"));
+			// let dateEnd = new Date(sqlDateToJsDate("2021-06-01"));
+
 			createColumnUnpaid(lines, dateStart, dateEnd);
 		</script>
 

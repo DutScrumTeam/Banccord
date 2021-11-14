@@ -16,24 +16,61 @@ const monthsFull = [
 /**
  * Créer le graph highchart avec comme paramètre un JSON.
  * @param {array} param 
+ * @param {Date} dateStart 
+ * @param {Dtae} dateEnd
  */
-function createPaymentChart(param) {
-	Highcharts.chart('container', {
+function createPaymentChart(lines, dateStart, dateEnd) {
+	// Numéro de la colonne contenant la date.
+	const numDate = 0;
+	// Numéro de la colonne contenant le montant.
+	const numAmount = 4;
 
-		title: {
-			text: 'Evolution de la trésorerie au cours de l\'année 2021'
-		},
+	// Création du tableau des résultats.
+	let results = new Map();
+	for (
+		let i = dateStart.getFullYear()*12+dateStart.getMonth();
+		i <= dateEnd.getFullYear()*12+dateEnd.getMonth();
+		i++)
+	{
+		const keyDate = new Date(Math.trunc(i/12), i%12);
+		results.set(dateToMonthString(keyDate), 0);
+	}
 	
+	// Ajout des éléments dans le tableau des résultats.
+	lines.forEach(elem => {
+		const d = sqlDateToJsDate(elem.children[numDate].innerHTML);
+		if (d.getTime() >= dateStart && d.getTime() <= dateEnd) {
+			// Ajout de l'elem aux resultats
+			const amount = Number(elem.children[numAmount].innerHTML.replace(/€/g, ""));
+			for ( // Pour chaque date après la date de remise, on ajoute le montant.
+				let i=d.getFullYear()*12+d.getMonth();
+				i <= dateEnd.getFullYear()*12+dateEnd.getMonth();
+				i++)
+			{
+				const key = dateToMonthString(new Date(Math.trunc(i/12), i%12));
+				results.set(key, results.get(key) + amount);
+			}
+		}
+	});
+
+	// Mise en forme des données pour l'ajout dans le graphique.
+	let data = [];
+	for (const entry of results.entries()) {
+		data.push(entry);
+	}	
+
+	Highcharts.chart('container', {
+		title: {
+			text: `Evolution de la trésorerie entre ${dateToMonthString(dateStart)} et ${dateToMonthString(dateEnd)}`
+		},
 		subtitle: {
 			text: 'Source: thesolarfoundation.com'
 		},
-	
 		yAxis: {
 			title: {
 				text: 'Montant de la trésorerie (€)'
 			}
 		},
-	
 		xAxis: {
 			title: {
 				text: 'Mois'
@@ -42,13 +79,11 @@ function createPaymentChart(param) {
 				rangeDescription: 'Range: 2010 to 2017'
 			}
 		},
-	
 		legend: {
 			layout: 'vertical',
 			align: 'right',
 			verticalAlign: 'middle'
 		},
-	
 		plotOptions: {
 			series: {
 				label: {
@@ -57,29 +92,10 @@ function createPaymentChart(param) {
 				pointStart: 1
 			}
 		},
-	
-		// series: [{
-		// 	name: 'Installation',
-		// 	data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-		// }, {
-		// 	name: 'Manufacturing',
-		// 	data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-		// }, {
-		// 	name: 'Sales & Distribution',
-		// 	data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-		// }, {
-		// 	name: 'Project Development',
-		// 	data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-		// }, {
-		// 	name: 'Other',
-		// 	data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-		// }],
-	
 		series: [{
 			name: 'Trésorerie',
-			data: param
+			data: data
 		}],
-	
 		responsive: {
 			rules: [{
 				condition: {
@@ -264,7 +280,7 @@ function createColumnUnpaid(lines, dateStart, dateEnd) {
 			pointFormat: 'Impayés : {point.y:.2f}€</b>'
 		},
 		series: [{
-			name: 'Population',
+			name: 'Impayés',
 			data: data,
 			dataLabels: {
 				enabled: true,
