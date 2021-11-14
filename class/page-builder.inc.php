@@ -1,4 +1,5 @@
 <?php
+// Contient des fonctions affichant des morceaux de page communs entre plusieurs pages.
 if (!defined("DEF_PAGE_BUILDER")) {
 define("DEF_PAGE_BUILDER", true);
 

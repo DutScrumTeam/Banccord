@@ -30,12 +30,10 @@
 			<!-- Graphique camembert (miam) -->
 			<div class="col-6">
 				<?php echoPieUnpaid(); ?>
-				<script>createPieUnpaid();</script>
 			</div>
 			<!-- Le graphique courbe -->
 			<div class="col-6">
 				<?php echoColumnUnpaid(); ?>
-				<script>createColumnUnpaid();</script>
 			</div>
 		</div>
 
@@ -124,6 +122,8 @@
 		<?php echoPageChoice() ?>
 
 		<script>initPageManager()</script>
+		<script>createPieUnpaid(lines);</script>
+		<script>createColumnUnpaid();</script>
 
 	</div>
 </body>

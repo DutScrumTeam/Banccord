@@ -82,79 +82,78 @@ function createPaymentChart(param) {
 	});
 }
 
-function createPieUnpaid() {
-	// Create the chart
-Highcharts.chart('pie-chart', {
-  chart: {
-    type: 'pie'
-  },
-  title: {
-    text: 'Browser market shares. January, 2018'
-  },
-  subtitle: {
-    text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-  },
+/**
+ * Initialise le camembert des impayés.
+ * @param {array} lines 
+ */
+function createPieUnpaid(lines) {
+	const idLib = 4;
+	let res = {
+		"fraude à la carte": 0,
+		"compte à découvert": 0,
+		"compte clôturé": 0,
+		"compte bloqué": 0,
+		"provision insuffisante": 0,
+		"opération contesté par le débiteur": 0,
+		"titulaire décédé": 0,
+		"raison non communiquée": 0
+	}
+	const total = lines.length;
 
-  accessibility: {
-    announceNewData: {
-      enabled: true
-    },
-    point: {
-      valueSuffix: '%'
-    }
-  },
+	// Récupération de la data.
+	lines.forEach(elem => {
+		res[elem.children[idLib].innerHTML] += 1;
+	});
 
-  plotOptions: {
-    series: {
-      dataLabels: {
-        enabled: true,
-        format: '{point.name}: {point.y:.1f}%'
-      }
-    }
-  },
+	let data = [];
+	Object.keys(res).forEach(key => {
+		if (res[key] != 0) {
+			data.push({
+				name: key,
+				y: res[key] / total * 100
+			})
+		}
+	})
 
-  tooltip: {
-    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-  },
-
-  series: [
-    {
-      name: "Browsers",
-      colorByPoint: true,
-      data: [
-        {
-          name: "Chrome",
-          y: 62.74,
-        },
-        {
-          name: "Firefox",
-          y: 10.57,
-        },
-        {
-          name: "Internet Explorer",
-          y: 7.23,
-        },
-        {
-          name: "Safari",
-          y: 5.58,
-        },
-        {
-          name: "Edge",
-          y: 4.02,
-        },
-        {
-          name: "Opera",
-          y: 1.92,
-        },
-        {
-          name: "Other",
-          y: 7.62,
-        }
-      ]
-    }
-  ]
-});
+	// Creation du graphique.
+	Highcharts.chart('pie-chart', {
+		chart: {
+			type: 'pie'
+		},
+		title: {
+			text: 'Raisons des impayés'
+		},
+		subtitle: {
+			text: 'Les raisons des impayés et leurs ratios par rapport aux autres impayés.'
+		},
+		accessibility: {
+			announceNewData: {
+				enabled: true
+			},
+			point: {
+				valueSuffix: '%'
+			}
+		},
+		plotOptions: {
+			series: {
+				dataLabels: {
+					enabled: true,
+					format: '{point.name}: {point.y:.1f}%'
+				}
+			}
+		},
+		tooltip: {
+			headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+		},
+		series: [
+			{
+				name: "Browsers",
+				colorByPoint: true,
+				data: data
+			}
+		]
+	});
 }
 
 function createColumnUnpaid() {
