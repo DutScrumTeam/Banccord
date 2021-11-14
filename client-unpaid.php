@@ -34,8 +34,8 @@
 			</div>
 			<!-- Le graphique courbe -->
 			<div class="col-6">
-				<p>Graphique des impayés au format<br>
-				"courbe" ou "histogramme".</p>
+				<?php echoColumnUnpaid(); ?>
+				<script>createColumnUnpaid();</script>
 			</div>
 		</div>
 

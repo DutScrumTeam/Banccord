@@ -31,10 +31,28 @@ function echoPieUnpaid() {
 		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 		
 		<figure class="highcharts-figure">
-			<div id="container"></div>
+			<div id="pie-chart"></div>
 			<!-- <p class="highcharts-description">
 				Pie chart where the individual slices can be clicked to expose more
 				detailed data.
+			</p> -->
+		</figure>
+	';
+}
+
+function echoColumnUnpaid() {
+	echo '
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="https://code.highcharts.com/modules/export-data.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+		
+		<figure class="highcharts-figure">
+			<div id="column-chart"></div>
+			<!-- <p class="highcharts-description">
+				Chart showing use of rotated axis labels and data labels. This can be a
+				way to include more labels in the chart, but note that more labels can
+				sometimes make charts harder to read.
 			</p> -->
 		</figure>
 	';
