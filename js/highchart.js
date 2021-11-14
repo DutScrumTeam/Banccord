@@ -1,5 +1,20 @@
+const monthsFull = [
+	"Janvier",
+	"Février",
+	"Mars",
+	"Avril",
+	"Mai",
+	"Juin",
+	"Juillet",
+	"Août",
+	"Septembre",
+	"Octobre",
+	"Novembre",
+	"Decembre"
+];
+
 /**
- * Créer le graph chartdown avec comme paramètre un JSON.
+ * Créer le graph highchart avec comme paramètre un JSON.
  * @param {array} param 
  */
 function createPaymentChart(param) {
@@ -156,17 +171,76 @@ function createPieUnpaid(lines) {
 	});
 }
 
-function createColumnUnpaid() {
+/**
+ * Traduit une date par une écriture simplifié courte
+ * ex : Janvier 2021
+ * @param {Date} date 
+ */
+function dateToMonthString(date) {
+	return `${monthsFull[date.getMonth()]} ${date.getFullYear()}`;
+}
+
+/**
+ * Transform une date au format yyyy-mm-dd
+ * en un object Date de JS.
+ * @param {string} date 
+ */
+function sqlDateToJsDate(date) {
+	const splited = date.split(/-/g);
+	return new Date(`${splited[1]}/${splited[2]}/${splited[0]}`);
+}
+
+/**
+ * Initialise l'histogramme des impayés par date
+ * @param {array} lines
+ * @param {Date} dateStart
+ * @param {Date} dateEnd
+ */
+function createColumnUnpaid(lines, dateStart, dateEnd) {
+	// Numéro de la colonne contenant la date.
+	const numDate = 1;
+	// Numéro de la colonne contenant le montant.
+	const numAmount = 5;
+
+	// Création du tableau des résultats.
+	let results = new Map();
+	for (
+		let i = dateStart.getFullYear()*12+dateStart.getMonth();
+		i <= dateEnd.getFullYear()*12+dateEnd.getMonth();
+		i++)
+	{
+		const keyDate = new Date(Math.trunc(i/12), i%12);
+		results.set(dateToMonthString(keyDate), 0);
+	}
+	
+	// Ajout des éléments dans le tableau des résultats.
+	lines.forEach(elem => {
+		const d = sqlDateToJsDate(elem.children[numDate].innerHTML);
+		if (d.getTime() >= dateStart && d.getTime() <= dateEnd) {
+			// Ajout de l'elem aux resultats
+			const amount = Number(elem.children[numAmount].innerHTML.replace(/€/g, ""));
+			const key = dateToMonthString(d);
+			results.set(key, results.get(key) - amount);
+		}
+	});
+
+	// Mise en forme des données pour l'ajout dans le graphique.
+	let data = [];
+	for (const entry of results.entries()) {
+		data.push(entry);
+	}
+
+	// Création du graphique
 	Highcharts.chart('column-chart', {
 		chart: {
 			type: 'column'
 		},
 		title: {
-			text: 'World\'s largest cities per 2017'
+			text: `Impayés entre ${dateToMonthString(dateStart)} et ${dateToMonthString(dateEnd)}`
 		},
-		subtitle: {
-			text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-		},
+		// subtitle: {
+		// 	text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+		// },
 		xAxis: {
 			type: 'category',
 			labels: {
@@ -180,39 +254,18 @@ function createColumnUnpaid() {
 		yAxis: {
 			min: 0,
 			title: {
-				text: 'Population (millions)'
+				text: 'Impayés (€)'
 			}
 		},
 		legend: {
 			enabled: false
 		},
 		tooltip: {
-			pointFormat: 'Population in 2017: <b>{point.y:.1f} millions</b>'
+			pointFormat: 'Impayés : {point.y:.2f}€</b>'
 		},
 		series: [{
 			name: 'Population',
-			data: [
-				['Shanghai', 24.2],
-				['Beijing', 20.8],
-				['Karachi', 14.9],
-				['Shenzhen', 13.7],
-				['Guangzhou', 13.1],
-				['Istanbul', 12.7],
-				['Mumbai', 12.4],
-				['Moscow', 12.2],
-				['São Paulo', 12.0],
-				['Delhi', 11.7],
-				['Kinshasa', 11.5],
-				['Tianjin', 11.2],
-				['Lahore', 11.1],
-				['Jakarta', 10.6],
-				['Dongguan', 10.6],
-				['Lagos', 10.6],
-				['Bengaluru', 10.3],
-				['Seoul', 9.8],
-				['Foshan', 9.3],
-				['Tokyo', 9.3]
-			],
+			data: data,
 			dataLabels: {
 				enabled: true,
 				rotation: -90,

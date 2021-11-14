@@ -93,24 +93,24 @@
 			<tbody id="table-result">
 				<tr>
 					<th scope="row">36262</th>
-					<td>03/11/2020</td>
-					<td>03/02/2021</td>
+					<td>2020-11-03</td>
+					<td>2020-11-03</td>
 					<td>7432 9579 2659 0269</td>
 					<td>titulaire décédé</td>
 					<td>-10€</td>
 				</tr>
 				<tr>
 					<th scope="row">32023</th>
-					<td>03/11/2020</td>
-					<td>03/02/2021</td>
+					<td>2021-11-03</td>
+					<td>2021-11-03</td>
 					<td>7432 9579 2659 0269</td>
 					<td>titulaire décédé</td>
 					<td>-99€</td>
 				</tr>
 				<tr>
 					<th scope="row">64145</th>
-					<td>03/11/2020</td>
-					<td>03/02/2021</td>
+					<td>2021-08-03</td>
+					<td>2021-11-05</td>
 					<td>7432 9579 2659 0269</td>
 					<td>fraude à la carte</td>
 					<td>-1€</td>
@@ -121,9 +121,14 @@
 		<!-- Choix de la page des résultats -->
 		<?php echoPageChoice() ?>
 
-		<script>initPageManager()</script>
+		<script>initPageManager();</script>
 		<script>createPieUnpaid(lines);</script>
-		<script>createColumnUnpaid();</script>
+		<script>
+			let dateEnd = new Date();
+			let dateStart = new Date();
+			dateStart.setFullYear(dateEnd.getFullYear()-1);
+			createColumnUnpaid(lines, dateStart, dateEnd);
+		</script>
 
 	</div>
 </body>
