@@ -1,23 +1,21 @@
-function exportToPDF() {
-	//var sTable = document.getElementById('tab').innerHTML;
-
-	// Style
-	// var style = "<style>";
-	// style = style + "table {width: 100%;font: 17px Calibri;}";
-	// style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
-	// style = style + "padding: 2px 3px;text-align: center;}";
-	// style = style + "</style>";
-
+/**
+ * Export le tableau au format PDF.
+ * @param {array} lines 
+ */
+function exportToPDF(lines, title) {
 	let headElem = document.querySelector("head");
 	let theadElem = document.querySelector("thead");
-	let tbody = document.querySelector("tbody");
+	let tbodyText = "";
+	lines.forEach(line => {
+		tbodyText += `<tr>${line.innerHTML}</tr>`;
+	});
 	
-	// CREATE A WINDOW OBJECT.
-	var win = window.open('', '', 'height=700,width=700');
+	// Création de la fenetre d'export en PDF.
+	let win = window.open('', '', 'height=700,width=700');
 	win.document.write(`
 		<html>
 			<head>
-				<title>TABLEAU DES REMISES</title>
+				<title>${title}</title>
 				<link rel="stylesheet" href="css/style.css"/>
 			</head>
 
@@ -29,41 +27,54 @@ function exportToPDF() {
 						</tr>
 					</thead>
 					<tbody id="table-result">
-						<tr>
-							<th scope="row">36262</th>
-							<td>2020-11-03</td>
-							<td>2020-11-03</td>
-							<td>7432 9579 2659 0269</td>
-							<td>titulaire décédé</td>
-							<td>-10€</td>
-						</tr>
-						<tr>
-							<th scope="row">32023</th>
-							<td>2021-11-03</td>
-							<td>2021-11-03</td>
-							<td>7432 9579 2659 0269</td>
-							<td>titulaire décédé</td>
-							<td>-99€</td>
-						</tr>
-						<tr>
-							<th scope="row">64145</th>
-							<td>2021-08-03</td>
-							<td>2021-11-05</td>
-							<td>7432 9579 2659 0269</td>
-							<td>fraude à la carte</td>
-							<td>-1€</td>
-						</tr>
+						${tbodyText}
 					</tbody>
 				</table>
 			</body>
 		</html>
 	`);
 	
-	win.document.close(); // CLOSE THE CURRENT WINDOW.
-
-	win.print(); // PRINT THE CONTENTS.
+	win.document.close();
+	win.print();
 }
 
-function exportToCSV() {
-	
+/**
+ * Export le tableau au format CSV.
+ * @param {array} lines 
+ */
+function exportToCSV(lines, title) {
+	// Création du contenu du fichier csv.
+	let data = [];
+
+	// Ajout des titres
+	let lineArray = [];
+	let theadElem = document.querySelector("thead");
+	for (let i = 0; i < theadElem.children[0].children.length; i++) {
+		const elem = theadElem.children[0].children[i];
+		lineArray.push(elem.innerText);
+	}
+	data.push(lineArray.join(','));
+
+	// Ajout du contenu
+	lines.forEach(line => {
+		let lineArray = [];
+		for (let i = 0; i < line.children.length; i++) {
+			const elem = line.children[i];
+			lineArray.push(elem.innerHTML);
+		}
+		data.push(lineArray.join(','));
+	});
+	const content = data.join('\n');
+	// console.log(content);
+
+	// Création d'une nouvelle page
+	let csvFile = new Blob([content], {type: "text/csv"});
+	aLink = document.createElement("a");
+
+	// Création du lien vers la page
+	aLink.href = window.URL.createObjectURL(csvFile);
+	aLink.download = `${title}.csv`;
+	aLink.style.display = "none";
+	document.body.appendChild(aLink);
+	aLink.click();
 }

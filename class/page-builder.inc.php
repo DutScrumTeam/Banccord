@@ -4,12 +4,12 @@ if (!defined("DEF_PAGE_BUILDER")) {
 define("DEF_PAGE_BUILDER", true);
 
 /** Affiche le bouton d'exportation en fichier. */
-function echoExportButton() {
+function echoExportButton($file_title) {
 	echo '
 		<select class="form-control btn btn-primary btn-export" id="export-btn">
 			<option selected>Exporter au format...</option>
-			<option onclick="exportToCSV()">CSV</option>
-			<option onclick="exportToPDF()">PDF</option>
+			<option onclick="exportToCSV(lines, \''.$file_title.'\')">CSV</option>
+			<option onclick="exportToPDF(lines, \''.$file_title.'\')">PDF</option>
 		</select>
 	';
 }

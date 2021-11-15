@@ -1,11 +1,13 @@
 <?php include("class/page-builder.inc.php"); ?>
-<script src="js/page-manager.js"></script>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 	<title>Banccord | Remises</title>
 	<?php include("class/head.inc.php") ?>
+	<script src="js/page-manager.js"></script>
+	<script src="js/export-file.js"></script>
+	<script src="js/form-edit.js"></script>
 </head>
 
 <body>
@@ -60,7 +62,7 @@
 		</form>
 
 		<!-- Bouton d'export -->
-		<?php echoExportButton(); ?>
+		<?php echoExportButton("remises product owner"); ?>
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">

@@ -9,6 +9,7 @@
 	<script src="js/page-manager.js"></script>
 	<script src="js/highchart.js"></script>
 	<script src="js/export-file.js"></script>
+	<script src="js/form-edit.js"></script>
 </head>
 
 <body>
@@ -25,13 +26,11 @@
 			<div class="col titles">
 				<h1 class="div-center-v">Liste des remises</h1>
 			</div>
-			
 		</div>
 		<!-- Le graphique -->
 		<?php echoPaymentChart(); ?>
 
 		<!-- Champ de recherche -->
-		<script src="js/form-edit.js"></script>
 		<form action="" method="get">
 			<div class="row action-option">
 
@@ -68,7 +67,7 @@
 		</form>
 
 		<!-- Bouton d'export -->
-		<?php echoExportButton(); ?>
+		<?php echoExportButton("remises client"); ?>
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">
