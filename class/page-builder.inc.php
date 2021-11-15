@@ -6,11 +6,10 @@ define("DEF_PAGE_BUILDER", true);
 /** Affiche le bouton d'exportation en fichier. */
 function echoExportButton() {
 	echo '
-		<select class="form-control btn btn-primary btn-export" name="search-mod" id="search-mod">
+		<select class="form-control btn btn-primary btn-export" id="export-btn">
 			<option selected>Exporter au format...</option>
-			<option>CSV</option>
-			<option>PDF</option>
-			<option>XLS</option>
+			<option onclick="exportToCSV()">CSV</option>
+			<option onclick="exportToPDF()">PDF</option>
 		</select>
 	';
 }

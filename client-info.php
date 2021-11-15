@@ -1,13 +1,14 @@
 <?php include("class/page-builder.inc.php"); ?>
 <?php include("class/highchart-builder.inc.php"); ?>
-<script src="js/page-manager.js"></script>
-<script src="js/highchart.js"></script>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 	<title>Banccord | (Nom du client) - informations</title>
 	<?php include("class/head.inc.php"); ?>
+	<script src="js/page-manager.js"></script>
+	<script src="js/highchart.js"></script>
+	<script src="js/export-file.js"></script>
 </head>
 
 <body>
