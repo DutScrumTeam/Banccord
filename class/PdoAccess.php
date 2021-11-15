@@ -37,5 +37,6 @@ public static function insertClient($name,$password,$siren,$businessName){
 	$stmt->bindParam(':num_siren', $siren);
 	$stmt->bindParam(':raison_social', $businessName);
 	$stmt->bindParam(':id_compte', $name);
+	$stmt->execute();
 }
 }
