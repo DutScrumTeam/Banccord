@@ -12,12 +12,11 @@ const monthsFull = [
 	"Novembre",
 	"Decembre"
 ];
-
 /**
  * Créer le graph highchart avec comme paramètre un JSON.
- * @param {array} param 
- * @param {Date} dateStart 
- * @param {Dtae} dateEnd
+ * @param {array} lines
+ * @param {Date} dateStart
+ * @param {Date} dateEnd
  */
 function createPaymentChart(lines, dateStart, dateEnd) {
 	// Numéro de la colonne contenant la date.
@@ -138,7 +137,7 @@ function createPieUnpaid(lines) {
 
 	let data = [];
 	Object.keys(res).forEach(key => {
-		if (res[key] != 0) {
+		if (res[key] !== 0) {
 			data.push({
 				name: key,
 				y: res[key] / total * 100
