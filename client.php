@@ -25,8 +25,7 @@
 				<h2>Montant total : 5€</h2>
 			</div>
 		</div>
-
-
     </div>
+    <?php echoFooter() ?>
 </body>
 </html>
