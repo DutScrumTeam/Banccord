@@ -36,28 +36,10 @@
 		<form action="" method="get">
 			<div class="row action-option">
 
-				<!-- Type de recherche -->
-				<div class="col-auto">
-					<div class="form-group">
-						<select class="form-control" name="search-mod" id="search-mod">
-							<option 
-									value="siren" selected 
-									onclick="changeInput('search-value', 'Entrez le numéro de Siren', 'number');">
-								Recherche par Siren
-							</option>
-							<option 
-									value="name" 
-									onclick="changeInput('search-value', 'Entrez la raison sociale', 'text');">
-								Recherche par raison sociale
-							</option>
-						</select>
-					</div>
-				</div>
-
 				<!-- Valeur de recherche -->
 				<div class="col">
 					<div class="form-group">
-						<input type="number" class="form-control" id="search-value" name="search-value" placeholder="Entrez le numéro de Siren">
+						<input type="number" class="form-control" id="search-value" name="search-value" placeholder="Entrez le numéro de remise">
 					</div>
 				</div>
 
