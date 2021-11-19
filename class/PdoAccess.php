@@ -23,7 +23,7 @@ public static function getPdo(): PDO
 public static function insertAccount($name, $password, $type){
 	$pdo = self::getPdo();
 	$password = md5($password);
-    $sql = "INSERT INTO banque.compte (id, mdp,type) VALUES (:name,:password,:type)";
+    $sql = "INSERT INTO banque.compte VALUES (:name,:password,:type)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':password', $password);
@@ -33,7 +33,7 @@ public static function insertAccount($name, $password, $type){
 public static function insertClient($name,$password,$siren,$businessName){
 	self::insertAccount($name,$password,"Client");
 	$pdo = self::getPdo();
-	$sql = "INSERT INTO banque.client (num_siren, raison_sociale, id_compte) VALUES (:num_siren,:raison_social,:id_compte)";
+	$sql = "INSERT INTO banque.client VALUES (:num_siren,:raison_social,:id_compte)";
 	$stmt = $pdo->prepare($sql);
 	$stmt->bindParam(':num_siren', $siren);
 	$stmt->bindParam(':raison_social', $businessName);
@@ -41,19 +41,19 @@ public static function insertClient($name,$password,$siren,$businessName){
 	$stmt->execute();
 }
 
-	public static function checkUser($pseudo, string $password): bool
+	public static function checkUser($pseudo,$password)
 	{
 		$pdo = self::getPdo();
-        $sql = "SELECT * FROM banque.compte WHERE id = :pseudo";
+        $sql = "SELECT * FROM banque.compte WHERE id = 'adminNo'";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':pseudo', $pseudo);
         $stmt->execute();
         $result = $stmt->fetch();
         if ($result) {
             if ($result['mdp'] == md5($password)) {
-                return true;
+                return $result['type_compte'];
             }
         }
-        return false;
+        return null;
 	}
 }

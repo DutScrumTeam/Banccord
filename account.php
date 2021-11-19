@@ -18,4 +18,6 @@ if (isset($_POST['type'],$_POST['password'],$_POST['passwordConfirm'],$_POST['na
 		header("Location:index.php");
 	}
 }
-header("Location:new-account.php?error=incomplete");
+else{
+	header("Location:new-account.php?error=incomplete");
+}

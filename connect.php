@@ -1,8 +1,8 @@
 <?php
+include "class/PdoAccess.php";
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 	$pseudo = $_POST['pseudo'];
 	$password = $_POST['password'];
-	$password = md5($password);
 	$type = PdoAccess::checkUser($pseudo, $password);
 	if ($type != null) {
 		$_SESSION['pseudo'] = $pseudo;
@@ -18,9 +18,8 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 				header('Location: admin.php');
 				break;
 		}
-	} else {
-		header('Location: connect.php?error=invalid');
 	}
+    echo $type;
 }
 ?>
 <!DOCTYPE html>
