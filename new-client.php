@@ -27,8 +27,8 @@
 				<form action="new-client.php" method="post">
 
 					<div class="form-group">
-						<label for="businessname">Nom de société (raison sociale)</label>
-						<input type="text" class="form-control" name="business-name" id="businessname" placeholder="Raison sociale" required>
+						<label for="businessName">Nom de société (raison sociale)</label>
+						<input type="text" class="form-control" name="business-name" id="businessName" placeholder="Raison sociale" required>
 					</div>
 					
 					<div class="form-group">
