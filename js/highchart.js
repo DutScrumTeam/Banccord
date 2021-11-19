@@ -20,9 +20,9 @@ const monthsFull = [
  */
 function createPaymentChart(lines, dateStart, dateEnd) {
 	// Numéro de la colonne contenant la date.
-	const numDate = 0;
+	const numDate = 1;
 	// Numéro de la colonne contenant le montant.
-	const numAmount = 4;
+	const numAmount = 5;
 
 	// Création du tableau des résultats.
 	let results = new Map();

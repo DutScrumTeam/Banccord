@@ -57,6 +57,7 @@
 		<table class="table table-striped">
 			<?php 
 				echoTableHead(
+					"Numéro de remise",
 					"Date de paiement",
 					"Type de carte",
 					"Numéro de carte",
@@ -65,21 +66,24 @@
 			?>
 			<tbody id="table-result">
 				<tr>
-					<th scope="row">2021-03-03</th>
+					<th scope="row">4269</th>
+					<td>2021-03-03</td>
 					<td>Visa</td>
 					<td>6942 6942 6942 6942</td>
 					<td>48</td>
 					<td>1.00€</td>
 				</tr>
 				<tr>
-					<th scope="row">2021-08-03</th>
+					<th scope="row">7321</th>
+					<td>2021-08-03</td>
 					<td>Visa</td>
 					<td>6942 6942 6942 6942</td>
 					<td>29</td>
 					<td>1.00€</td>
 				</tr>
 				<tr>
-					<th scope="row">2021-05-03</th>
+					<th scope="row">5128</th>
+					<td>2021-05-03</td>
 					<td>Paypal</td>
 					<td>6942 6942 6942 6942</td>
 					<td>35</td>
