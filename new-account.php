@@ -26,10 +26,9 @@
 					<div class="form-group">
 						<label for="type">Type du compte</label>
 						<select class="form-control" id="type" name="type">
-							<option>Client</option>
-							<option>Contrôleur de gestion</option>
-							<option>Product owner</option>
-							<option>Admin</option>
+							<option value="client">Client</option>
+							<option value="po">Product owner</option>
+							<option value="admin">Admin</option>
 						</select>
 					</div>
 					

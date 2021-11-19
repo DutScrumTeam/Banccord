@@ -1,6 +1,5 @@
 <?php include("class/page-builder.inc.php"); ?>
 <?php include("class/highchart-builder.inc.php"); ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>

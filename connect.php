@@ -1,3 +1,28 @@
+<?php
+if (isset($_POST['pseudo']) && isset($_POST['password'])) {
+	$pseudo = $_POST['pseudo'];
+	$password = $_POST['password'];
+	$password = md5($password);
+	$type = PdoAccess::checkUser($pseudo, $password);
+	if ($type != null) {
+		$_SESSION['pseudo'] = $pseudo;
+		$_SESSION['password'] = $password;
+		switch ($type) {
+			case 'client':
+				header('Location: client-info.php');
+				break;
+			case 'po':
+				header('Location: po-info.php');
+				break;
+			case 'admin':
+				header('Location: admin.php');
+				break;
+		}
+	} else {
+		header('Location: connect.php?error=invalid');
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
