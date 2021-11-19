@@ -47,8 +47,8 @@
 					
 					<!-- Confirmation du mdp -->
 					<div class="form-group">
-						<label for="password-confirm">Confirmer le mot de passe</label>
-						<input type="password" class="form-control" name="password-confirm" id="password-confirm" placeholder="Retapez le mot de passe" required>
+						<label for="passwordConfirm">Confirmer le mot de passe</label>
+						<input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="Retapez le mot de passe" required>
 					</div>
 					
 					<button type="submit" class="btn btn-primary">Nouveau compte</button>

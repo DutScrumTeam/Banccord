@@ -1,25 +1,21 @@
 <?php
 include("class/PdoAccess.php");
-$type =$_POST['type'];
-$password =$_POST['password'];
-$passwordC=$_POST['passwordConfirm'];
-$name =$_POST['name'];
-$siren =$_POST['siren'];
-$businessName =$_POST['businessName'];
-if (isset($type,$password,$passwordC,$name)){
-	if (!($password==$passwordC)){
+if (isset($_POST['type'],$_POST['password'],$_POST['passwordConfirm'],$_POST['name'])){
+	if (!($_POST['password']==$_POST['passwordConfirm'])){
 		header("Location:new-account.php?error=password");
     }
-	elseif($type=="Client"){
-		if (isset($businessName,$siren)){
-			PdoAccess::insertClient($name,$password,$businessName,$siren);
+	elseif($_POST['type']=="Client"){
+		if (isset($_POST['businessName'],$_POST['siren'])){
+			PdoAccess::insertClient($_POST['name'],$_POST['password'],$_POST['businessName'],$_POST['siren']);
             header("Location:index.php");
         }
-        else{
-            header("Location:new-account.php");
-        }
+		else {
+			header("Location:new-client.php");
+		}
 	}
 	else{
-		PdoAccess::insertAccount($name,$password,$type);
+		PdoAccess::insertAccount($_POST['name'],$_POST['password'],$_POST['passwordConfirm']);
 	}
+	header("Location:new-account.php");
 }
+header("Location:new-account.php?error=incomplete");

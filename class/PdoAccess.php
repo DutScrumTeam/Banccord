@@ -17,6 +17,8 @@ public static function getPdo(): PDO
 			echo "ERREUR : La connexion a échouée<br>\n";
 			echo $e->getMessage()."<br>\n";
 		}
+
+
 	}
 	return self::$pdo;
 }
