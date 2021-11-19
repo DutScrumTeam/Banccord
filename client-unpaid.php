@@ -50,29 +50,6 @@
 					<label for="date-end">Date de fin</label>
 					<input type="date" class="form-control" id="date-end" name="date-end">
 				</div>
-			</div>
-			<div class="row">
-				<!-- Type de recherche -->
-				<div class="col-auto form-group">
-					<select class="form-control" name="search-mod" id="search-mod">
-						<option 
-								value="siren" selected 
-								onclick="changeInput('search-value', 'Entrez le numéro de Siren', 'number');">
-							Recherche par Siren
-						</option>
-						<option 
-								value="name" 
-								onclick="changeInput('search-value', 'Entrez la raison sociale', 'text');">
-							Recherche par raison sociale
-						</option>
-					</select>
-				</div>
-
-				<!-- Valeur de recherche -->
-				<div class="col form-group">
-					<input type="number" class="form-control" id="search-value" name="search-value" placeholder="Entrez le numéro de Siren">
-				</div>
-
 				<!-- Bouton de confirmation -->
 				<div class="col-auto">
 					<button class="btn btn-primary div-center-v">Rechercher</button>
