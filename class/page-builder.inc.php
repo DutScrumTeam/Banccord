@@ -6,10 +6,11 @@ define("DEF_PAGE_BUILDER", true);
 /** Affiche le bouton d'exportation en fichier. */
 function echoExportButton($file_title) {
 	echo '
-		<select class="form-control btn btn-primary btn-export" id="export-btn">
+		<select id="export-btn" class="form-control btn btn-primary btn-export"
+		 onchange="if (this.value===`1`){exportToCSV(lines, \''.$file_title.'\')}else if (this.value===`2`){exportToPDF(lines, \''.$file_title.'\')}">
 			<option selected>Exporter au format...</option>
-			<option onclick="exportToCSV(lines, \''.$file_title.'\')">CSV</option>
-			<option onclick="exportToPDF(lines, \''.$file_title.'\')">PDF</option>
+			<option value="1">CSV</option>
+			<option value="2">PDF</option>
 		</select>
 	';
 }
@@ -26,7 +27,7 @@ function echoTableHead() {
 		echo "
 			<th scope='col'>
 				{$args[$i]}
-				<button type='button' class='order-btn' onclick='orderBy($i);' id='col$i'></button>
+				<button type='button' class='order-btn' onclick='orderBy($i)' id='col$i'></button>
 			</th>
 		";
 	}

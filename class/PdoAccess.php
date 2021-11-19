@@ -22,7 +22,7 @@ public static function getPdo(): PDO
 }
 public static function insertAccount($name, $password, $type){
 	$pdo = self::getPdo();
-    $sql = "INSERT INTO banque.compte (id, mdp, type) VALUES (:name,:password,:type)";
+    $sql = "INSERT INTO banque.compte (id, mdp,type) VALUES (:name,:password,:type)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':password', $password);
