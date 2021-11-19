@@ -3,6 +3,8 @@ header {
 	position: relative;
 	height: 60px;
 	background-color: #E7E7E7;
+	margin: 10px;
+	border-radius: 6px;
 }
 
 .header-disconnect {
