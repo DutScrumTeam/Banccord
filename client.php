@@ -26,6 +26,5 @@
 			</div>
 		</div>
     </div>
-    <?php echoFooter() ?>
 </body>
 </html>
