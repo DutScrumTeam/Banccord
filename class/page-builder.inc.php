@@ -52,7 +52,7 @@ function echoPageChoice() {
  * 
  * exemple :
  * echoHeader(
- *	"Accueil", "client.php",
+ *	"Accueil", "client-info.php",
  *	"Impayés", "client-unpaid.php"
  * );
  */
