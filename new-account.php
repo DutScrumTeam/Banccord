@@ -1,15 +1,15 @@
-<?php include("class/header.php"); ?>
+<?php include("class/page-builder.inc.php"); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 	<title>Banccord | Nouveau compte</title>
 	<?php include("class/head.inc.php"); ?>
-    <link rel="stylesheet" href="css/connect.css">
+  <link rel="stylesheet" href="css/connect.css">
 </head>
 
 	<body>
-		<?php
+	<?php
 		echoHeader(
 			"Supprimer un compte", "admin.php"
 		);

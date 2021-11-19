@@ -1,7 +1,10 @@
-                                                                                        <!--
+<!--
 	Création de client atteignable SEULEMENT après avoir
 	confirmer la création d'un compte CLIENT (new-account.php)
 -->
+
+<?php include("class/page-builder.inc.php"); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,6 +12,13 @@
 	<?php include("class/head.inc.php"); ?>
 </head>
 <body>
+	<?php
+		echoHeader(
+			"Création d'un autre compte", "new-account.php",
+			"Supprimer un compte", "admin.php"
+		);
+	?>
+
 	<div class="container">
 		<div class="row justify-content-md-center">
 			<div class="col-md-6">

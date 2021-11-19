@@ -1,4 +1,4 @@
-<?php include("class/header.php"); ?>
+<?php include("class/page-builder.inc.php"); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,7 +18,7 @@
 
   <!-- Champ de recherche -->
   <div class="row justify-content-md-center div-center-h">
-      <h1 class="centered">Admin</h1>
+    <h1 class="centered">Admin</h1>
     <div class="col-md-6">
       <div class="row action-option">
         <div class="col col-offset-4">
@@ -29,8 +29,6 @@
       </div>
     </div>
   </div>
-
-
 
   <!-- Tableau des comptes -->
   <table class="table table-striped">
