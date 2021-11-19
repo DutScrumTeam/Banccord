@@ -15,7 +15,7 @@ if (isset($_POST['type'],$_POST['password'],$_POST['passwordConfirm'],$_POST['na
 	}
 	else{
 		PdoAccess::insertAccount($_POST['name'],$_POST['password'],$_POST['passwordConfirm']);
+		header("Location:index.php");
 	}
-	header("Location:new-account.php");
 }
 header("Location:new-account.php?error=incomplete");
