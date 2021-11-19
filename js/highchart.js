@@ -178,7 +178,7 @@ function createPieUnpaid(lines) {
 		},
 		series: [
 			{
-				name: "Browsers",
+				name: "Impayés",
 				colorByPoint: true,
 				data: data
 			}
