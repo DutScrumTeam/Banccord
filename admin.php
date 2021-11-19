@@ -15,10 +15,10 @@
 	?>
 
 <div class="container">
-	<h1 class="centered">Admin</h1>
 
   <!-- Champ de recherche -->
   <div class="row justify-content-md-center div-center-h">
+      <h1 class="centered">Admin</h1>
     <div class="col-md-6">
       <div class="row action-option">
         <div class="col col-offset-4">
@@ -57,12 +57,12 @@
 
     <!-- Choix de page de résultat -->
     <div class="row justify-content-center">
-        <button class="col-auto">Page précédente</button>
+        <button class="btn-primary col-auto">Page précédente</button>
         <div class="col-auto">
             Résultat 1-3<br>
             97 résultat au total.
         </div>
-        <button class="col-auto">Page suivante</button>
+        <button class="btn-primary col-auto">Page suivante</button>
     </div>
 </div>
 

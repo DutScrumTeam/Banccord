@@ -27,16 +27,16 @@
 		</div>
 
 		<!-- Lien vers les autres pages -->
-		<a href="client-info.php">
-			<button type="button" class="btn btn-primary">
-				Liste des remises
-			</button>
-		</a>
-		<a href="client-unpaid.php">
-			<button type="button" class="btn btn-primary">
-				Liste des impayés
-			</button>
-		</a>
+            <a href="client-info.php">
+                <button type="button" class="btn btn-primary">
+                    Liste des remises
+                </button>
+            </a>
+            <a href="client-unpaid.php">
+                <button type="button" class="btn btn-primary">
+                    Liste des impayés
+                </button>
+            </a>
 	</div>
 </body>
 </html>
