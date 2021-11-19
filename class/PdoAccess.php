@@ -12,13 +12,11 @@ public static function getPdo(): PDO
 	if (self::$pdo === null) {
 		try {
 			echo "Connexion à la base de données en cours...\n";
-			self::$pdo = new PDO('pgsql:host='.PdoAccess::$host.';port=5432;dbname='.PdoAccess::$database, self::$user, self::$pass);
+			self::$pdo = new PDO('pgsql:host='.PdoAccess::$host.';dbname='.PdoAccess::$database, self::$user, self::$pass);
 		} catch (PDOException $e) {
 			echo "ERREUR : La connexion a échouée<br>\n";
 			echo $e->getMessage()."<br>\n";
 		}
-
-
 	}
 	return self::$pdo;
 }

@@ -14,7 +14,7 @@ if (isset($_POST['type'],$_POST['password'],$_POST['passwordConfirm'],$_POST['na
 		}
 	}
 	else{
-		PdoAccess::insertAccount($_POST['name'],$_POST['password'],$_POST['passwordConfirm']);
+		PdoAccess::insertAccount($_POST['name'],$_POST['password'],$_POST['type']);
 		header("Location:index.php");
 	}
 }
