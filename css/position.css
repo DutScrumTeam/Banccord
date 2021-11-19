@@ -16,3 +16,10 @@
 	transform: translateY(-50%);
 }
 
+.mid {
+	margin-top: 100px;
+}
+
+.button {
+	margin: 10px;
+}

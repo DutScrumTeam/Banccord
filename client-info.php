@@ -24,7 +24,9 @@
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
-				<h1 class="div-center-v">Liste des remises</h1>
+				<h1>Compte de <b>Muchel Pabo</b></h1>
+				<p>Siren : 749 547 487 47239</p>
+				<h2>Montant total : 5€</h2>
 			</div>
 		</div>
 		<!-- Le graphique -->
@@ -122,5 +124,6 @@
 		</script>
 
 	</div>
+    <?php echoFooter() ?>
 </body>
 </html>

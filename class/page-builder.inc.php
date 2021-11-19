@@ -70,4 +70,10 @@ function echoHeader() {
 	";
 }
 
+function echoFooter(){
+    echo "<footer>";
+
+    echo "</footer>";
+}
+
 }

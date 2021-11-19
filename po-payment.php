@@ -108,6 +108,7 @@
 
 		<script>initPageManager()</script>
 
-	</div>	
+	</div>
+    <?php echoFooter() ?>
 </body>
 </html>
