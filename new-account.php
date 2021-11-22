@@ -6,6 +6,7 @@
 	<title>Banccord | Nouveau compte</title>
 	<?php include("class/head.inc.php"); ?>
   <link rel="stylesheet" href="css/connect.css">
+	<script src="js/new-account.js"></script>
 </head>
 
 	<body>
@@ -25,7 +26,7 @@
 					<!-- Type du nouveau compte -->
 					<div class="form-group">
 						<label for="type">Type du compte</label>
-						<select class="form-control" id="type" name="type">
+						<select class="form-control" id="type" name="type" onchange="changeType()">
 							<option value="client">Client</option>
 							<option value="po">Product owner</option>
 							<option value="admin">Admin</option>
@@ -35,7 +36,7 @@
 					<!-- Pseudo -->
 					<div class="form-group">
 						<label for="name">Nom d'utilisateur</label>
-						<input type="text" class="form-control" name="name" id="name" placeholder="Nom du nouvel utlisateur" required>
+						<input type="text" class="form-control" name="name" id="name" placeholder="Nom du nouvel utilisateur" required>
 					</div>
 					
 					<!-- Mdp -->
@@ -49,9 +50,22 @@
 						<label for="passwordConfirm">Confirmer le mot de passe</label>
 						<input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="Retapez le mot de passe" required>
 					</div>
+
+					<!-- Nom de société (client uniquement) -->
+					<div class="form-group client-only">
+						<label for="businessName">Nom de société (raison sociale)</label>
+						<input type="text" class="form-control" name="business-name" id="businessName" placeholder="Raison sociale" required>
+					</div>
 					
+					<!-- Numéro de Siren (client uniquement) -->
+					<div class="form-group client-only">
+						<label for="siren">Numéro de Siren</label>
+						<input type="number" class="form-control" name="siren" id="siren" placeholder="012 345 678 09876" required>
+					</div>
+
 					<button type="submit" class="btn btn-primary">Nouveau compte</button>
 				</form>
+				<!-- <script>changeType()</script> -->
 			</div>
 		</div>
 	</div>

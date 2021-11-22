@@ -24,7 +24,7 @@
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
-				<h1>Liste des impayés</h1>
+				<h1>Liste des comptes</h1>
 			</div>
 		</div>
 		
