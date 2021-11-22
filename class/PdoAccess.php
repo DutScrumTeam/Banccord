@@ -44,9 +44,9 @@ public static function insertClient($name,$password,$siren,$businessName){
 	public static function checkUser($pseudo,$password)
 	{
 		$pdo = self::getPdo();
-        $sql = "SELECT * FROM banque.compte WHERE id = 'adminNo'";
+        $sql = "SELECT * FROM banque.compte WHERE id = :pseudo";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':pseudo', $pseudo);
+		$stmt->bindParam(':pseudo', $pseudo);
         $stmt->execute();
         $result = $stmt->fetch();
         if ($result) {
