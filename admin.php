@@ -22,8 +22,7 @@ if (isset($_POST['Supprimer'])) {
 <body>
 	<?php
 		echoHeader(
-			"Admin",
-			"Créer un compte", "new-account.php"
+			"Admin"
 		);
 	?>
 

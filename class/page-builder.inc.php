@@ -59,7 +59,7 @@ function echoPageChoice() {
  *  "Impayés", "client-unpaid.php"
  * );
  */
-function echoHeader($title, $args_link) {
+function echoHeader($title) {
 	echo "<header>";
 	$args = func_get_args();
 
