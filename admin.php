@@ -1,5 +1,13 @@
-<?php include("class/page-builder.inc.php"); ?>
+<?php include("class/page-builder.inc.php");
+include("class/PdoAccess.php");
+?>
 
+<?php
+if (isset($_POST['Supprimer'])) {
+    $id = $_POST['id'];
+    PdoAccess::deleteAccount($id);
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -66,23 +74,16 @@
 
 		<!-- Tableau des comptes -->
 		<table class="table table-striped">
-			<?php 
+			<?php
 				echoTableHead(
 					"Siren",
 					"Nom de compte",
 					"Suppression");
 			?>
 			<tbody id="table-result">
-				<tr>
-					<th scope="row">432 104 948 47380</th>
-					<td>Muchel</td>
-					<td><button class="btn btn-danger">Supprimer</button></td>
-				</tr>
-				<tr>
-					<th scope="row">432 104 999 47381</th>
-					<td>FKC</td>
-					<td><button class="btn btn-danger">Supprimer</button></td>
-				</tr>
+            <?php
+            PdoAccess::adminAccountTable();
+            ?>
 			</tbody>
 		</table>
 
