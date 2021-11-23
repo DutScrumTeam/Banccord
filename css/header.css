@@ -41,3 +41,9 @@ header .header-elem {
 	text-decoration: none;
 	color: white;
 }
+
+.header-title {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}

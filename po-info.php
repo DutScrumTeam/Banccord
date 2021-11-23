@@ -13,6 +13,7 @@
 <body>
 	<?php
 		echoHeader(
+			"Product owner",
 			"Remises", "po-payment.php"
 		);
 	?>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Banccord | (Nom du client) - informations</title>
+	<title>Banccord | Client - informations</title>
 	<?php include("class/head.inc.php"); ?>
 	<script src="js/page-manager.js"></script>
 	<script src="js/highchart.js"></script>
@@ -14,6 +14,7 @@
 <body>
 	<?php
 		echoHeader(
+			"Client",
 			"Accueil", "client.php",
 			"Impayés", "client-unpaid.php"
 		);

@@ -13,6 +13,7 @@
 <body>
 	<?php
 		echoHeader(
+			"Product owner",
 			"Comptes", "po-info.php"
 		);
 	?>

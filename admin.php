@@ -82,6 +82,7 @@ if (isset($_POST['Supprimer'])) {
 			?>
 			<tbody id="table-result">
 				<?php
+					// Mise en commentaire pour eviter de se connecter, sorry si j'oublie de le décommenter
 					PdoAccess::adminAccountTable();
 				?>
 			</tbody>
