@@ -14,6 +14,7 @@
 <body>
 	<?php
 		echoHeader(
+			"Admin",
 			"Créer un compte", "new-account.php"
 		);
 	?>
