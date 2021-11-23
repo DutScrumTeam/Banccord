@@ -4,8 +4,8 @@ include("class/PdoAccess.php");
 
 <?php
 if (isset($_POST['Supprimer'])) {
-    $id = $_POST['id'];
-    PdoAccess::deleteAccount($id);
+	$id = $_POST['id'];
+	PdoAccess::deleteAccount($id);
 }
 ?>
 <!DOCTYPE html>
@@ -81,9 +81,9 @@ if (isset($_POST['Supprimer'])) {
 					"Suppression");
 			?>
 			<tbody id="table-result">
-            <?php
-            PdoAccess::adminAccountTable();
-            ?>
+				<?php
+					PdoAccess::adminAccountTable();
+				?>
 			</tbody>
 		</table>
 

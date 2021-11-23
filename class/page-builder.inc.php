@@ -59,9 +59,11 @@ function echoPageChoice() {
  */
 function echoHeader() {
 	echo "<header>";
-
 	$args = func_get_args();
-	for ($i=0; $i<count($args); $i += 2) {
+
+	echo "<h1 class='header-title'>{$args[0]}</h1>";
+
+	for ($i=1; $i<count($args); $i += 2) {
 		echo "<a class='header-elem' href='{$args[$i+1]}'>{$args[$i]}</a>";
 	}
 
