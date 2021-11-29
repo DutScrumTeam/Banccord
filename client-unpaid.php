@@ -16,7 +16,6 @@
 	<?php
 		echoHeader(
 			"Client",
-			"Accueil", "client.php",
 			"Remises", "client-info.php"
 		);
 	?>

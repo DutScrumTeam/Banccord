@@ -15,7 +15,6 @@
 	<?php
 		echoHeader(
 			"Client",
-			"Accueil", "client.php",
 			"Impayés", "client-unpaid.php"
 		);
 	?>
