@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+	session_start();
+}
 include "class/PdoAccess.php";
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 	$pseudo = $_POST['pseudo'];
@@ -8,6 +11,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 	if ($type != null) {
 		$_SESSION['pseudo'] = $pseudo;
 		$_SESSION['password'] = $password;
+        $_SESSION['user_type'] = $type;
 		switch ($type) {
 			case 'client':
 				header('Location: client-info.php');

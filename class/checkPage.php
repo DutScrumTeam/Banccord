@@ -7,37 +7,37 @@ private static $list_admin = array("admin.php");
 private static $list_po = array("po-info.php","po-payment.php");
 public static function checkUserType($page)
 {
-	session_start();
+	if(!isset($_SESSION))
+	{
+		session_start();
+	}
 	if(!isset($_SESSION['user_type']))
 	{
 		header("Location:connect.php");
-		exit();
+		return;
 	}
 	switch ($_SESSION['user_type']){
 		case 'client':
-			if(in_array($page,self::$list_client))
+			if(!in_array($page,self::$list_client))
 			{
-				header("Location:index.php");
-				exit();
+				header("Location:client-info.php");
+
 			}
 			break;
 		case 'admin':
-			if(in_array($page,self::$list_admin))
+			if(!in_array($page,self::$list_admin))
 			{
-				header("Location:index.php");
-				exit();
+				header("Location:admin.php");
 			}
 			break;
 		case 'po':
-			if(in_array($page,self::$list_po))
+			if(!in_array($page,self::$list_po))
 			{
-				header("Location:index.php");
-				exit();
+				header("Location:po-info.php");
 			}
 			break;
 		default:
 			header("Location:connect.php");
-			exit();
 			break;
 	}
 }

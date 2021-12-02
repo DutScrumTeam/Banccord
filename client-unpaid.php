@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+{
+	session_start();
+}
 include("class/page-builder.inc.php"); ?>
 <?php include("class/highchart-builder.inc.php"); ?>
 

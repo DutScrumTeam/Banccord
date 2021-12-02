@@ -5,3 +5,4 @@ ou vers la page du compte si déjà connecté.
 
 ##### A COMPLETER #####
 */
+header('Location: connect.php');

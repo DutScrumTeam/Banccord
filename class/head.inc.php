@@ -1,7 +1,10 @@
 <?php
 // Code d'import commun des fichier html
 include  ("class/checkPage.php");
-checkPage::checkUserType(basename(__FILE__));
+$page = basename($_SERVER['SCRIPT_FILENAME']);
+if ($page!="connect.php"){
+	checkPage::checkUserType($page);
+}
 echo '
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/style.css"/>
