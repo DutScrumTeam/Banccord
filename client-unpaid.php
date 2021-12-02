@@ -1,4 +1,6 @@
-<?php include("class/page-builder.inc.php"); ?>
+<?php
+session_start();
+include("class/page-builder.inc.php"); ?>
 <?php include("class/highchart-builder.inc.php"); ?>
 
 <!DOCTYPE html>
@@ -74,30 +76,10 @@
 				);
 			?>
 			<tbody id="table-result">
-				<tr>
-					<th scope="row">36262</th>
-					<td>2020-11-03</td>
-					<td>2020-11-03</td>
-					<td>7432 9579 2659 0269</td>
-					<td>titulaire décédé</td>
-					<td>-10€</td>
-				</tr>
-				<tr>
-					<th scope="row">32023</th>
-					<td>2021-11-03</td>
-					<td>2021-11-03</td>
-					<td>7432 9579 2659 0269</td>
-					<td>titulaire décédé</td>
-					<td>-99€</td>
-				</tr>
-				<tr>
-					<th scope="row">64145</th>
-					<td>2021-08-03</td>
-					<td>2021-11-05</td>
-					<td>7432 9579 2659 0269</td>
-					<td>fraude à la carte</td>
-					<td>-1€</td>
-				</tr>
+            <?php
+            include ("class/PdoAccess.php");
+            PdoAccess::clientUnpaidTable($_SESSION['pseudo']);
+            ?>
 			</tbody>
 		</table>
 

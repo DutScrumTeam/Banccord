@@ -1,5 +1,8 @@
-<?php include("class/page-builder.inc.php"); ?>
+<?php
+session_start();
+include("class/page-builder.inc.php"); ?>
 <?php include("class/highchart-builder.inc.php"); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,7 +28,7 @@
 			<div class="col titles">
 				<h1>Compte de <b>Muchel Pabo</b></h1>
 				<p>Siren : 749 547 487 47239</p>
-				<h2>Montant total : 5€</h2>
+				<h2>Montant total : </h2>
 			</div>
 		</div>
 		<!-- Le graphique -->
@@ -64,30 +67,10 @@
 					"Montant");
 			?>
 			<tbody id="table-result">
-				<tr>
-					<th scope="row">4269</th>
-					<td>2021-03-03</td>
-					<td>Visa</td>
-					<td>6942 6942 6942 6942</td>
-					<td>48</td>
-					<td>1.00€</td>
-				</tr>
-				<tr>
-					<th scope="row">7321</th>
-					<td>2021-08-03</td>
-					<td>Visa</td>
-					<td>6942 6942 6942 6942</td>
-					<td>29</td>
-					<td>1.00€</td>
-				</tr>
-				<tr>
-					<th scope="row">5128</th>
-					<td>2021-05-03</td>
-					<td>Paypal</td>
-					<td>6942 6942 6942 6942</td>
-					<td>35</td>
-					<td>1.00€</td>
-				</tr>
+            <?php
+            include ("class/PdoAccess.php");
+            PdoAccess::clientRemiseTable($_SESSION['pseudo']);
+            ?>
 			</tbody>
 		</table>
 

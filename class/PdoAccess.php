@@ -7,7 +7,38 @@ class PdoAccess
 	private static $database = "guillaume.grisolet_db";
 	private static $host = "sqletud.u-pem.fr";
 	private static $pdo;
-
+	public static function getCurrencySymbolFromCode($string): string
+	{
+		switch ($string){
+			case "EUR":
+				return "€";
+			case "CAD":
+			case "USD":
+				return "$";
+			case "GBP":
+				return "£";
+			case "CNY":
+			case "JPY":
+				return "¥";
+			case "CHF":
+				return "CHF";
+			case "AUD":
+				return "A$";
+			case "NZD":
+				return "NZ$";
+			case "SEK":
+				return "kr";
+			case "PHP":
+				return "₱";
+			case "RUB":
+				return "₽";
+			case "ILS":
+				return "₪";
+			case "AZN":
+				return "₼";
+		}
+		return "";
+	}
 	public static function getPdo(): PDO
 	{
 		if (self::$pdo === null) {
@@ -87,4 +118,41 @@ class PdoAccess
 			echo "</tr>";
 		}
 	}
+	public static function clientRemiseTable($id){
+		$pdo = self::getPdo();
+		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :id";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':id', $id);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row) {
+			echo "<tr>";
+			echo "<td>" . $row['num_remise'] . "</td>";
+			echo "<td>" . $row['traitement_date'] . "</td>";
+			echo "<td>" . $row['type_card'] . "</td>";
+			echo "<td>" . $row['num_carte'] . "</td>";
+			echo "<td>" . $row['num_autorisation'] . "</td>";
+			echo "<td>" . $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+			echo "</tr>";
+		}
+	}
+
+	public static function clientUnpaidTable($pseudo)
+	{
+		$pdo = self::getPdo();
+		$sql = "SELECT num_dossier,date_debut,date_fin,montant,devise from banque.di where id_client=:id";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':id',$id);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row) {
+			echo "<tr>";
+			echo "<td>" . $row['num_dossier'] . "</td>";
+			echo "<td>" . $row['date_debut'] . "</td>";
+			echo "<td>" . $row['date_fin'] . "</td>";
+			echo "<td>" . $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+			echo "</tr>";
+		}
+	}
+
 }

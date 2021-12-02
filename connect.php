@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "class/PdoAccess.php";
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 	$pseudo = $_POST['pseudo'];
