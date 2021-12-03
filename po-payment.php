@@ -77,31 +77,10 @@
 					"Montant");
 			?>
 			<tbody id="table-result">
-				<tr>
-					<th scope="row">03/01/2021</th>
-					<td>489 025 603 68250</td>
-					<td>Visa</td>
-					<td>************6942</td>
-					<td>48</td>
-					<td>1.00€</td>
-				</tr>
-				<tr>
-					<th scope="row">02/01/2021</th>
-					<td>489 025 603 68250</td>
-					<td>Issou</td>
-					<td>6942 6942 6942 6942</td>
-					<td>29</td>
-					<td>1.00€</td>
-				</tr>
-				<tr>
-					<th scope="row">01/01/2021</th>
-					<td>489 025 603 68250</td>
-					<td>Issou</td>
-					<td>6942 6942 6942 6942</td>
-					<td>35</td>
-					<td>1.00€</td>
-				</tr>
-			</tbody>
+            <?php
+            include "class/PdoAccess.php";
+            PdoAccess::poRemiseTable();
+            ?>
 		</table>
 
 		<!-- Choix de la page des résultats -->

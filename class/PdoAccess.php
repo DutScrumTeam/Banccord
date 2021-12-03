@@ -149,14 +149,10 @@ class PdoAccess
 	public static function clientUnpaidTable($pseudo)
 	{
 		$pdo = self::getPdo();
-		$sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
-		$stmtSiren = $pdo->prepare($sqlSiren);
-		$stmtSiren->bindParam(':id',$pseudo);
-		$stmtSiren->execute();
-		$siren = $stmtSiren->fetch();
+		$siren = self::getSiren($pseudo);
 		$sql = "SELECT num_dossier,date_debut,date_fin,montant,libelle,devise from banque.di where id_client=:id";
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':id',$siren['num_siren']);
+		$stmt->bindParam(':id',$siren);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		foreach ($result as $row) {
@@ -173,10 +169,79 @@ class PdoAccess
 	public static function poClientTable(){
 		$pdo = self::getPdo();
 		$sql = "SELECT num_siren,raison_sociale from banque.client";
-		$sql2 = "SELECT count(*) as c from banque.remise where id_client=:id_client group by id_client";
-		$sql3 = "SELECT sum(montant) as sum1 from banque.di where id_client=:id_client group by id_client ";
-		$sql4 = "SELECT sum(montant) as sum1 from banque.remise where id_client=:id_client group by id_client ";
+		$sqlCountRem = "SELECT COUNT(*) as compte FROM banque.remise INNER JOIN banque.client ON remise.id_client = client.num_siren where id_client=:id";
+		$sqlSumInP = "SELECT SUM(montant) as somme1 FROM banque.di INNER JOIN banque.client ON di.id_client = client.num_siren where id_client=:id";
+		$sqlPlus = "SELECT SUM(montant) as somme2 FROM banque.remise INNER JOIN banque.client ON remise.id_client = client.num_siren WHERE  id_client=:id";
 		$stmt=$pdo->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row){
+			$stmt=$pdo->prepare($sqlCountRem);
+			$stmt->bindParam(':id',$row['num_siren']);
+			$stmt->execute();
+			$res=$stmt->fetchAll();
+			$compte=$res[0]['compte'];
+			$stmt=$pdo->prepare($sqlSumInP);
+			$stmt->bindParam(':id',$row['num_siren']);
+			$stmt->execute();
+			$res=$stmt->fetchAll();
+			$sumInp=$res[0]['somme1'];
+			$stmt=$pdo->prepare($sqlPlus);
+			$stmt->bindParam(':id',$row['num_siren']);
+			$stmt->execute();
+			$res=$stmt->fetchAll();
+			$somme=$res[0]['somme2'];
+			echo "<tr>";
+			echo "<td>".$row['num_siren']."</td>";
+			echo "<td>".$row['raison_sociale']."</td>";
+			echo "<td>".$compte."</td>";
+			echo "<td>";
+			if ($sumInp==0){
+				echo '__________';
+			}
+			else echo '-'.$sumInp;
+			echo"</td>";
+			echo "<td>".$somme."</td>";
+			echo "</tr>";
+		}
+	}
+	public static function poRemiseTable(){
+		$pdo = self::getPdo();
+		$sql = "SELECT traitement_date,id_client,type_card,num_carte,num_autorisation,montant,devise from banque.remise";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row) {
+			echo "<tr>";
+			echo "<td>" . $row['traitement_date'] . "</td>";
+			echo "<td>" . $row['id_client'] . "</td>";
+			echo "<td>" . $row['type_card'] . "</td>";
+			echo "<td>**** **** **** " . $row['num_carte'] . "</td>";
+			echo "<td>" . $row['num_autorisation'] . "</td>";
+			echo "<td>" . $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+			echo "</tr>";
+		}
 	}
 
+	public static function getTotalAmount($pseudo)
+	{
+		$pdo = self::getPdo();
+		$sqlPlus = "SELECT SUM(montant) as somme2 FROM banque.remise INNER JOIN banque.client ON remise.id_client = client.num_siren WHERE  id_client=:id";
+		$stmt = $pdo->prepare($sqlPlus);
+		$siren = self::getSiren($pseudo);
+		$stmt->bindParam(':id',$siren);
+		$stmt->execute();
+		return $stmt->fetchAll()[0]['somme2'];
+	}
+
+	public static function getSiren($pseudo)
+	{
+		$pdo = self::getPdo();
+		$sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
+		$stmtSiren = $pdo->prepare($sqlSiren);
+		$stmtSiren->bindParam(':id',$pseudo);
+		$stmtSiren->execute();
+		$siren = $stmtSiren->fetch();
+		return $siren['num_siren'];
+	}
 }

@@ -32,8 +32,21 @@ include("class/page-builder.inc.php"); ?>
                 <?php
                 echo '<h1>Compte de <b>'.$_SESSION['pseudo'].'</b></h1>';
                 ?>
-				<p>Siren : 749 547 487 47239</p>
-				<h2>Montant total : </h2>
+				<p>
+                    <?php
+                    include "class/PdoAccess.php";
+                    echo PdoAccess::getSiren($_SESSION['pseudo']);
+                    ?>
+                </p>
+				<h2>Montant total : <?php
+                    $chiffre=PdoAccess::getTotalAmount($_SESSION['pseudo']);
+                    if ($chiffre<0) {
+                        echo '<span class="red">'.$chiffre.'€</span>';
+                    } else {
+                        echo '<span class="green">'.$chiffre.'€</span>';
+                    }
+				?>
+				</h2>
 			</div>
 		</div>
 		<!-- Le graphique -->
@@ -73,7 +86,6 @@ include("class/page-builder.inc.php"); ?>
 			?>
 			<tbody id="table-result">
             <?php
-            include ("class/PdoAccess.php");
             PdoAccess::clientRemiseTable($_SESSION['pseudo']);
             ?>
 			</tbody>

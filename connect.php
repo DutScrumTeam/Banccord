@@ -3,6 +3,7 @@ if(!isset($_SESSION))
 {
 	session_start();
 }
+
 include "class/PdoAccess.php";
 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 	$pseudo = $_POST['pseudo'];
@@ -24,7 +25,7 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 				break;
 		}
 	}
-    echo $type;
+
 }
 ?>
 <!DOCTYPE html>
@@ -55,6 +56,14 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 							<input type="password" class="form-control" name="password" id="password" placeholder="Votre mot de passe" required>
 							<script src="js/eye-password.js"></script>
 							<button class="btn-eye" type="button" onclick="switchPasswordView()"></button>
+                            <?php
+                            if (isset($_SESSION['passTry'])) {
+                                echo $_SESSION['passTry'];
+                                if ($_SESSION['passTry'] >= 3) {
+                                    echo '<p class="text-danger">Vous avez atteint le nombre maximum de tentatives de connexion. Veuillez réessayer dans quelques minutes.</p>';
+                                }
+                            }
+                            ?>
 						</div>
 					</div>
 					

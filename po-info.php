@@ -72,7 +72,7 @@
 					"Siren",
 					"Raison sociale",
 					"Nombre de transaction",
-					"Impayés total",
+					"Total des Impayés",
 					"Trésorerie");
 			?>
 			<tbody id="table-result">
