@@ -2,12 +2,7 @@
 include("class/PdoAccess.php");
 ?>
 
-<?php
-if (isset($_GET['Supprimer'])) {
-	$id = $_POST['id'];
-	PdoAccess::deleteAccount($id);
-}
-?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -18,7 +13,12 @@ if (isset($_GET['Supprimer'])) {
 	<script src="js/form-edit.js"></script>
 	<script src="js/new-account.js"></script>
 </head>
-
+<?php
+if (isset($_POST['delete'])) {
+	$id = $_GET['id'];
+	PdoAccess::deleteAccount($id);
+}
+?>
 <body>
 	<?php
 		echoHeader(
