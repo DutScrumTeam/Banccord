@@ -154,5 +154,17 @@ class PdoAccess
 			echo "</tr>";
 		}
 	}
+	public static function poClientTable(){
+		$pdo = self::$pdo;
+		$sql = "SELECT id_compte,num_siren,raison_sociale from banque.client";
+		$sql2 = "SELECT count(*) from banque.remise where id_client=:id_client";
+		$sql3 = "SELECT num_siren,raison_sociale from banque.client";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row){
+
+		}
+	}
 
 }

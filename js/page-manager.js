@@ -102,7 +102,6 @@ function orderBy(numColumn) {
 	}
 	loadPage();
 }
-
 /** Essai de transformer un valeur de tableau en nombre. */
 function stringToNumber(value) {
 	const regex = /[ €]/gi;

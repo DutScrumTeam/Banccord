@@ -50,7 +50,7 @@ include("class/page-builder.inc.php"); ?>
 
 				<!-- Bouton de confirmation -->
 				<div class="col-auto">
-					<button class="btn btn-primary div-center-v">Rechercher</button>
+					<button class="btn btn-primary div-center-v" onclick="search()">Rechercher</button>
 				</div>
 			</div>
 		</form>

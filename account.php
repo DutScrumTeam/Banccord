@@ -4,7 +4,7 @@ if (isset($_POST['type'],$_POST['password'],$_POST['passwordConfirm'],$_POST['na
 	if (!($_POST['password']==$_POST['passwordConfirm'])){
 		header("Location:new-account.php?error=password");
     }
-	elseif($_POST['type']=="Client"){
+	elseif($_POST['type']=="client"){
 		if (isset($_POST['businessName'],$_POST['siren'])){
 			PdoAccess::insertClient($_POST['name'],$_POST['password'],$_POST['businessName'],$_POST['siren']);
             header("Location:index.php");
