@@ -77,40 +77,9 @@
 			?>
 			<tbody id="table-result">
 				<?php
-					// A changer, sert juste a tester la gestion de plein de lignes.
-					for ($i=0; $i < 50; $i++) { 
-						echo '
-							<tr>
-								<th scope="row">000 000 000 000'.$i.'</th>
-								<td>Nom de société here</td>
-								<td>798</td>
-								<td>9999€</td>
-								<td>5000€</td>
-							</tr>
-						';
-					}
-				?>
-				<tr>
-					<th scope="row">489 025 603 68250</th>
-					<td>Ikea</td>
-					<td>798</td>
-					<td>69342€</td>
-					<td>5000€</td>
-				</tr>
-				<tr>
-					<th scope="row">789 567 343 68250</th>
-					<td>Muchel Pabo</td>
-					<td>97</td>
-					<td>1€</td>
-					<td>10€</td>
-				</tr>
-				<tr>
-					<th scope="row">489 025 603 68250</th>
-					<td>KFC</td>
-					<td>798</td>
-					<td>69342€</td>
-					<td>5000€</td>
-				</tr>
+                include ("class/PdoAccess.php");
+                PdoAccess::poClientTable();
+					?>
 			</tbody>
 		</table>
 		

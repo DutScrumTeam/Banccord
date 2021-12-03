@@ -99,6 +99,27 @@ if (isset($_POST['Supprimer'])) {
 			<div class="col-md-6">
 				
 				<h1 class="centered">Créer un compte</h1>
+                <?php
+                if (isset($_GET['error'])) {
+                    switch ($_GET['error']){
+                        case "empty":
+                            echo '<div class="alert alert-danger" role="alert">
+                                    <strong>Erreur !</strong> Vous devez remplir tous les champs.
+                                  </div>';
+                            break;
+                        case "password":
+                            echo '<div class="alert alert-danger" role="alert">
+                                    <strong>Erreur !</strong> Les mots de passe ne correspondent pas.
+                                  </div>';
+                            break;
+                    }
+                }
+                if (isset($_GET['success'])) {
+                    echo '<div class="alert alert-success" role="alert">
+                            <strong>Succès !</strong> Le compte a bien été créé.
+                        </div>';
+                }
+                ?>
 				<form action="account.php" method="post">
 
 					<!-- Type du nouveau compte -->
@@ -132,13 +153,13 @@ if (isset($_POST['Supprimer'])) {
 					<!-- Nom de société (client uniquement) -->
 					<div class="form-group client-only">
 						<label for="businessName">Nom de société (raison sociale)</label>
-						<input type="text" class="form-control" name="business-name" id="businessName" placeholder="Raison sociale" required>
+						<input type="text" class="form-control" name="businessName" id="businessName" placeholder="Raison sociale">
 					</div>
 					
 					<!-- Numéro de Siren (client uniquement) -->
 					<div class="form-group client-only">
 						<label for="siren">Numéro de Siren</label>
-						<input type="number" class="form-control" name="siren" id="siren" placeholder="012 345 678 09876" required>
+						<input type="number" class="form-control" name="siren" id="siren" placeholder="012 345 678 09876">
 					</div>
 
 					<button type="submit" class="btn btn-success">Nouveau compte</button>

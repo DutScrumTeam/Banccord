@@ -64,11 +64,10 @@ class PdoAccess
 		$stmt->execute();
 	}
 
-	public static function insertClient($name, $password, $siren, $businessName)
-	{
-		self::insertAccount($name, $password, "Client");
+	public static function insertClient($name,$password,$siren,$businessName){
+		self::insertAccount($name,$password,"Client");
 		$pdo = self::getPdo();
-		$sql = "INSERT INTO banque.client VALUES (:num_siren,:raison_social,:id_compte)";
+		$sql = "INSERT INTO banque.client (num_siren, raison_sociale, id_compte) VALUES (:num_siren,:raison_social,:id_compte)";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':num_siren', $siren);
 		$stmt->bindParam(':raison_social', $businessName);
@@ -155,15 +154,43 @@ class PdoAccess
 		}
 	}
 	public static function poClientTable(){
-		$pdo = self::$pdo;
-		$sql = "SELECT id_compte,num_siren,raison_sociale from banque.client";
-		$sql2 = "SELECT count(*) from banque.remise where id_client=:id_client";
-		$sql3 = "SELECT num_siren,raison_sociale from banque.client";
+		$pdo = self::getPdo();
+		$sql = "SELECT num_siren,raison_sociale from banque.client";
+		$sql2 = "SELECT count(*) as c from banque.remise where id_client=:id_client group by id_client";
+		$sql3 = "SELECT sum(montant) as sum1 from banque.di where id_client=:id_client group by id_client ";
+		$sql4 = "SELECT sum(montant) as sum1 from banque.remise where id_client=:id_client group by id_client ";
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		foreach ($result as $row){
-
+			echo "<tr>";
+			echo "<td>".$row['num_siren']."</td>";
+			echo "<td>".$row['raison_sociale']."</td>";
+			$stmt = $pdo->prepare($sql2);
+			$stmt->bindParam(':id_client',$result['num_siren']);
+			$stmt->execute();
+			if ($stmt->rowCount()>0){
+				$resu=$stmt->fetchAll()[0]['c'];
+			}
+			else $resu=0;
+			echo "<td>".$resu."</td>";
+			$stmt = $pdo->prepare($sql3);
+			$stmt->bindParam(':id_client',$result['num_siren']);
+			$stmt->execute();
+			if ($stmt->rowCount()>0){
+				$resu=$stmt->fetchAll()[0]['c'];
+			}
+			else $resu=0;
+			echo "<td>".$resu."</td>";
+			$stmt = $pdo->prepare($sql4);
+			$stmt->bindParam(':id_client',$result['num_siren']);
+			$stmt->execute();
+			if ($stmt->rowCount()>0){
+				$result=$stmt->fetchAll()[0]['c'];
+			}
+			else $resu=0;
+			echo "<td>".$resu."</td>";
+			echo "</tr>";
 		}
 	}
 
