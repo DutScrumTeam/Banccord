@@ -69,7 +69,7 @@ include("class/page-builder.inc.php"); ?>
 		<table class="table table-striped">
 			<?php
 				echoTableHead(
-					"Numéro de dossier",
+					"Numéro de dossier impayés",
 					"Date de début",
 					"Date de fin",
 					"Libellé",

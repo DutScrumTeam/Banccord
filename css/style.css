@@ -70,9 +70,7 @@ label {
 	border-radius: 6px;
 }
 
-.red {
-	color: red;
-}
+
 
 .orange {
 	color:orange;
@@ -80,6 +78,9 @@ label {
 
 .green {
 	color: green;
+}
+.red {
+	color: red;
 }
 
 
