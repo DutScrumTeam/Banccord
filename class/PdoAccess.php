@@ -150,9 +150,10 @@ class PdoAccess
 			echo "<td>" . $row['type_card'] . "</td>";
 			echo "<td>" . $row['num_carte'] . "</td>";
 			echo "<td>" . $row['num_autorisation'] . "</td>";
-			if ($row['montant']<0) echo '<td class="red">';
-			else echo '<td class="green">';
-			echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+			echo "<td>";
+			if ($row['montant']<0) echo '<span class="red">';
+			else echo '<span class="green">';
+			echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</span></td>";
 			echo "</tr>";
 		}
 	}
