@@ -81,6 +81,15 @@ class PdoAccess
 		$pdo = self::getPdo();
 		$sql="delete from banque.client where id_compte = :name";
 		$sql2="delete from banque.compte where id = :name";
+		$sql3="DELETE FROM banque.di WHERE id_client = :name ";
+		$sql4="DELETE FROM banque.remise WHERE id_client = :name";
+		$siren = self::getSiren($name);
+		$stmt = $pdo->prepare($sql4);
+		$stmt->bindParam(':name', $siren);
+		$stmt->execute();
+		$stmt = $pdo->prepare($sql3);
+		$stmt->bindParam(':name', $siren);
+		$stmt->execute();
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':name', $name);
 		$stmt->execute();
