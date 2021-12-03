@@ -17,6 +17,7 @@ header {
 	border-radius: 6px;
 	text-decoration: none;
 	color: white;
+	text-align: center;
 }
 
 .header-disconnect > p {
@@ -31,10 +32,6 @@ header .header-elem {
 	width: auto;
 	height: 60px;
 	padding: 10px;
-	border-style: hidden;
-	border-width: 1px;
-	border-color: #0002;
-	text-align: center;
 	background-color: #FF791F;
 	margin-right: 10px;
 	border-radius: 6px;
