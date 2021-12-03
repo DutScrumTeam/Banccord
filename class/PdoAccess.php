@@ -170,8 +170,11 @@ class PdoAccess
 			echo "<td>" . $row['date_debut'] . "</td>";
 			echo "<td>" . $row['date_fin'] . "</td>";
 			echo "<td>" . $row['libelle'] . "</td>";
-			echo "<td>" . $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
-
+			echo "<td>";
+			if ($row['montant']<100) echo "<span class='green'>";
+			elseif ($row['montant']<200) echo "<span class='orange'>";
+			else echo "<span class='red'>";
+			echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</span></td>";
 			echo "</tr>";
 		}
 	}
