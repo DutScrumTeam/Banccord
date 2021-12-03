@@ -3,7 +3,7 @@ include("class/PdoAccess.php");
 ?>
 
 <?php
-if (isset($_POST['Supprimer'])) {
+if (isset($_GET['Supprimer'])) {
 	$id = $_POST['id'];
 	PdoAccess::deleteAccount($id);
 }

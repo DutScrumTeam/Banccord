@@ -70,7 +70,7 @@ function echoHeader($title) {
 	}
 
 	echo "
-		<a class='header-disconnect' href='connect.php'><p>Se déconnecter</p></a>
+		<a class='header-disconnect' href='index.php'><p>Se déconnecter</p></a>
 		</header>
 	";
 }

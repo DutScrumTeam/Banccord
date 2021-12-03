@@ -79,6 +79,10 @@ class PdoAccess
 	public static function deleteAccount($name)
 	{
 		$pdo = self::getPdo();
+		$sql2 = "DELETE FROM banque.client WHERE id_compte = :name";
+		$stmt2 = $pdo->prepare($sql2);
+		$stmt2->bindParam(':name', $name);
+		$stmt2->execute();
 		$sql = "DELETE FROM banque.compte WHERE id = :name";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':name', $name);
