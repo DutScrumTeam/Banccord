@@ -65,11 +65,12 @@ class PdoAccess
 	}
 
 	public static function insertClient($name,$password,$siren,$businessName){
-		self::insertAccount($name,$password,"Client");
+		self::insertAccount($name,$password,"client");
+		$sir = (int)$siren;
 		$pdo = self::getPdo();
-		$sql = "INSERT INTO banque.client (num_siren, raison_sociale, id_compte) VALUES (:num_siren,:raison_social,:id_compte)";
+		$sql="insert into banque.client(num_siren, raison_sociale, id_compte) values (:siren,:raison_social,:id_compte)";
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':num_siren', $siren);
+		$stmt->bindParam(':siren', $sir);
 		$stmt->bindParam(':raison_social', $businessName);
 		$stmt->bindParam(':id_compte', $name);
 		$stmt->execute();

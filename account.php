@@ -6,7 +6,7 @@ if (isset($_POST['type'],$_POST['password'],$_POST['passwordConfirm'],$_POST['na
     }
 	elseif($_POST['type']=="client"){
 		if (isset($_POST['businessName'],$_POST['siren'])){
-			PdoAccess::insertClient($_POST['name'],$_POST['password'],$_POST['businessName'],$_POST['siren']);
+			PdoAccess::insertClient($_POST['name'],$_POST['password'],$_POST['siren'],$_POST['businessName']);
 			header("Location:admin.php?success=client");
         }
 		else {
