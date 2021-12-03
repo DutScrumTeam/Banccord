@@ -117,7 +117,7 @@ function createPaymentChart(lines, dateStart, dateEnd) {
  * @param {array} lines 
  */
 function createPieUnpaid(lines) {
-	const idLib = 4;
+	const idLib = 3;
 	let res = {
 		"fraude à la carte": 0,
 		"compte à découvert": 0,
@@ -215,7 +215,7 @@ function createColumnUnpaid(lines, dateStart, dateEnd) {
 	// Numéro de la colonne contenant la date.
 	const numDate = 1;
 	// Numéro de la colonne contenant le montant.
-	const numAmount = 5;
+	const numAmount = 4;
 
 	// Création du tableau des résultats.
 	let results = new Map();
