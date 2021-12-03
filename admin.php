@@ -17,6 +17,7 @@ include("class/PdoAccess.php");
 if (isset($_POST['delete'])) {
 	$id = $_GET['id'];
 	PdoAccess::deleteAccount($id);
+    header("Location: ..\admin.php");
 }
 ?>
 <body>
