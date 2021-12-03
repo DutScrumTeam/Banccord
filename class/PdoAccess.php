@@ -115,8 +115,8 @@ class PdoAccess
 		foreach ($result as $row) {
 			echo "<tr>";
 			echo "<form action='admin.php/?id=".$row['id']."' method='post'>";
-			echo "<td>" . $row['id'] . "</td>";
 			echo "<td>" . $row['num_siren'] . "</td>";
+			echo "<td>" . $row['id'] . "</td>";
 			echo "<td><input type='submit' class='btn btn-danger' value='Supprimer' name='delete'></td>";
 			echo "</form>";
 			echo "</tr>";
@@ -124,9 +124,14 @@ class PdoAccess
 	}
 	public static function clientRemiseTable($id){
 		$pdo = self::getPdo();
-		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :id";
+		$sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
+		$stmtSiren = $pdo->prepare($sqlSiren);
+		$stmtSiren->bindParam(':id',$id);
+		$stmtSiren->execute();
+		$siren = $stmtSiren->fetch();
+		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren";
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':id', $id);
+		$stmt->bindParam(':siren', $siren['num_siren']);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		foreach ($result as $row) {
@@ -144,9 +149,14 @@ class PdoAccess
 	public static function clientUnpaidTable($pseudo)
 	{
 		$pdo = self::getPdo();
-		$sql = "SELECT num_dossier,date_debut,date_fin,montant,devise from banque.di where id_client=:id";
+		$sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
+		$stmtSiren = $pdo->prepare($sqlSiren);
+		$stmtSiren->bindParam(':id',$pseudo);
+		$stmtSiren->execute();
+		$siren = $stmtSiren->fetch();
+		$sql = "SELECT num_dossier,date_debut,date_fin,montant,libelle,devise from banque.di where id_client=:id";
 		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':id',$id);
+		$stmt->bindParam(':id',$siren['num_siren']);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
 		foreach ($result as $row) {
@@ -154,7 +164,9 @@ class PdoAccess
 			echo "<td>" . $row['num_dossier'] . "</td>";
 			echo "<td>" . $row['date_debut'] . "</td>";
 			echo "<td>" . $row['date_fin'] . "</td>";
+			echo "<td>" . $row['libelle'] . "</td>";
 			echo "<td>" . $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+
 			echo "</tr>";
 		}
 	}

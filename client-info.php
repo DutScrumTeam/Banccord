@@ -29,7 +29,9 @@ include("class/page-builder.inc.php"); ?>
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
-				<h1>Compte de <b>Muchel Pabo</b></h1>
+                <?php
+                echo '<h1>Compte de <b>'.$_SESSION['pseudo'].'</b></h1>';
+                ?>
 				<p>Siren : 749 547 487 47239</p>
 				<h2>Montant total : </h2>
 			</div>

@@ -70,10 +70,8 @@ include("class/page-builder.inc.php"); ?>
 			<?php
 				echoTableHead(
 					"Numéro de dossier",
-					"Date de vente",
-					"Date de remise",
-					"N° carte",
-					// "Réseau", // Reseau de quoi jsp
+					"Date de début",
+					"Date de fin",
 					"Libellé",
 					"Montant"
 				);
