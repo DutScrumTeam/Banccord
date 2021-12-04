@@ -77,10 +77,10 @@ include("class/page-builder.inc.php"); ?>
 				);
 			?>
 			<tbody id="table-result">
-            <?php
-            include ("class/PdoAccess.php");
-            PdoAccess::clientUnpaidTable($_SESSION['pseudo']);
-            ?>
+				<?php
+					include ("class/PdoAccess.php");
+					PdoAccess::clientUnpaidTable($_SESSION['pseudo']);
+				?>
 			</tbody>
 		</table>
 
