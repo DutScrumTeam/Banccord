@@ -1,6 +1,5 @@
 <?php
-if(!isset($_SESSION))
-{
+if (!isset($_SESSION)) {
 	session_start();
 }
 include("class/page-builder.inc.php"); ?>
@@ -8,6 +7,7 @@ include("class/page-builder.inc.php"); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<title>Banccord | Client - informations</title>
 	<?php include("class/head.inc.php"); ?>
@@ -19,34 +19,31 @@ include("class/page-builder.inc.php"); ?>
 
 <body>
 	<?php
-		echoHeader(
-			"Client",
-			"Impayés", "client-unpaid.php"
-		);
+	echoHeader(
+		"Client",
+		"Impayés",
+		"client-unpaid.php"
+	);
 	?>
 
 	<div class="container">
 		<div class="row">
 			<!-- Les différents titres -->
 			<div class="col titles">
-                <?php
-                echo '<h1>Compte de <b>'.$_SESSION['pseudo'].'</b></h1>';
-                ?>
-				<p>
-                    <?php
-                    include "class/PdoAccess.php";
-                    echo PdoAccess::getSiren($_SESSION['pseudo']);
-                    ?>
-                </p>
-				<h2>Montant total : <?php
-                    $chiffre=PdoAccess::getTotalAmount($_SESSION['pseudo']);
-                    if ($chiffre<0) {
-                        echo '<span class="red">'.$chiffre.'€</span>';
-                    } else {
-                        echo '<span class="green">'.$chiffre.'€</span>';
-                    }
+				<?php
+				echo '<h1>Compte de <b>' . $_SESSION['pseudo'] . '</b></h1>';
 				?>
-				</h2>
+				<p>
+					<?php
+					include "class/PdoAccess.php";
+					echo PdoAccess::getSiren($_SESSION['pseudo']);
+					?>
+				</p>
+				<?php
+					$chiffre = PdoAccess::getTotalAmount($_SESSION['pseudo']);
+					$color = $chiffre < 0 ? "red" : "green";
+				?>
+				<h2>Montant total : <span style="color: <?=$color?>;"><?=$chiffre?>€</span></h2>
 			</div>
 		</div>
 		<!-- Le graphique -->
@@ -75,31 +72,34 @@ include("class/page-builder.inc.php"); ?>
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">
-			<?php 
-				echoTableHead(
-					"Numéro de remise",
-					"Date de paiement",
-					"Type de carte",
-					"Numéro de carte",
-					"Code d'autorisation",
-					"Montant");
+			<?php
+			echoTableHead(
+				"Numéro de remise",
+				"Date de paiement",
+				"Type de carte",
+				"Numéro de carte",
+				"Code d'autorisation",
+				"Montant"
+			);
 			?>
 			<tbody id="table-result">
-            <?php
-            PdoAccess::clientRemiseTable($_SESSION['pseudo']);
-            ?>
+				<?php
+				PdoAccess::clientRemiseTable($_SESSION['pseudo']);
+				?>
 			</tbody>
 		</table>
 
 		<!-- Choix de la page des résultats -->
 		<?php echoPageChoice() ?>
 
-		<script>initPageManager()</script>
+		<script>
+			initPageManager()
+		</script>
 		<script>
 			// Cas par défaut
 			let dateEnd = new Date();
 			let dateStart = new Date();
-			dateStart.setFullYear(dateEnd.getFullYear()-1);
+			dateStart.setFullYear(dateEnd.getFullYear() - 1);
 
 			// Cas avec les dates de début et de fin définis
 			// let dateStart = new Date(sqlDateToJsDate("2020-06-01"));
@@ -110,4 +110,5 @@ include("class/page-builder.inc.php"); ?>
 
 	</div>
 </body>
+
 </html>

@@ -131,6 +131,7 @@ class PdoAccess
 			echo "</tr>";
 		}
 	}
+
 	public static function clientRemiseTable($id){
 		$pdo = self::getPdo();
 		$sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
@@ -143,6 +144,8 @@ class PdoAccess
 		$stmt->bindParam(':siren', $siren['num_siren']);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
+
+		// Affichage des données récoltées par ligne
 		foreach ($result as $row) {
 			echo "<tr>";
 			echo "<td>" . $row['num_remise'] . "</td>";
@@ -150,10 +153,12 @@ class PdoAccess
 			echo "<td>" . $row['type_card'] . "</td>";
 			echo "<td>" . $row['num_carte'] . "</td>";
 			echo "<td>" . $row['num_autorisation'] . "</td>";
-			echo "<td>";
-			if ($row['montant']<0) echo '<span class="red">';
-			else echo '<span class="green">';
-			echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</span></td>";
+
+			// Affichage de la colonne "montant"
+			$amount = $row['montant'].self::getCurrencySymbolFromCode($row['devise']);
+			$color = $row['montant'] < 0 ? "red" : "green";
+			echo "<td style='color: $color;'>$amount</td>";
+
 			echo "</tr>";
 		}
 	}
@@ -167,6 +172,8 @@ class PdoAccess
 		$stmt->bindParam(':id',$siren);
 		$stmt->execute();
 		$result = $stmt->fetchAll();
+
+		// Affichage des données récoltées par ligne
 		foreach ($result as $row) {
 			echo "<tr>";
 			echo "<td>" . $row['num_dossier'] . "</td>";
@@ -174,15 +181,18 @@ class PdoAccess
 			echo "<td>" . $row['date_fin'] . "</td>";
 			echo "<td>" . $row['libelle'] . "</td>";
 
+			// Affichage de la colonne "montant"
 			$color = "";
 			$amount = -$row['montant'].self::getCurrencySymbolFromCode($row['devise']);
 			if ($row['montant']<100) $color = "green";
 			elseif ($row['montant']<200) $color = "orange";
 			else $color = "red";
 			echo "<td style='color: $color;'>$amount</td>";
+
 			echo "</tr>";
 		}
 	}
+
 	public static function poClientTable(){
 		$pdo = self::getPdo();
 		$sql = "SELECT num_siren,raison_sociale from banque.client";
@@ -222,6 +232,7 @@ class PdoAccess
 			echo "</tr>";
 		}
 	}
+
 	public static function poRemiseTable(){
 		$pdo = self::getPdo();
 		$sql = "SELECT traitement_date,id_client,type_card,num_carte,num_autorisation,montant,devise from banque.remise";
