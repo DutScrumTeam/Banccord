@@ -14,7 +14,7 @@ const monthsFull = [
 ];
 /**
  * Créer le graph highchart avec comme paramètre un JSON.
- * @param {array} lines
+ * @param {RowData[]} lines
  * @param {Date} dateStart
  * @param {Date} dateEnd
  */
@@ -36,7 +36,8 @@ function createPaymentChart(lines, dateStart, dateEnd) {
 	}
 	
 	// Ajout des éléments dans le tableau des résultats.
-	lines.forEach(elem => {
+	lines.forEach(rowData => {
+		let elem = rowData.row;
 		const d = sqlDateToJsDate(elem.children[numDate].innerHTML);
 		if (d.getTime() >= dateStart && d.getTime() <= dateEnd) {
 			// Ajout de l'elem aux resultats
@@ -114,7 +115,7 @@ function createPaymentChart(lines, dateStart, dateEnd) {
 
 /**
  * Initialise le camembert des impayés.
- * @param {array} lines 
+ * @param {RowData[]} lines 
  */
 function createPieUnpaid(lines) {
 	const idLib = 3;
@@ -131,7 +132,8 @@ function createPieUnpaid(lines) {
 	const total = lines.length;
 
 	// Récupération de la data.
-	lines.forEach(elem => {
+	lines.forEach(rowData => {
+		let elem = rowData.row;
 		res[elem.children[idLib].innerHTML] += 1;
 	});
 
@@ -207,7 +209,7 @@ function sqlDateToJsDate(date) {
 
 /**
  * Initialise l'histogramme des impayés par date
- * @param {array} lines
+ * @param {RowData[]} lines
  * @param {Date} dateStart
  * @param {Date} dateEnd
  */
@@ -229,7 +231,8 @@ function createColumnUnpaid(lines, dateStart, dateEnd) {
 	}
 	
 	// Ajout des éléments dans le tableau des résultats.
-	lines.forEach(elem => {
+	lines.forEach(rowData => {
+		let elem = rowData.row;
 		const d = sqlDateToJsDate(elem.children[numDate].innerHTML);
 		if (d.getTime() >= dateStart && d.getTime() <= dateEnd) {
 			// Ajout de l'elem aux resultats

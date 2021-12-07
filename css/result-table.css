@@ -26,3 +26,20 @@ th {
 .order-btn-reverse {
 	transform: rotateZ(180deg);
 }
+
+.table-row-more {
+	display: table-row;
+	background-color: #eee;
+}
+
+.table-row-more table {
+	margin: 0;
+}
+
+.table-row-more > td {
+	padding: 0;
+}
+
+.table-row-hidden {
+	display: none;
+}

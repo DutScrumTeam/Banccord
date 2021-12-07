@@ -1,21 +1,92 @@
 /**
  * Ce script récupère tous les résultat de la page
  * stocke les résultat et n'affiche qu'une portion de résultat.
+ * 
+ * Gère aussi l'affichage des détails des pages.
  */
 
 /** Nombre de ligne par page. */
 const linePerPage = 10;
-/** Toutes les lignes, y compris celles non-affichées. */
-var lines = [];
-/** Numéro de la page actuel -1. */
-var currentPage = 0;
 /** Id de la table de résultat. */
 const idResults = "table-result";
 /** Id de la zone d'affichage du nombre de résultat. */
 const idResultCount = "result-count";
+/** Nom de classe spécifique aux lignes "plus d'infos". */
+const classTableRowMore = "table-row-more";
+/** Nom de la classe permettant de cacher une ligne. */
+const classHideRow = "table-row-hidden";
+
+/**
+ * Toutes les lignes, y compris celles non-affichées.
+ * @type {RowData[]}
+ */
+var lines = [];
+/** 
+ * Toutes les lignes, accessible par leur index.
+ * @type {Map<string, RowData>}
+ */
+var linesMap = new Map();
+/** Numéro de la page actuel -1. */
+var currentPage = 0;
+/**
+ * L'élément affichant actuellement plus d'infos sur une ligne.
+ * @type {HTMLElement}
+ */
+var openedMoreContent = null;
 
 var orderNum = null;
 var orderReverse = false;
+
+/**
+ * Permet de stocker les données d'une ligne
+ * @param {Element} row 
+ */
+class RowData {
+	/** @type {RowData} */
+	static lastShowed = null;
+
+	/** @type {Element} */
+	row;
+	/** @type {Element} */
+	rowDetails = null;
+	
+	constructor(row) {
+		this.row = row;
+	}
+
+	/** true si les détails sont déjà montrés. */
+	isDetailsHidden() {
+		return this.rowDetails !== null && this.rowDetails.classList.contains(classHideRow);
+	}
+
+	/** Cache les détails de la ligne. */
+	hideDetails() {
+		if (this.rowDetails === null) throw new ReferenceError("Impossible de cacher des détails qui n'existent pas.");
+
+		if (RowData.lastShowed === this) RowData.lastShowed = null;
+
+		if (!this.rowDetails.classList.contains(classHideRow)) {
+			// Cache les détails
+			this.rowDetails.classList.add(classHideRow);
+		}
+	}
+
+	/** Affiche les détails de la ligne. */
+	showDetails() {
+		if (this.rowDetails === null) throw new ReferenceError("Impossible d'afficher des détails qui n'existent pas.");
+
+		// Cache les détails de la ligne déjà montrée.
+		if (RowData.lastShowed !== null) {
+			RowData.lastShowed.hideDetails();
+		}
+		RowData.lastShowed = this;
+
+		if (this.rowDetails.classList.contains(classHideRow)) {	
+			// Affiche les détails
+			this.rowDetails.classList.remove(classHideRow);
+		}
+	}
+}
 
 /** True si la page actuel est la dernière page. */
 function isCurrentPageMax() {
@@ -54,18 +125,56 @@ function loadPage() {
 	
 	tableElem.innerHTML = "";
 	for (let i=0; i<linePerPage && i+currentPage*linePerPage < lines.length; i++) {
-		tableElem.appendChild(lines[i+currentPage*linePerPage]);
+		let rowData = lines[i+currentPage*linePerPage];
+		tableElem.appendChild(rowData.row);
+		if (rowData.rowDetails !== null) {
+			tableElem.appendChild(rowData.rowDetails);
+			rowData.hideDetails();
+		}
 	}
 }
 
 /** Initialise la page de résultat. */
 function initPageManager() {
 	let tableElem = document.getElementById(idResults);
+	/** @type RowData */
+	let lastInsteredRow;
+	let currentRowNum = 0;
+
 	for (let i = 0; i < tableElem.children.length; i++) {
-		// console.log(tableElem.children[i].innerHTML);
-		lines.push(tableElem.children[i]);
+		let rowElem = tableElem.children[i];
+		if (rowElem.classList.contains(classTableRowMore)) {
+			lastInsteredRow.rowDetails = rowElem;
+		} else {
+			// console.log(tableElem.children[i].innerHTML);
+			rowElem.id = `row_${currentRowNum++}`;
+			row = new RowData(rowElem);
+			lines.push(row);
+			linesMap.set(rowElem.id, row);
+			// console.log(linesMap);
+			lastInsteredRow = row;
+		}
 	}
+	// console.log(linesMap);
 	loadPage();
+}
+
+/**
+ * @param {Element} elem 
+ */
+function test(elem) {
+	console.log(elem.id);
+}
+
+/**
+ * Affiche ou cache les informations supplémentaires sur la ligne indiquée.
+ * @param {string} rowId
+ */
+function switchDisplayMoreContent(rowId) {
+	console.log(`(switchDisplayMoreContent) Clicked row: "${rowId}"`);
+	let row = linesMap.get(rowId);
+	if (row.isDetailsHidden()) row.showDetails();
+	else row.hideDetails();
 }
 
 /** Tri le tableau selon la colonne. */
@@ -102,6 +211,7 @@ function orderBy(numColumn) {
 	}
 	loadPage();
 }
+
 /** Essai de transformer un valeur de tableau en nombre. */
 function stringToNumber(value) {
 	const regex = /[ €]/gi;
