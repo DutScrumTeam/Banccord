@@ -2,8 +2,8 @@
 
 class PdoAccess
 {
-	private static $user = "clement.duval";
-	private static $pass = "6A3iMDg5UZeR8jz";
+	private static $user = "guillaume.grisolet";
+	private static $pass = "guigui";
 	private static $database = "guillaume.grisolet_db";
 	private static $host = "sqletud.u-pem.fr";
 	private static $pdo;
@@ -161,6 +161,35 @@ class PdoAccess
 
 			echo "</tr>";
 		}
+	}
+
+	public static function clientTransactionTable ($chaine){
+		$pdo = self::getPdo();
+		$sqlChaine = "SELECT code_chaine FROM banque.transaction JOIN banque.remise ON transaction.num_remise = remise.num_remise WHERE num_chaine = :chaine";
+		$stmtChaine = $pdo->prepare($sqlChaine);
+		$stmtChaine->bindParam(':chaine',$chaine);
+		$stmtChaine->execute();
+
+		
+		/*
+		$siren = $stmtSiren->fetch();
+		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':siren', $siren['num_siren']);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row) {
+			echo "<tr>";
+			echo "<td>" . $row['num_remise'] . "</td>";
+			echo "<td>" . $row['traitement_date'] . "</td>";
+			echo "<td>" . $row['type_card'] . "</td>";
+			echo "<td>" . $row['num_carte'] . "</td>";
+			echo "<td>" . $row['num_autorisation'] . "</td>";
+			if ($row['montant']<0) echo '<td class="red">';
+			else echo '<td class="green">';
+			echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+			echo "</tr>";
+		}*/
 	}
 
 	public static function clientUnpaidTable($pseudo)
