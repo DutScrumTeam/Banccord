@@ -78,7 +78,13 @@
 			<tbody id="table-result">
 				<?php
                 include ("class/PdoAccess.php");
-                PdoAccess::poClientTable();
+                if($_GET['search-mod'] == 'siren' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
+                    PdoAccess::poSpecificClientTableBySiren($_GET['search-value']);
+                } else if($_GET['search-mod'] == 'name' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
+                    PdoAccess::poSpecificClientTableBySociale($_GET['search-value']);
+                } else {
+                    PdoAccess::poClientTable();
+                }
 					?>
 			</tbody>
 		</table>

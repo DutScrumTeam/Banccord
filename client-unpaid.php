@@ -45,7 +45,7 @@ include("class/page-builder.inc.php"); ?>
 		</div>
 
 		<!-- Champ de recherche -->
-		<form action="" method="get" class="form-search">
+		<form action="client-unpaid.php" method="get" class="form-search">
 			<div class="row">
 				<div class="col form-group">
 					<label for="date-start">Date de début</label>
@@ -78,8 +78,12 @@ include("class/page-builder.inc.php"); ?>
 			?>
 			<tbody id="table-result">
 				<?php
-					include ("class/PdoAccess.php");
-					PdoAccess::clientUnpaidTable($_SESSION['pseudo']);
+                if(!isset($_GET['date-start']) && !isset($_GET['date-end'])){
+                    include ("class/PdoAccess.php");
+                    PdoAccess::clientUnpaidTable($_SESSION['pseudo']);
+                } else {
+                    PdoAccess::clientSpecificUnpaidTable($_SESSION['pseudo'], $_GET['date-start'], $_GET['date-end']);
+                }
 				?>
 			</tbody>
 		</table>
