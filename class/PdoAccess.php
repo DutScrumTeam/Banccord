@@ -163,16 +163,60 @@ class PdoAccess
 		}
 	}
 
-	public static function clientTransactionTable ($chaine){
+    public static function clientSpecificRemiseTable($id, $remise){
+        $pdo = self::getPdo();
+        $sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
+        $stmtSiren = $pdo->prepare($sqlSiren);
+        $stmtSiren->bindParam(':id',$id);
+        $stmtSiren->execute();
+        $siren = $stmtSiren->fetch();
+        $sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren AND num_remise = :remise";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':remise', $remise);
+        $stmt->bindParam(':siren', $siren['num_siren']);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        // Affichage des données récoltées par ligne
+        foreach ($result as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['num_remise'] . "</td>";
+            echo "<td>" . $row['traitement_date'] . "</td>";
+            echo "<td>" . $row['type_card'] . "</td>";
+            echo "<td>" . $row['num_carte'] . "</td>";
+            echo "<td>" . $row['num_autorisation'] . "</td>";
+
+            // Affichage de la colonne "montant"
+            $amount = $row['montant'].self::getCurrencySymbolFromCode($row['devise']);
+            $color = $row['montant'] < 0 ? "red" : "green";
+            echo "<td style='color: $color;'>$amount</td>";
+
+            echo "</tr>";
+        }
+    }
+
+	public static function clientTransactionTable($chaine){
 		$pdo = self::getPdo();
 		$sqlChaine = "SELECT code_chaine FROM banque.transaction JOIN banque.remise ON transaction.num_remise = remise.num_remise WHERE num_chaine = :chaine";
 		$stmtChaine = $pdo->prepare($sqlChaine);
 		$stmtChaine->bindParam(':chaine',$chaine);
 		$stmtChaine->execute();
 
-		
+        $result = $stmtChaine->fetch();
+        foreach ($result as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['code_chaine'] . "</td>";
+            echo "<td>" . $row['date_vente'] . "</td>";
+            echo "<td>" . $row['type_card'] . "</td>";
+            echo "<td>" . $row['num_carte'] . "</td>";
+            echo "<td>" . $row['num_autorisation'] . "</td>";
+            if ($row['montant']<0) echo '<td class="red">';
+            else echo '<td class="green">';
+            echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+            echo "</tr>";
+        }
 		/*
-		$siren = $stmtSiren->fetch();
+
 		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':siren', $siren['num_siren']);

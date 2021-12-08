@@ -60,16 +60,16 @@ if (!defined("DEF_PAGE_BUILDER")) {
 	';
 	}
 
-	/**
-	 * Affiche le header, avec comme paramètre les différents liens. 
-	 * 
-	 * exemple :
-	 * echoHeader(
-	 *  "Titre principal",
-	 *  "Accueil", "client-info.php",
-	 *  "Impayés", "client-unpaid.php"
-	 * );
-	 */
+    /**
+     * Affiche le header, avec comme paramètre les différents liens.
+     *
+     * exemple :
+     * echoHeader(
+     *  "Titre principal",
+     *  "Accueil", "client-info.php",
+     *  "Impayés", "client-unpaid.php"
+     * );
+     */
 	function echoHeader($title)
 	{
 		echo "<header>";

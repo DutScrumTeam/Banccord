@@ -50,12 +50,12 @@ include("class/page-builder.inc.php"); ?>
 		<?php echoPaymentChart(); ?>
 
 		<!-- Champ de recherche -->
-		<form action="" method="get">
+		<form action="client-info.php" method="get">
 			<div class="row action-option">
 
 				<!-- Valeur de recherche -->
 				<div class="col">
-					<div class="form-group">
+					<div class="form-group ">
 						<input type="number" class="form-control" id="search-value" name="search-value" placeholder="Entrez le numéro de remise">
 					</div>
 				</div>
@@ -82,9 +82,14 @@ include("class/page-builder.inc.php"); ?>
 				"Montant"
 			);
 			?>
+
 			<tbody id="table-result">
 				<?php
-				PdoAccess::clientRemiseTable($_SESSION['pseudo']);
+                if(!isset($_GET['search-value']) || $_GET['search-value'] == ''){
+                    PdoAccess::clientRemiseTable($_SESSION['pseudo']);
+                } else {
+                    PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'], $_GET['search-value']);
+                }
 				?>
 			</tbody>
 		</table>
