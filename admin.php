@@ -43,21 +43,22 @@ if (isset($_POST['delete'])) {
 				<!-- Type de recherche -->
 				<div class="col-auto">
 					<div class="form-group">
-						<select class="form-control" name="search-mod" id="search-mod">
-							<option 
-									value="siren" selected 
-									onclick="changeInput('search-value', 'Entrez le numéro de Siren', 'number');">
+						<select class="form-control" name="search-mod" id="search-mod"
+							onchange="
+								if (this.value === 'siren') changeInput('search-value', 'Entrez le numéro de Siren', 'number');
+								else if (this.value === 'name') changeInput('search-value', 'Entrez la raison sociale', 'text');
+							"
+						>
+							<option value="siren" selected> 
 								Recherche par Siren
 							</option>
-							<option 
-									value="name" 
-									onclick="changeInput('search-value', 'Entrez la raison sociale', 'text');">
+							<option value="name">
 								Recherche par raison sociale
 							</option>
 						</select>
 					</div>
 				</div>
-
+				
 				<!-- Valeur de recherche -->
 				<div class="col">
 					<div class="form-group">
