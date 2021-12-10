@@ -87,7 +87,7 @@ include("class/page-builder.inc.php"); ?>
 			<tbody id="table-result">
 				<?php
                 if(!isset($_GET['search-value']) || $_GET['search-value'] == ''){
-                    PdoAccess::clientRemiseTable($_SESSION['pseudo']);
+                    PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'],null);
                 } else {
                     PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'], $_GET['search-value']);
                 }

@@ -131,49 +131,18 @@ class PdoAccess
 			echo "</tr>";
 		}
 	}
-
-	public static function clientRemiseTable($id){
-		$pdo = self::getPdo();
-		$sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
-		$stmtSiren = $pdo->prepare($sqlSiren);
-		$stmtSiren->bindParam(':id',$id);
-		$stmtSiren->execute();
-		$siren = $stmtSiren->fetch();
-		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren";
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':siren', $siren['num_siren']);
-		$stmt->execute();
-		$result = $stmt->fetchAll();
-
-		// Affichage des données récoltées par ligne
-		foreach ($result as $row) {
-			echo "<tr>";
-			echo "<td>" . $row['num_remise'] . "</td>";
-			echo "<td>" . $row['traitement_date'] . "</td>";
-			echo "<td>" . $row['type_card'] . "</td>";
-			echo "<td>" . $row['num_carte'] . "</td>";
-			echo "<td>" . $row['num_autorisation'] . "</td>";
-			// Affichage de la colonne "montant"
-			$amount = $row['montant'].self::getCurrencySymbolFromCode($row['devise']);
-			$color = $row['montant'] < 0 ? "red" : "green";
-			echo "<td style='color: $color;'>$amount</td>";
-			echo "<td><button class='btn btn-primary' onclick='switchDisplayMoreContent(this.parentNode.parentNode.id)'>+</button></td>";
-			self::transactionTable($row['num_remise']);
-			echo "</tr>";
-		}
-	}
-
     public static function clientSpecificRemiseTable($id, $remise){
         $pdo = self::getPdo();
-        $sqlSiren = "SELECT num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte WHERE id = :id";
+        $sqlSiren = "SELECT num_siren FROM banque.client WHERE id_compte = :id";
         $stmtSiren = $pdo->prepare($sqlSiren);
         $stmtSiren->bindParam(':id',$id);
         $stmtSiren->execute();
         $siren = $stmtSiren->fetch();
-        $sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren AND num_remise = :remise";
+        $sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation from banque.remise where id_client = :siren";
+		$sql .=is_null($remise)?'':' AND num_remise = :remise';
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':remise', $remise);
-        $stmt->bindParam(':siren', $siren['num_siren']);
+	    $stmt->bindParam(':siren', $siren['num_siren']);
+		if (!is_null($remise)) $stmt->bindParam(':remise', $remise);
         $stmt->execute();
         $result = $stmt->fetchAll();
 
@@ -185,13 +154,12 @@ class PdoAccess
             echo "<td>" . $row['type_card'] . "</td>";
             echo "<td>" . $row['num_carte'] . "</td>";
             echo "<td>" . $row['num_autorisation'] . "</td>";
-
-            // Affichage de la colonne "montant"
 	        $total = self::getTotalAmount($row['num_remise']);
-            $amount = $total.self::getCurrencySymbolFromCode($row['devise']);
+            $amount = $total.'€';
             $color = $total < 0 ? "red" : "green";
-            echo "<td style='color: $color;'>$amount</td>";
-
+            echo "<td style='color: $color;'>$amount</td>" ;
+			echo '<td><button class="btn btn-primary" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button></td>';
+			self::transactionTable($row['num_remise']);
             echo "</tr>";
         }
     }
@@ -224,11 +192,13 @@ class PdoAccess
 		echo "</thead>";
 		echo "<tbody>";
 		foreach ($result as $row) {
+			echo "<tr>";
 			echo "<td>" . $row['code_chaine'] . "</td>";
 			echo "<td>" . $row['date_vente'] . "</td>";
 			echo "<td>" . $row['num_porteur'] . "</td>";
 			echo "<td>" . $row['reseau'] . "</td>";
 			echo "<td>" . $row['montant'] .self::getCurrencySymbolFromCode($row['devise']) . "</td>";
+			echo "</tr>";
 		}
 		echo "</tbody>";
 		echo "</table>";
