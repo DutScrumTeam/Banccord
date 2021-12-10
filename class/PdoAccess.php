@@ -154,8 +154,8 @@ class PdoAccess
             echo "<td>" . $row['type_card'] . "</td>";
             echo "<td>" . $row['num_carte'] . "</td>";
             echo "<td>" . $row['num_autorisation'] . "</td>";
-	        $total = self::getTotalAmountTresorerie($row['num_remise']);
-            $amount = $total.'€';
+	        $total = self::getTotalRemise($row['num_remise']);
+            $amount = $total.($total>0?' €':'');
             $color = $total < 0 ? "red" : "green";
             echo "<td style='color: $color;'>$amount</td>" ;
 			echo '<td><button class="btn btn-primary" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button></td>';
