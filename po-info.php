@@ -27,7 +27,7 @@
 		</div>
 
 		<!-- Champ de recherche -->
-		<form action="" method="get">
+		<form action="po-info.php" method="get">
 			<div class="row action-option">
 
 				<!-- Type de recherche -->
@@ -79,11 +79,17 @@
 			<tbody id="table-result">
 				<?php
                 include ("class/PdoAccess.php");
-                if($_GET['search-mod'] == 'siren' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
-                    PdoAccess::poSpecificClientTableBySiren($_GET['search-value']);
-                } else if($_GET['search-mod'] == 'name' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
-                    PdoAccess::poSpecificClientTableBySociale($_GET['search-value']);
-                } else {
+                if(isset($_GET['search-mod'])){
+                    if($_GET['search-mod'] == 'siren' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
+                        PdoAccess::poSpecificClientTableBySiren($_GET['search-value']);
+                    } else if($_GET['search-mod'] == 'name' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
+                        PdoAccess::poSpecificClientTableBySociale($_GET['search-value']);
+                    }
+                    else {
+                        PdoAccess::poClientTable();
+                    }
+                }
+                else {
                     PdoAccess::poClientTable();
                 }
 					?>

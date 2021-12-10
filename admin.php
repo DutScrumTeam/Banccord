@@ -37,7 +37,7 @@ if (isset($_POST['delete'])) {
 		</div>
 	
 		<!-- Champ de recherche -->
-		<form action="" method="get">
+		<form action="admin.php" method="get">
 			<div class="row action-option">
 
 				<!-- Type de recherche -->

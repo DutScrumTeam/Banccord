@@ -80,6 +80,19 @@
 			<tbody id="table-result">
             <?php
             include "class/PdoAccess.php";
+            if(isset($_GET['search-mod'])){
+                if($_GET['search-mod'] == 'siren' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
+                    PdoAccess::poSpecificSirenRemiseTable($_GET['search-value']);
+                } else if($_GET['search-mod'] == 'name' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
+                    PdoAccess::poSpecificDateRemiseTable($_GET['search-value']);
+                }
+                else {
+                    PdoAccess::poRemiseTable();
+                }
+            }
+            else {
+                PdoAccess::poRemiseTable();
+            }
             PdoAccess::poRemiseTable();
             ?>
 		</table>
