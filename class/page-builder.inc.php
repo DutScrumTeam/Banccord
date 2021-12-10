@@ -82,7 +82,7 @@ if (!defined("DEF_PAGE_BUILDER")) {
 		}
 
 		echo "
-		<a class='header-disconnect' href='index.php'><p>Se déconnecter</p></a>
+		<a class='header-disconnect' href='index.php'>Se déconnecter</a>
 		</header>
 	";
 	}

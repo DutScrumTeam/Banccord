@@ -70,6 +70,11 @@ label {
 	border-radius: 6px;
 }
 
+.btn-primary:hover{
+	background-color: #2CB3E3;
+	border-color: #2CB3E3;
+}
+
 
 
 .orange {
