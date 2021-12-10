@@ -71,7 +71,7 @@ include("class/page-builder.inc.php"); ?>
 		<?php echoExportButton("remises client"); ?>
 
 		<!-- Tableau des remises -->
-		<table class="table table-striped">
+		<table class="table">
 			<?php
 			echoTableHead(
 				"Numéro de remise",

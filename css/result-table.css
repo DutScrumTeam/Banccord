@@ -29,7 +29,7 @@ th {
 
 .table-row-more {
 	display: table-row;
-	background-color: #eee;
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .table-row-more table {
