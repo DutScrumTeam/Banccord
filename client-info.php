@@ -40,7 +40,7 @@ include("class/page-builder.inc.php"); ?>
 					?>
 				</p>
 				<?php
-					$chiffre = PdoAccess::getTotalAmountTresorerie($_SESSION['pseudo']);
+					$chiffre = PdoAccess::getTotalAmountTresorerie(PdoAccess::getSiren($_SESSION['pseudo']));
 					$color = $chiffre < 0 ? "red" : "green";
 				?>
 				<h2>Montant total : <span style="color: <?=$color?>;"><?=$chiffre?>€</span></h2>

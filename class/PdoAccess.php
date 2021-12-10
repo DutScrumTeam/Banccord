@@ -277,11 +277,11 @@ class PdoAccess
 		}
 	}
 
-	public static function getTotalAmountTresorerie($pseudo)
+	public static function getTotalAmountTresorerie($siren)
 	{
 		$pdo = self::getPdo();
+
 		$total = 0;
-		$siren = self::getSiren($pseudo);
 		$sqlPlus = "SELECT num_remise from banque.remise WHERE id_client=:id";
 		$stmt = $pdo->prepare($sqlPlus);
 		$stmt->bindParam(':id',$siren);
@@ -292,11 +292,10 @@ class PdoAccess
 		}
 		return $total;
 	}
-	public static function getTotalImpayes($pseudo)
+	public static function getTotalImpayes($siren)
 	{
 		$pdo = self::getPdo();
 		$total = 0;
-		$siren = self::getSiren($pseudo);
 		$sqlPlus = "SELECT montant from banque.di WHERE id_client=:id";
 		$stmt = $pdo->prepare($sqlPlus);
 		$stmt->bindParam(':id',$siren);
