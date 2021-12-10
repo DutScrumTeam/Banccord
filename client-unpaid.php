@@ -78,8 +78,8 @@ include("class/page-builder.inc.php"); ?>
 			?>
 			<tbody id="table-result">
 				<?php
-                if(!isset($_GET['date-start']) && !isset($_GET['date-end'])){
-                    include ("class/PdoAccess.php");
+                include ("class/PdoAccess.php");
+                if(!isset($_GET['date-start']) || !isset($_GET['date-end']) || $_GET['date-end'] == '' || $_GET['date-start'] == ''){
                     PdoAccess::clientUnpaidTable($_SESSION['pseudo']);
                 } else {
                     PdoAccess::clientSpecificUnpaidTable($_SESSION['pseudo'], $_GET['date-start'], $_GET['date-end']);

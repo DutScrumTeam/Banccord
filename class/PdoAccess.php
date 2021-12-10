@@ -39,6 +39,12 @@ class PdoAccess
 		}
 		return "";
 	}
+
+    public static function getCorrectDate($wrong_date){
+        $timestamp = strtotime($wrong_date);
+        return date('Y-m-d', $timestamp);
+    }
+
 	public static function getPdo(): PDO
 	{
 		if (self::$pdo === null) {
@@ -215,25 +221,6 @@ class PdoAccess
             echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
             echo "</tr>";
         }
-		/*
-
-		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren";
-		$stmt = $pdo->prepare($sql);
-		$stmt->bindParam(':siren', $siren['num_siren']);
-		$stmt->execute();
-		$result = $stmt->fetchAll();
-		foreach ($result as $row) {
-			echo "<tr>";
-			echo "<td>" . $row['num_remise'] . "</td>";
-			echo "<td>" . $row['traitement_date'] . "</td>";
-			echo "<td>" . $row['type_card'] . "</td>";
-			echo "<td>" . $row['num_carte'] . "</td>";
-			echo "<td>" . $row['num_autorisation'] . "</td>";
-			if ($row['montant']<0) echo '<td class="red">';
-			else echo '<td class="green">';
-			echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
-			echo "</tr>";
-		}*/
 	}
 
 	public static function clientUnpaidTable($pseudo)
