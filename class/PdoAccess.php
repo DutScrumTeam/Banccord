@@ -205,6 +205,9 @@ class PdoAccess
 		echo "</td>";
 		echo "</tr>";
 	}
+	public static function remiseTable($siren){
+		//to do
+	}
 
 	public static function clientUnpaidTable($pseudo)
 	{
