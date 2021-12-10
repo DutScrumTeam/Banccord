@@ -79,7 +79,8 @@ include("class/page-builder.inc.php"); ?>
 				"Type de carte",
 				"Numéro de carte",
 				"Code d'autorisation",
-				"Montant"
+				"Montant",
+                ""//pour le bouton des détails
 			);
 			?>
 

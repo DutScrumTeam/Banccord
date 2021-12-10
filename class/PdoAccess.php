@@ -39,12 +39,6 @@ class PdoAccess
 		}
 		return "";
 	}
-
-    public static function getCorrectDate($wrong_date){
-        $timestamp = strtotime($wrong_date);
-        return date('Y-m-d', $timestamp);
-    }
-
 	public static function getPdo(): PDO
 	{
 		if (self::$pdo === null) {
@@ -159,12 +153,12 @@ class PdoAccess
 			echo "<td>" . $row['type_card'] . "</td>";
 			echo "<td>" . $row['num_carte'] . "</td>";
 			echo "<td>" . $row['num_autorisation'] . "</td>";
-
 			// Affichage de la colonne "montant"
 			$amount = $row['montant'].self::getCurrencySymbolFromCode($row['devise']);
 			$color = $row['montant'] < 0 ? "red" : "green";
 			echo "<td style='color: $color;'>$amount</td>";
-
+			echo "<td><button class='btn btn-primary' onclick='switchDisplayMoreContent(this.parentNode.parentNode.id)'>+</button></td>";
+			self::transactionTable($row['num_remise']);
 			echo "</tr>";
 		}
 	}
@@ -193,34 +187,53 @@ class PdoAccess
             echo "<td>" . $row['num_autorisation'] . "</td>";
 
             // Affichage de la colonne "montant"
-            $amount = $row['montant'].self::getCurrencySymbolFromCode($row['devise']);
-            $color = $row['montant'] < 0 ? "red" : "green";
+	        $total = self::getTotalAmount($row['num_remise']);
+            $amount = $total.self::getCurrencySymbolFromCode($row['devise']);
+            $color = $total < 0 ? "red" : "green";
             echo "<td style='color: $color;'>$amount</td>";
 
             echo "</tr>";
         }
     }
-
-	public static function clientTransactionTable($chaine){
+	public static function getTotalRemise($num_remise){
 		$pdo = self::getPdo();
-		$sqlChaine = "SELECT code_chaine FROM banque.transaction JOIN banque.remise ON transaction.num_remise = remise.num_remise WHERE num_chaine = :chaine";
+		$sql = "SELECT SUM(montant) as total FROM banque.transaction WHERE num_remise = :num_remise";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindParam(':num_remise', $num_remise);
+		$stmt->execute();
+		$result = $stmt->fetch();
+		return $result['total'];
+	}
+	public static function transactionTable($num_remise){
+		$pdo = self::getPdo();
+		$sqlChaine = "SELECT * FROM banque.transaction WHERE num_remise = :num_remise";
 		$stmtChaine = $pdo->prepare($sqlChaine);
-		$stmtChaine->bindParam(':chaine',$chaine);
+		$stmtChaine->bindParam(':num_remise',$num_remise);
 		$stmtChaine->execute();
 
-        $result = $stmtChaine->fetch();
-        foreach ($result as $row) {
-            echo "<tr>";
-            echo "<td>" . $row['code_chaine'] . "</td>";
-            echo "<td>" . $row['date_vente'] . "</td>";
-            echo "<td>" . $row['type_card'] . "</td>";
-            echo "<td>" . $row['num_carte'] . "</td>";
-            echo "<td>" . $row['num_autorisation'] . "</td>";
-            if ($row['montant']<0) echo '<td class="red">';
-            else echo '<td class="green">';
-            echo $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
-            echo "</tr>";
-        }
+        $result = $stmtChaine->fetchAll();
+		echo "<tr class='table-row-more'>";
+		echo "<td colspan='6'>";
+		echo "<table class='table'>";
+		echo "<thead>";
+		echo "<th>Code chaine</th>";
+		echo "<th>Date de traitement</th>";
+		echo "<th>numéro du porteur</th>";
+		echo "<th>Type de carte</th>";
+		echo "<th>Montant</th>";
+		echo "</thead>";
+		echo "<tbody>";
+		foreach ($result as $row) {
+			echo "<td>" . $row['code_chaine'] . "</td>";
+			echo "<td>" . $row['date_vente'] . "</td>";
+			echo "<td>" . $row['num_porteur'] . "</td>";
+			echo "<td>" . $row['reseau'] . "</td>";
+			echo "<td>" . $row['montant'] .self::getCurrencySymbolFromCode($row['devise']) . "</td>";
+		}
+		echo "</tbody>";
+		echo "</table>";
+		echo "</td>";
+		echo "</tr>";
 	}
 
 	public static function clientUnpaidTable($pseudo)
@@ -298,12 +311,17 @@ class PdoAccess
 	public static function getTotalAmount($pseudo)
 	{
 		$pdo = self::getPdo();
-		$sqlPlus = "SELECT SUM(montant) as somme2 FROM banque.remise INNER JOIN banque.client ON remise.id_client = client.num_siren WHERE  id_client=:id";
-		$stmt = $pdo->prepare($sqlPlus);
+		$total = 0;
 		$siren = self::getSiren($pseudo);
+		$sqlPlus = "SELECT num_remise from banque.remise WHERE id_client=:id";
+		$stmt = $pdo->prepare($sqlPlus);
 		$stmt->bindParam(':id',$siren);
 		$stmt->execute();
-		return $stmt->fetchAll()[0]['somme2'];
+		$res =  $stmt->fetchAll();
+		foreach ($res as $row) {
+			$total += self::getTotalRemise($row['num_remise']);
+		}
+		return $total;
 	}
 
 	public static function getSiren($pseudo)
