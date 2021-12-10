@@ -141,8 +141,27 @@ class PdoAccess
 		$siren = $stmtSiren->fetch();
 		$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren";
 		$stmt = $pdo->prepare($sql);
-        self::clientResultRemiseTable($stmt, $siren);
-    }
+		$stmt->bindParam(':siren', $siren['num_siren']);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+
+		// Affichage des données récoltées par ligne
+		foreach ($result as $row) {
+			echo "<tr>";
+			echo "<td>" . $row['num_remise'] . "</td>";
+			echo "<td>" . $row['traitement_date'] . "</td>";
+			echo "<td>" . $row['type_card'] . "</td>";
+			echo "<td>" . $row['num_carte'] . "</td>";
+			echo "<td>" . $row['num_autorisation'] . "</td>";
+
+			// Affichage de la colonne "montant"
+			$amount = $row['montant'].self::getCurrencySymbolFromCode($row['devise']);
+			$color = $row['montant'] < 0 ? "red" : "green";
+			echo "<td style='color: $color;'>$amount</td>";
+
+			echo "</tr>";
+		}
+	}
 
     public static function clientSpecificRemiseTable($id, $remise){
         $pdo = self::getPdo();
@@ -154,7 +173,26 @@ class PdoAccess
         $sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation,montant,devise from banque.remise where id_client = :siren AND num_remise = :remise";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':remise', $remise);
-        self::clientResultRemiseTable($stmt, $siren);
+        $stmt->bindParam(':siren', $siren['num_siren']);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        // Affichage des données récoltées par ligne
+        foreach ($result as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['num_remise'] . "</td>";
+            echo "<td>" . $row['traitement_date'] . "</td>";
+            echo "<td>" . $row['type_card'] . "</td>";
+            echo "<td>" . $row['num_carte'] . "</td>";
+            echo "<td>" . $row['num_autorisation'] . "</td>";
+
+            // Affichage de la colonne "montant"
+            $amount = $row['montant'].self::getCurrencySymbolFromCode($row['devise']);
+            $color = $row['montant'] < 0 ? "red" : "green";
+            echo "<td style='color: $color;'>$amount</td>";
+
+            echo "</tr>";
+        }
     }
 
 	public static function clientTransactionTable($chaine){
@@ -205,8 +243,28 @@ class PdoAccess
 		$sql = "SELECT num_dossier,date_debut,date_fin,montant,libelle,devise from banque.di where id_client=:id";
 		$stmt = $pdo->prepare($sql);
 		$stmt->bindParam(':id',$siren);
-        self::clientResultUnpaid($stmt);
-    }
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+
+		// Affichage des données récoltées par ligne
+		foreach ($result as $row) {
+			echo "<tr>";
+			echo "<td>" . $row['num_dossier'] . "</td>";
+			echo "<td>" . $row['date_debut'] . "</td>";
+			echo "<td>" . $row['date_fin'] . "</td>";
+			echo "<td>" . $row['libelle'] . "</td>";
+
+			// Affichage de la colonne "montant"
+			$color = "";
+			$amount = -$row['montant'].self::getCurrencySymbolFromCode($row['devise']);
+			if ($row['montant']<100) $color = "green";
+			elseif ($row['montant']<200) $color = "orange";
+			else $color = "red";
+			echo "<td style='color: $color;'>$amount</td>";
+
+			echo "</tr>";
+		}
+	}
 
     public static function clientSpecificUnpaidTable($pseudo, $date_start, $date_end)
     {
@@ -217,7 +275,27 @@ class PdoAccess
         $stmt->bindParam(':id',$siren);
         $stmt->bindParam(':start', $date_start);
         $stmt->bindParam(':end', $date_end);
-        self::clientResultUnpaid($stmt);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        // Affichage des données récoltées par ligne
+        foreach ($result as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['num_dossier'] . "</td>";
+            echo "<td>" . $row['date_debut'] . "</td>";
+            echo "<td>" . $row['date_fin'] . "</td>";
+            echo "<td>" . $row['libelle'] . "</td>";
+
+            // Affichage de la colonne "montant"
+            $color = "";
+            $amount = -$row['montant'].self::getCurrencySymbolFromCode($row['devise']);
+            if ($row['montant']<100) $color = "green";
+            elseif ($row['montant']<200) $color = "orange";
+            else $color = "red";
+            echo "<td style='color: $color;'>$amount</td>";
+
+            echo "</tr>";
+        }
     }
 
 	public static function poClientTable(){
@@ -227,8 +305,38 @@ class PdoAccess
 		$sqlSumInP = "SELECT SUM(montant) as somme1 FROM banque.di INNER JOIN banque.client ON di.id_client = client.num_siren where id_client=:id";
 		$sqlPlus = "SELECT SUM(montant) as somme2 FROM banque.remise INNER JOIN banque.client ON remise.id_client = client.num_siren WHERE  id_client=:id";
 		$stmt=$pdo->prepare($sql);
-        self::poClientResult($stmt, $pdo, $sqlCountRem, $sqlSumInP, $sqlPlus);
-    }
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row){
+			$stmt=$pdo->prepare($sqlCountRem);
+			$stmt->bindParam(':id',$row['num_siren']);
+			$stmt->execute();
+			$res=$stmt->fetchAll();
+			$compte=$res[0]['compte'];
+			$stmt=$pdo->prepare($sqlSumInP);
+			$stmt->bindParam(':id',$row['num_siren']);
+			$stmt->execute();
+			$res=$stmt->fetchAll();
+			$sumInp=$res[0]['somme1'];
+			$stmt=$pdo->prepare($sqlPlus);
+			$stmt->bindParam(':id',$row['num_siren']);
+			$stmt->execute();
+			$res=$stmt->fetchAll();
+			$somme=$res[0]['somme2'];
+			echo "<tr>";
+			echo "<td>".$row['num_siren']."</td>";
+			echo "<td>".$row['raison_sociale']."</td>";
+			echo "<td>".$compte."</td>";
+			echo "<td>";
+			if ($sumInp==0){
+				echo '__________';
+			}
+			else echo '-'.$sumInp;
+			echo"</td>";
+			echo "<td>".$somme."</td>";
+			echo "</tr>";
+		}
+	}
 
     public static function poSpecificClientTableBySociale($raison_sociale){
         $pdo = self::getPdo();
@@ -238,7 +346,37 @@ class PdoAccess
         $sqlPlus = "SELECT SUM(montant) as somme2 FROM banque.remise INNER JOIN banque.client ON remise.id_client = client.num_siren WHERE  id_client=:id";
         $stmt=$pdo->prepare($sql);
         $stmt->bindParam(":sociale", $raison_sociale);
-        self::poClientResult($stmt, $pdo, $sqlCountRem, $sqlSumInP, $sqlPlus);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        foreach ($result as $row){
+            $stmt=$pdo->prepare($sqlCountRem);
+            $stmt->bindParam(':id',$row['num_siren']);
+            $stmt->execute();
+            $res=$stmt->fetchAll();
+            $compte=$res[0]['compte'];
+            $stmt=$pdo->prepare($sqlSumInP);
+            $stmt->bindParam(':id',$row['num_siren']);
+            $stmt->execute();
+            $res=$stmt->fetchAll();
+            $sumInp=$res[0]['somme1'];
+            $stmt=$pdo->prepare($sqlPlus);
+            $stmt->bindParam(':id',$row['num_siren']);
+            $stmt->execute();
+            $res=$stmt->fetchAll();
+            $somme=$res[0]['somme2'];
+            echo "<tr>";
+            echo "<td>".$row['num_siren']."</td>";
+            echo "<td>".$row['raison_sociale']."</td>";
+            echo "<td>".$compte."</td>";
+            echo "<td>";
+            if ($sumInp==0){
+                echo '__________';
+            }
+            else echo '-'.$sumInp;
+            echo"</td>";
+            echo "<td>".$somme."</td>";
+            echo "</tr>";
+        }
     }
 
     public static function poSpecificClientTableBySiren($num_siren){
@@ -249,32 +387,56 @@ class PdoAccess
         $sqlPlus = "SELECT SUM(montant) as somme2 FROM banque.remise INNER JOIN banque.client ON remise.id_client = client.num_siren WHERE  id_client=:id";
         $stmt=$pdo->prepare($sql);
         $stmt->bindParam(":siren", $num_siren);
-        self::poClientResult($stmt, $pdo, $sqlCountRem, $sqlSumInP, $sqlPlus);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        foreach ($result as $row){
+            $stmt=$pdo->prepare($sqlCountRem);
+            $stmt->bindParam(':id',$row['num_siren']);
+            $stmt->execute();
+            $res=$stmt->fetchAll();
+            $compte=$res[0]['compte'];
+            $stmt=$pdo->prepare($sqlSumInP);
+            $stmt->bindParam(':id',$row['num_siren']);
+            $stmt->execute();
+            $res=$stmt->fetchAll();
+            $sumInp=$res[0]['somme1'];
+            $stmt=$pdo->prepare($sqlPlus);
+            $stmt->bindParam(':id',$row['num_siren']);
+            $stmt->execute();
+            $res=$stmt->fetchAll();
+            $somme=$res[0]['somme2'];
+            echo "<tr>";
+            echo "<td>".$row['num_siren']."</td>";
+            echo "<td>".$row['raison_sociale']."</td>";
+            echo "<td>".$compte."</td>";
+            echo "<td>";
+            if ($sumInp==0){
+                echo '__________';
+            }
+            else echo '-'.$sumInp;
+            echo"</td>";
+            echo "<td>".$somme."</td>";
+            echo "</tr>";
+        }
     }
 
-    public static function poSpecificSirenRemiseTable($siren){
-        $pdo = self::getPdo();
-        $sql = "SELECT traitement_date,id_client,type_card,num_carte,num_autorisation,montant,devise from banque.remise WHERE id_client = :siren";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":siren", $siren);
-        self::poRequestTable($stmt);
-    }
-
-    public static function poSpecificDateRemiseTable($date_payement){
-        $pdo = self::getPdo();
-        $sql = "SELECT traitement_date,id_client,type_card,num_carte,num_autorisation,montant,devise from banque.remise WHERE traitement_date = :payement";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(":payement", $date_payement);
-        self::poRequestTable($stmt);
-    }
-
-
-    public static function poRemiseTable(){
+	public static function poRemiseTable(){
 		$pdo = self::getPdo();
 		$sql = "SELECT traitement_date,id_client,type_card,num_carte,num_autorisation,montant,devise from banque.remise";
 		$stmt = $pdo->prepare($sql);
-        self::poRequestTable($stmt);
-    }
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		foreach ($result as $row) {
+			echo "<tr>";
+			echo "<td>" . $row['traitement_date'] . "</td>";
+			echo "<td>" . $row['id_client'] . "</td>";
+			echo "<td>" . $row['type_card'] . "</td>";
+			echo "<td>**** **** **** " . $row['num_carte'] . "</td>";
+			echo "<td>" . $row['num_autorisation'] . "</td>";
+			echo "<td>" . $row['montant'].self::getCurrencySymbolFromCode($row['devise'])."</td>";
+			echo "</tr>";
+		}
+	}
 
 	public static function getTotalAmount($pseudo)
 	{
@@ -297,120 +459,4 @@ class PdoAccess
 		$siren = $stmtSiren->fetch();
 		return $siren['num_siren'];
 	}
-
-    /**
-     * @param $stmt
-     */
-    public static function poRequestTable($stmt)
-    {
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        foreach ($result as $row) {
-            echo "<tr>";
-            echo "<td>" . $row['traitement_date'] . "</td>";
-            echo "<td>" . $row['id_client'] . "</td>";
-            echo "<td>" . $row['type_card'] . "</td>";
-            echo "<td>**** **** **** " . $row['num_carte'] . "</td>";
-            echo "<td>" . $row['num_autorisation'] . "</td>";
-            echo "<td>" . $row['montant'] . self::getCurrencySymbolFromCode($row['devise']) . "</td>";
-            echo "</tr>";
-        }
-    }
-
-    /**
-     * @param $stmt
-     * @param PDO $pdo
-     * @param string $sqlCountRem
-     * @param string $sqlSumInP
-     * @param string $sqlPlus
-     */
-    public static function poClientResult($stmt, PDO $pdo, string $sqlCountRem, string $sqlSumInP, string $sqlPlus)
-    {
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        foreach ($result as $row) {
-            $stmt = $pdo->prepare($sqlCountRem);
-            $stmt->bindParam(':id', $row['num_siren']);
-            $stmt->execute();
-            $res = $stmt->fetchAll();
-            $compte = $res[0]['compte'];
-            $stmt = $pdo->prepare($sqlSumInP);
-            $stmt->bindParam(':id', $row['num_siren']);
-            $stmt->execute();
-            $res = $stmt->fetchAll();
-            $sumInp = $res[0]['somme1'];
-            $stmt = $pdo->prepare($sqlPlus);
-            $stmt->bindParam(':id', $row['num_siren']);
-            $stmt->execute();
-            $res = $stmt->fetchAll();
-            $somme = $res[0]['somme2'];
-            echo "<tr>";
-            echo "<td>" . $row['num_siren'] . "</td>";
-            echo "<td>" . $row['raison_sociale'] . "</td>";
-            echo "<td>" . $compte . "</td>";
-            echo "<td>";
-            if ($sumInp == 0) {
-                echo '__________';
-            } else echo '-' . $sumInp;
-            echo "</td>";
-            echo "<td>" . $somme . "</td>";
-            echo "</tr>";
-        }
-    }
-
-    /**
-     * @param $stmt
-     */
-    public static function clientResultUnpaid($stmt)
-    {
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-
-        // Affichage des données récoltées par ligne
-        foreach ($result as $row) {
-            echo "<tr>";
-            echo "<td>" . $row['num_dossier'] . "</td>";
-            echo "<td>" . $row['date_debut'] . "</td>";
-            echo "<td>" . $row['date_fin'] . "</td>";
-            echo "<td>" . $row['libelle'] . "</td>";
-
-            // Affichage de la colonne "montant"
-            $color = "";
-            $amount = -$row['montant'] . self::getCurrencySymbolFromCode($row['devise']);
-            if ($row['montant'] < 100) $color = "green";
-            elseif ($row['montant'] < 200) $color = "orange";
-            else $color = "red";
-            echo "<td style='color: $color;'>$amount</td>";
-
-            echo "</tr>";
-        }
-    }
-
-    /**
-     * @param $stmt
-     * @param $siren
-     */
-    public static function clientResultRemiseTable($stmt, $siren)
-    {
-        $stmt->bindParam(':siren', $siren);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-
-        // Affichage des données récoltées par ligne
-        foreach ($result as $row) {
-            echo "<tr>";
-            echo "<td>" . $row['num_remise'] . "</td>";
-            echo "<td>" . $row['traitement_date'] . "</td>";
-            echo "<td>" . $row['type_card'] . "</td>";
-            echo "<td>" . $row['num_carte'] . "</td>";
-            echo "<td>" . $row['num_autorisation'] . "</td>";
-
-            // Affichage de la colonne "montant"
-            $amount = $row['montant'] . self::getCurrencySymbolFromCode($row['devise']);
-            $color = $row['montant'] < 0 ? "red" : "green";
-            echo "<td style='color: $color;'>$amount</td>";
-
-            echo "</tr>";
-        }
-    }
 }
