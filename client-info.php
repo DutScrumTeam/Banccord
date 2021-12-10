@@ -80,17 +80,17 @@ include("class/page-builder.inc.php"); ?>
 				"Numéro de carte",
 				"Code d'autorisation",
 				"Montant",
-                ""//pour le bouton des détails
+				""//pour le bouton des détails
 			);
 			?>
 
 			<tbody id="table-result">
 				<?php
-                if(!isset($_GET['search-value']) || $_GET['search-value'] == ''){
-                    PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'],null);
-                } else {
-                    PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'], $_GET['search-value']);
-                }
+					if(!isset($_GET['search-value']) || $_GET['search-value'] == ''){
+						PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'],null);
+					} else {
+						PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'], $_GET['search-value']);
+					}
 				?>
 			</tbody>
 		</table>
