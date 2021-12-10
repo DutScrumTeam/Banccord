@@ -79,6 +79,9 @@ include("class/page-builder.inc.php"); ?>
 			<tbody id="table-result">
 				<?php
                 include ("class/PdoAccess.php");
+                /*
+                 * La date de début et la date de fin doivent être inséré OBLIGATOIREMENT pour une recherche
+                 */
                 if(!isset($_GET['date-start']) || !isset($_GET['date-end']) || $_GET['date-end'] == '' || $_GET['date-start'] == ''){
                     PdoAccess::clientUnpaidTable($_SESSION['pseudo']);
                 } else {
