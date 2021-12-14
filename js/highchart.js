@@ -22,7 +22,7 @@ function createPaymentChart(lines, dateStart, dateEnd) {
 	// Numéro de la colonne contenant la date.
 	const numDate = 1;
 	// Numéro de la colonne contenant le montant.
-	const numAmount = 5;
+	const numAmount = 3;
 
 	// Création du tableau des résultats.
 	let results = new Map();
