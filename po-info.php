@@ -72,7 +72,7 @@
 				echoTableHead(
 					"Siren",
 					"Raison sociale",
-					"Nombre de transaction",
+					"Nombre de remises",
 					"Total des Impayés",
 					"Trésorerie");
 			?>

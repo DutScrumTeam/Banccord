@@ -122,15 +122,16 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 		public static function adminAccountTable()
 		{
 			$pdo = self::getPdo();
-			$sql = "SELECT id,num_siren FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte";
+			$sql = "SELECT id,num_siren, raison_sociale FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte";
 			$stmt = $pdo->prepare($sql);
 			$stmt->execute();
 			$result = $stmt->fetchAll();
 			foreach ($result as $row) {
 				echo "<tr>";
 				echo "<form action='admin.php/?id=" . $row['id'] . "' method='post'>";
+                echo "<td>" . $row['id'] . "</td>";
 				echo "<td>" . $row['num_siren'] . "</td>";
-				echo "<td>" . $row['id'] . "</td>";
+                echo "<td>" . $row['raison_sociale'] . "</td>";
 				echo "<td><input type='submit' class='btn btn-danger' value='Supprimer' name='delete'></td>";
 				echo "</form>";
 				echo "</tr>";
