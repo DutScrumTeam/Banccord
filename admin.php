@@ -77,8 +77,9 @@ if (isset($_POST['delete'])) {
 		<table class="table table-striped">
 			<?php
 				echoTableHead(
+                    "ID Compte",
 					"Siren",
-					"Nom de compte",
+                    "Raison Sociale",
 					"Suppression");
 			?>
 			<tbody id="table-result">

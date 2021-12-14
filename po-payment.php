@@ -72,7 +72,7 @@
 				echoTableHead(
 					"Date de paiement",
 					"Siren",
-					"Code d'autorisation",
+					"Nombre de transaction",
 					"Montant");
 			?>
 			<tbody id="table-result">
