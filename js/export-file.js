@@ -56,7 +56,9 @@ function exportToCSV(lines, title) {
 	data.push(lineArray.join(','));
 
 	// Ajout du contenu
-	lines.forEach(line => {
+	lines.forEach(lineObj => {
+		/** @type {HTMLElement} */
+		let line = lineObj.row;
 		let lineArray = [];
 		for (let i = 0; i < line.children.length; i++) {
 			const elem = line.children[i];
