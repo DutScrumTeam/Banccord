@@ -6,7 +6,9 @@ function exportToPDF(lines, title) {
 	let headElem = document.querySelector("head");
 	let theadElem = document.querySelector("thead");
 	let tbodyText = "";
-	lines.forEach(line => {
+	lines.forEach(lineObj => {
+		/** @type {HTMLElement} */
+		let line = lineObj.row;
 		tbodyText += `<tr>${line.innerHTML}</tr>`;
 	});
 	
@@ -35,6 +37,7 @@ function exportToPDF(lines, title) {
 	`);
 	
 	win.document.close();
+
 	win.print();
 }
 
