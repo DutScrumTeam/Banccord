@@ -408,7 +408,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<tr>";
 				echo "<td>" . $row['num_siren'] . "</td>";
 				echo "<td>" . $row['raison_sociale'] . "</td>";
-				echo "<td>" . $compte . '<button class="btn btn-primary" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button></td>';
+				echo "<td>" . $compte . '<button class="btn btn-primary space" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button></td>';
 				echo "<td>";
 				if ($sumInp == 0) {
 					echo '__________';
