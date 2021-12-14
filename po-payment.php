@@ -72,8 +72,6 @@
 				echoTableHead(
 					"Date de paiement",
 					"Siren",
-					"Type de carte",
-					"Numéro de carte",
 					"Code d'autorisation",
 					"Montant");
 			?>
