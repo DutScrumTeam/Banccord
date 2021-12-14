@@ -137,14 +137,14 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 			}
 		}
 
-		public static function clientSpecificRemiseTable($id, $remise) {
+		public static function clientRemiseTable($id, $remise) {
 			$pdo = self::getPdo();
 			$sqlSiren = "SELECT num_siren FROM banque.client WHERE id_compte = :id";
 			$stmtSiren = $pdo->prepare($sqlSiren);
 			$stmtSiren->bindParam(':id', $id);
 			$stmtSiren->execute();
 			$siren = $stmtSiren->fetch();
-			$sql = "SELECT num_remise,traitement_date,type_card,num_carte,num_autorisation from banque.remise where id_client = :siren";
+			$sql = "SELECT num_remise,traitement_date,num_autorisation from banque.remise where id_client = :siren";
 			$sql .= is_null($remise) ? '' : ' AND num_remise = :remise';
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(':siren', $siren['num_siren']);
@@ -157,8 +157,6 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<tr>";
 				echo "<td>" . $row['num_remise'] . "</td>";
 				echo "<td>" . $row['traitement_date'] . "</td>";
-				echo "<td>" . $row['type_card'] . "</td>";
-				echo "<td>" . $row['num_carte'] . "</td>";
 				echo "<td>" . $row['num_autorisation'] . "</td>";
 				$total = self::getTotalRemise($row['num_remise']);
 				$amount = $total . ($total > 0 ? ' €' : '');
@@ -191,7 +189,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 
 			$result = $stmtChaine->fetchAll();
 			echo "<tr class='table-row-more'>";
-			echo "<td colspan='$columnCount'>";
+			echo "<td colspan='5'>";
 			echo "<table class='table'>";
 			echo "<thead>";
 			echo "<th>Code chaine</th>";
@@ -217,7 +215,35 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 		}
 		public static function remiseTable($siren)
 		{
-			// TODO
+			$pdo = self::getPdo();
+			$sql = "SELECT * FROM banque.remise WHERE id_client=:siren";
+			$stmt = $pdo->prepare($sql);
+			$stmt->bindParam(':siren',$siren);
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			echo "<tr class='table-row-more'>";
+			echo "<td colspan='5'>";
+			echo "<table class='table'>";
+			echo "<thead>";
+			echo "<th>Numéro remise</th>";
+			echo "<th>Date de traitement</th>";
+			echo "<th>Numéro d'autorisation</th>";
+			echo "<th>Montant</th>";
+			echo "</thead>";
+			echo "<tbody>";
+			foreach ($result as $row) {
+				$montant = self::getTotalRemise($row['num_remise']);
+				echo "<tr>";
+				echo "<td>" . $row['num_remise'] . "</td>";
+				echo "<td>" . $row['traitement_date'] . "</td>";
+				echo "<td>" . $row['num_autorisation'] . "</td>";
+				echo "<td>" .$montant. "</td>";
+				echo "</tr>";
+			}
+			echo "</tbody>";
+			echo "</table>";
+			echo "</td>";
+			echo "</tr>";
 		}
 
 		public static function clientUnpaidTable($pseudo)
@@ -274,7 +300,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 		public static function poRemiseTable()
 		{
 			$pdo = self::getPdo();
-			$sql = "SELECT num_remise,traitement_date,id_client,type_card,num_carte,num_autorisation from banque.remise";
+			$sql = "SELECT num_remise,traitement_date,id_client,num_autorisation from banque.remise";
 			$stmt = $pdo->prepare($sql);
 			$stmt->execute();
 			$result = $stmt->fetchAll();
@@ -282,8 +308,6 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<tr>";
 				echo "<td>" . $row['traitement_date'] . "</td>";
 				echo "<td>" . $row['id_client'] . "</td>";
-				echo "<td>" . $row['type_card'] . "</td>";
-				echo "<td>**** **** **** " . $row['num_carte'] . "</td>";
 				echo "<td>" . $row['num_autorisation'] . "</td>";
 				$total = self::getTotalRemise($row['num_remise']);
 				$color = $total < 0 ? "red" : "green";
@@ -384,13 +408,14 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<tr>";
 				echo "<td>" . $row['num_siren'] . "</td>";
 				echo "<td>" . $row['raison_sociale'] . "</td>";
-				echo "<td>" . $compte . "</td>";
+				echo "<td>" . $compte . '<button class="btn btn-primary" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button></td>';
 				echo "<td>";
 				if ($sumInp == 0) {
 					echo '__________';
 				} else echo '-' . $sumInp;
 				echo "</td>";
 				echo "<td>" . $somme . "</td>";
+				self::remiseTable($row['num_siren']);
 				echo "</tr>";
 			}
 		}

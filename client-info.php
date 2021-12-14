@@ -76,8 +76,6 @@ include("class/page-builder.inc.php"); ?>
 			echoTableHead(
 				"Numéro de remise",
 				"Date de paiement",
-				"Type de carte",
-				"Numéro de carte",
 				"Code d'autorisation",
 				"Montant",
 				""//pour le bouton des détails
@@ -87,9 +85,9 @@ include("class/page-builder.inc.php"); ?>
 			<tbody id="table-result">
 				<?php
 					if(!isset($_GET['search-value']) || $_GET['search-value'] == ''){
-						PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'],null);
+						PdoAccess::clientRemiseTable($_SESSION['pseudo'],null);
 					} else {
-						PdoAccess::clientSpecificRemiseTable($_SESSION['pseudo'], $_GET['search-value']);
+						PdoAccess::clientRemiseTable($_SESSION['pseudo'], $_GET['search-value']);
 					}
 				?>
 			</tbody>
