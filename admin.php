@@ -85,7 +85,14 @@ if (isset($_POST['delete'])) {
 			<tbody id="table-result">
 				<?php
 					// Mise en commentaire pour eviter de se connecter, sorry si j'oublie de le décommenter
-					PdoAccess::adminAccountTable();
+                    if($_GET['search-mod'] == 'siren' && ($_GET['search-value'] != '')){
+                        PdoAccess::adminAccountTable($_GET['search-value'], null);
+                    } else if($_GET['search-mod'] == 'name' && ($_GET['search-value'] != '')){
+                        PdoAccess::adminAccountTable(null, $_GET['search-value']);
+                    } else {
+                        PdoAccess::adminAccountTable(null, null);
+                    }
+
 				?>
 			</tbody>
 		</table>
