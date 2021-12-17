@@ -238,7 +238,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 			echo "<thead>";
 			echo "<th>Numéro remise</th>";
 			echo "<th>Date de traitement</th>";
-			echo "<th>Numéro d'autorisation</th>";
+			echo "<th>Nombre de transaction</th>";
 			echo "<th>Montant</th>";
 			echo "</thead>";
 			echo "<tbody>";
@@ -247,7 +247,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<tr>";
 				echo "<td>" . $row['num_remise'] . "</td>";
 				echo "<td>" . $row['traitement_date'] . "</td>";
-				echo "<td>" . $row['num_autorisation'] . "</td>";
+				echo "<td>" . self::getTotalTransactions($row['num_remise']) . "</td>";
 				echo "<td>" .$montant. "</td>";
 				echo "</tr>";
 			}
