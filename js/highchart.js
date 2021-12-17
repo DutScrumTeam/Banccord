@@ -41,7 +41,13 @@ function createPaymentChart(lines, dateStart, dateEnd) {
 		const d = sqlDateToJsDate(elem.children[numDate].innerHTML);
 		if (d.getTime() >= dateStart && d.getTime() <= dateEnd) {
 			// Ajout de l'elem aux resultats
-			const amount = Number(elem.children[numAmount].innerHTML.replace(/€/g, ""));
+			// Transformation du résultat en nombre exploitable
+			/** @type {string} */
+			let amountStr = elem.children[numAmount].innerHTML
+				.replace(/€/g, "")
+				.replace(/<button.*<\/button>/gi, "");
+			const amount = Number(amountStr);
+
 			for ( // Pour chaque date après la date de remise, on ajoute le montant.
 				let i=d.getFullYear()*12+d.getMonth();
 				i <= dateEnd.getFullYear()*12+dateEnd.getMonth();
