@@ -77,8 +77,7 @@ include("class/page-builder.inc.php"); ?>
 				"Numéro de remise",
 				"Date de paiement",
 				"Nombre de transaction",
-				"Montant",
-				""//pour le bouton des détails
+				"Montant"
 			);
 			?>
 

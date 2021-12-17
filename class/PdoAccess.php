@@ -123,32 +123,33 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 		{
 			$pdo = self::getPdo();
 			$sql = "SELECT id,num_siren, raison_sociale FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte"
-                . ($siren == null ? "" : " WHERE client.num_siren = :siren")
-                . ($sociale == null ? "" : " WHERE client.raison_sociale = :sociale");
+				. ($siren == null ? "" : " WHERE client.num_siren = :siren")
+				. ($sociale == null ? "" : " WHERE client.raison_sociale = :sociale");
 
 			$stmt = $pdo->prepare($sql);
-            if($siren != null){
-                $stmt->bindParam(':siren', $siren);
-            }
-            if($sociale != null){
-                $stmt->bindParam(':sociale', $sociale);
-            }
+			if ($siren != null) {
+				$stmt->bindParam(':siren', $siren);
+			}
+			if ($sociale != null) {
+				$stmt->bindParam(':sociale', $sociale);
+			}
 
 			$stmt->execute();
 			$result = $stmt->fetchAll();
 			foreach ($result as $row) {
 				echo "<tr>";
 				echo "<form action='admin.php/?id=" . $row['id'] . "' method='post'>";
-                echo "<td>" . $row['id'] . "</td>";
+				echo "<td>" . $row['id'] . "</td>";
 				echo "<td>" . $row['num_siren'] . "</td>";
-                echo "<td>" . $row['raison_sociale'] . "</td>";
+				echo "<td>" . $row['raison_sociale'] . "</td>";
 				echo "<td><input type='submit' class='btn btn-danger' value='Supprimer' name='delete'></td>";
 				echo "</form>";
 				echo "</tr>";
 			}
 		}
 
-		public static function clientRemiseTable($id, $remise) {
+		public static function clientRemiseTable($id, $remise)
+		{
 			$pdo = self::getPdo();
 			$sqlSiren = "SELECT num_siren FROM banque.client WHERE id_compte = :id";
 			$stmtSiren = $pdo->prepare($sqlSiren);
@@ -172,14 +173,18 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				$total = self::getTotalRemise($row['num_remise']);
 				$amount = $total . ($total > 0 ? ' €' : '');
 				$color = $total < 0 ? "red" : "green";
-				echo "<td style='color: $color;'>$amount</td>";
-				echo '<td><button class="btn btn-primary" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button></td>';
+				echo "<td style='color: $color; position: relative;'>$amount";
+				echo '<button
+					class="btn btn-primary button-more-content"
+					onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>';
+				echo '</td>';
 				self::transactionTable($row['num_remise']);
 				echo "</tr>";
 			}
 		}
 
-		public static function getTotalRemise($num_remise) {
+		public static function getTotalRemise($num_remise)
+		{
 			$pdo = self::getPdo();
 			$sql = "SELECT SUM(montant) as total FROM banque.transaction WHERE num_remise = :num_remise";
 			$stmt = $pdo->prepare($sql);
@@ -189,7 +194,8 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 			return $result['total'];
 		}
 
-		public static function transactionTable($num_remise) {
+		public static function transactionTable($num_remise)
+		{
 			global $columnCount; // variable de page-builder
 
 			$pdo = self::getPdo();
@@ -229,7 +235,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 			$pdo = self::getPdo();
 			$sql = "SELECT * FROM banque.remise WHERE id_client=:siren";
 			$stmt = $pdo->prepare($sql);
-			$stmt->bindParam(':siren',$siren);
+			$stmt->bindParam(':siren', $siren);
 			$stmt->execute();
 			$result = $stmt->fetchAll();
 			echo "<tr class='table-row-more'>";
@@ -248,7 +254,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<td>" . $row['num_remise'] . "</td>";
 				echo "<td>" . $row['traitement_date'] . "</td>";
 				echo "<td>" . self::getTotalTransactions($row['num_remise']) . "</td>";
-				echo "<td>" .$montant. "</td>";
+				echo "<td>" . $montant . "</td>";
 				echo "</tr>";
 			}
 			echo "</tbody>";
@@ -316,29 +322,38 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 			$stmt->execute();
 			$result = $stmt->fetchAll();
 			foreach ($result as $row) {
-                $nbTransaction = self::getTotalTransactions($row['num_remise']);
+				$nbTransaction = self::getTotalTransactions($row['num_remise']);
 				echo "<tr>";
 				echo "<td>" . $row['traitement_date'] . "</td>";
 				echo "<td>" . $row['id_client'] . "</td>";
-                echo "<td>".'<button class="btn btn-primary space" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>   '.$nbTransaction.' </td>';
-                self::transactionTable($row['num_remise']);
-                $total = self::getTotalRemise($row['num_remise']);
+				$total = self::getTotalRemise($row['num_remise']);
 				$color = $total < 0 ? "red" : "green";
-				echo "<td style='color: $color;>";
+				echo "<td style='color: $color;'>";
 				echo $total;
 				echo ($total != 0 ? '€' : "");
 				echo "</td>";
+				echo '<td style="position:relative;">' . $nbTransaction;
+				echo '<button
+					class="btn btn-primary button-more-content"
+					onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>
+				</td>';
 				echo "</tr>";
+				self::transactionTable($row['num_remise']);
 			}
 		}
-		public static function getTotalTransactions($num_remise){
+
+		public static function getTotalTransactions($num_remise)
+		{
 			$pdo = self::getpdo();
 			$sql = "SELECT count(*) as c from banque.transaction where num_remise=:num_remise ";
 			$stmt = $pdo->prepare($sql);
-			$stmt->bindParam(':num_remise',$num_remise);
+			$stmt->bindParam(':num_remise', $num_remise);
 			$stmt->execute();
-			return $stmt->fetchAll()[0]['c'];
+			$res = $stmt->fetchAll()[0]['c'];
+			// echo "<pre>$res</pre>";
+			return $res;
 		}
+
 		public static function getTotalAmountTresorerie($siren)
 		{
 			$pdo = self::getPdo();
@@ -428,7 +443,6 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<tr>";
 				echo "<td>" . $row['num_siren'] . "</td>";
 				echo "<td>" . $row['raison_sociale'] . "</td>";
-				echo "<td>" . $compte . '<button class="btn btn-primary space" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button></td>';
 				echo "<td>";
 				if ($sumInp == 0) {
 					echo '__________';
@@ -438,6 +452,11 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<td>" . $somme;
 				echo "€";
 				echo "</td>";
+				echo '<td style="position: relative">' . $compte
+					.'<button
+						class="btn btn-primary button-more-content"
+						onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>
+					</td>';
 				self::remiseTable($row['num_siren']);
 				echo "</tr>";
 			}

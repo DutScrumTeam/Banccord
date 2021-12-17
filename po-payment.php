@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<title>Banccord | Remises</title>
 	<?php include("class/head.inc.php") ?>
@@ -12,10 +13,11 @@
 
 <body>
 	<?php
-		echoHeader(
-			"Product owner",
-			"Comptes", "po-info.php"
-		);
+	echoHeader(
+		"Product owner",
+		"Comptes",
+		"po-info.php"
+	);
 	?>
 
 	<div class="container">
@@ -33,12 +35,10 @@
 				<!-- Type de recherche -->
 				<div class="col-auto">
 					<div class="form-group">
-						<select class="form-control" name="search-mod" id="search-mod"
-							onchange="
+						<select class="form-control" name="search-mod" id="search-mod" onchange="
 								if (this.value === 'siren') changeInput('search-value', 'Entrez le numéro de Siren', 'number');
 								else if (this.value === 'name') changeInput('search-value', 'Entrez la raison sociale', 'text');
-							"
-						>
+							">
 							<option value="siren" selected>
 								Recherche par Siren
 							</option>
@@ -68,36 +68,37 @@
 
 		<!-- Tableau des remises -->
 		<table class="table table-striped">
-			<?php 
-				echoTableHead(
-					"Date de traitement",
-					"Siren",
-					"Nombre de transaction",
-					"Montant");
+			<?php
+			echoTableHead(
+				"Date de traitement",
+				"Siren",
+				"Montant",
+				"Nombre de transaction"
+			);
 			?>
 			<tbody id="table-result">
-            <?php
-            include "class/PdoAccess.php";
-            if(isset($_GET['search-mod'])){
-                if($_GET['search-mod'] == 'siren' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
-                    PdoAccess::poSpecificSirenRemiseTable($_GET['search-value']);
-                }
-                else {
-                    PdoAccess::poRemiseTable();
-                }
-            }
-            else {
-                PdoAccess::poRemiseTable();
-            }
-            PdoAccess::poRemiseTable();
-            ?>
+				<?php
+				include "class/PdoAccess.php";
+				if (isset($_GET['search-mod'])) {
+					if ($_GET['search-mod'] == 'siren' && isset($_GET['search-value']) && $_GET['search-value'] != '') {
+						PdoAccess::poSpecificSirenRemiseTable($_GET['search-value']);
+					} else {
+						PdoAccess::poRemiseTable();
+					}
+				} else {
+					PdoAccess::poRemiseTable();
+				}
+				?>
 		</table>
 
 		<!-- Choix de la page des résultats -->
 		<?php echoPageChoice() ?>
 
-		<script>initPageManager()</script>
+		<script>
+			initPageManager()
+		</script>
 
 	</div>
 </body>
+
 </html>
