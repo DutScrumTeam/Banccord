@@ -251,7 +251,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 		{
 			$pdo = self::getPdo();
 			$siren = self::getSiren($pseudo);
-			$sql = "SELECT num_dossier,date_debut,date_fin,montant,libelle,devise from banque.di where id_client=:id";
+			$sql = "SELECT num_dossier,date_debut,date_fin,devise,montant,libelle from banque.di where id_client=:id";
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(':id', $siren);
 			self::clientResultUnpaidTable($stmt);
@@ -314,14 +314,14 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				$color = $total < 0 ? "red" : "green";
 				echo "<td style='color: $color;>";
 				echo $total;
-				echo ($total > 0 ? '€' : "");
+				echo ($total != 0 ? '€' : "");
 				echo "</td>";
 				echo "</tr>";
 			}
 		}
 		public static function getTotalTransactions($num_remise){
 			$pdo = self::getpdo();
-			$sql = "SELECT count(*) as c from banque.transactions where num_remise=:num_remise ";
+			$sql = "SELECT count(*) as c from banque.transaction where num_remise=:num_remise ";
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(':num_remise',$num_remise);
 			$stmt->execute();
@@ -421,8 +421,11 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				if ($sumInp == 0) {
 					echo '__________';
 				} else echo '-' . $sumInp;
+				echo "€";
 				echo "</td>";
-				echo "<td>" . $somme . "</td>";
+				echo "<td>" . $somme;
+				echo "€";
+				echo "</td>";
 				self::remiseTable($row['num_siren']);
 				echo "</tr>";
 			}
