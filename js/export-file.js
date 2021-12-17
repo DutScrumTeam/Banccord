@@ -56,21 +56,22 @@ function exportToCSV(lines, title) {
 		const elem = theadElem.children[0].children[i];
 		lineArray.push(elem.innerText);
 	}
-	data.push(lineArray.join(','));
+	data.push(lineArray.join(';') + ";");
 
 	// Ajout du contenu
-	lines.forEach(lineObj => {
+	for (const lineObj of lines) {
 		/** @type {HTMLElement} */
 		let line = lineObj.row;
 		let lineArray = [];
 		for (let i = 0; i < line.children.length; i++) {
 			const elem = line.children[i];
-			lineArray.push(elem.innerHTML);
+			let txt = elem.innerHTML.replace(/<button.*<\/button>/gi, "");
+			lineArray.push(txt);
 		}
-		data.push(lineArray.join(','));
-	});
+		data.push(lineArray.join(';') + ";");
+	}
 	const content = data.join('\n');
-	// console.log(content);
+	console.log(content);
 
 	// Création d'une nouvelle page
 	let csvFile = new Blob([content], {type: "text/csv"});
