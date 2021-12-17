@@ -76,7 +76,7 @@ include("class/page-builder.inc.php"); ?>
 			echoTableHead(
 				"Numéro de remise",
 				"Date de paiement",
-				"Code d'autorisation",
+				"Nombre de transaction",
 				"Montant",
 				""//pour le bouton des détails
 			);

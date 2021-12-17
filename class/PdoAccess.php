@@ -119,11 +119,21 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 			return null;
 		}
 
-		public static function adminAccountTable()
+		public static function adminAccountTable($siren, $sociale)
 		{
 			$pdo = self::getPdo();
-			$sql = "SELECT id,num_siren, raison_sociale FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte";
+			$sql = "SELECT id,num_siren, raison_sociale FROM banque.compte JOIN  banque.client ON compte.id = client.id_compte"
+                . ($siren == null ? "" : " WHERE client.num_siren = :siren")
+                . ($sociale == null ? "" : " WHERE client.raison_sociale = :sociale");
+
 			$stmt = $pdo->prepare($sql);
+            if($siren != null){
+                $stmt->bindParam(':siren', $siren);
+            }
+            if($sociale != null){
+                $stmt->bindParam(':sociale', $sociale);
+            }
+
 			$stmt->execute();
 			$result = $stmt->fetchAll();
 			foreach ($result as $row) {
@@ -261,7 +271,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 		{
 			$pdo = self::getPdo();
 			$siren = self::getSiren($pseudo);
-			$sql = "SELECT num_dossier,date_debut,date_fin,libelle from banque.di where id_client=:id AND date_debut >= :start AND date_fin <= :end";
+			$sql = "SELECT num_dossier,date_debut,date_fin,devise,montant,libelle from banque.di where id_client=:id AND date_debut >= :start AND date_fin <= :end";
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(':id', $siren);
 			$stmt->bindParam(':start', $date_start);
