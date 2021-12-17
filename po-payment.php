@@ -70,7 +70,7 @@
 		<table class="table table-striped">
 			<?php 
 				echoTableHead(
-					"Date de paiement",
+					"Date de traitement",
 					"Siren",
 					"Nombre de transaction",
 					"Montant");
@@ -81,8 +81,6 @@
             if(isset($_GET['search-mod'])){
                 if($_GET['search-mod'] == 'siren' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
                     PdoAccess::poSpecificSirenRemiseTable($_GET['search-value']);
-                } else if($_GET['search-mod'] == 'name' && isset($_GET['search-value']) && $_GET['search-value'] != ''){
-                    PdoAccess::poSpecificDateRemiseTable($_GET['search-value']);
                 }
                 else {
                     PdoAccess::poRemiseTable();

@@ -316,11 +316,13 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 			$stmt->execute();
 			$result = $stmt->fetchAll();
 			foreach ($result as $row) {
+                $nbTransaction = self::getTotalTransactions($row['num_remise']);
 				echo "<tr>";
 				echo "<td>" . $row['traitement_date'] . "</td>";
 				echo "<td>" . $row['id_client'] . "</td>";
-				echo "<td>" . $row['num_autorisation'] . "</td>";
-				$total = self::getTotalRemise($row['num_remise']);
+                echo "<td>".'<button class="btn btn-primary space" onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>   '.$nbTransaction.' </td>';
+                self::transactionTable($row['num_remise']);
+                $total = self::getTotalRemise($row['num_remise']);
 				$color = $total < 0 ? "red" : "green";
 				echo "<td style='color: $color;>";
 				echo $total;
