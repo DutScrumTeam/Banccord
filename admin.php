@@ -5,10 +5,11 @@ include("class/PdoAccess.php");
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
 	<title>Banccord | Admin</title>
 	<?php include("class/head.inc.php"); ?>
-  <link rel="stylesheet" href="css/connect.css">
+	<link rel="stylesheet" href="css/connect.css">
 	<script src="js/page-manager.js"></script>
 	<script src="js/form-edit.js"></script>
 	<script src="js/new-account.js"></script>
@@ -17,14 +18,15 @@ include("class/PdoAccess.php");
 if (isset($_POST['delete'])) {
 	$id = $_GET['id'];
 	PdoAccess::deleteAccount($id);
-    header("Location: ..\admin.php");
+	header("Location: ..\admin.php");
 }
 ?>
+
 <body>
 	<?php
-		echoHeader(
-			"Admin"
-		);
+	echoHeader(
+		"Admin"
+	);
 	?>
 
 	<div class="container">
@@ -35,7 +37,7 @@ if (isset($_POST['delete'])) {
 				<h1 class="div-center-v">Liste des comptes</h1>
 			</div>
 		</div>
-	
+
 		<!-- Champ de recherche -->
 		<form action="admin.php" method="get">
 			<div class="row action-option">
@@ -43,13 +45,11 @@ if (isset($_POST['delete'])) {
 				<!-- Type de recherche -->
 				<div class="col-auto">
 					<div class="form-group">
-						<select class="form-control" name="search-mod" id="search-mod"
-							onchange="
+						<select class="form-control" name="search-mod" id="search-mod" onchange="
 								if (this.value === 'siren') changeInput('search-value', 'Entrez le numéro de Siren', 'number');
 								else if (this.value === 'name') changeInput('search-value', 'Entrez la raison sociale', 'text');
-							"
-						>
-							<option value="siren" selected> 
+							">
+							<option value="siren" selected>
 								Recherche par Siren
 							</option>
 							<option value="name">
@@ -58,7 +58,7 @@ if (isset($_POST['delete'])) {
 						</select>
 					</div>
 				</div>
-				
+
 				<!-- Valeur de recherche -->
 				<div class="col">
 					<div class="form-group">
@@ -76,22 +76,22 @@ if (isset($_POST['delete'])) {
 		<!-- Tableau des comptes -->
 		<table class="table table-striped">
 			<?php
-				echoTableHead(
-                    "ID Compte",
-					"Siren",
-                    "Raison Sociale",
-					"Suppression");
+			echoTableHead(
+				"ID Compte",
+				"Siren",
+				"Raison Sociale"
+			);
 			?>
 			<tbody id="table-result">
 				<?php
-					// Mise en commentaire pour eviter de se connecter, sorry si j'oublie de le décommenter
-                    if($_GET['search-mod'] == 'siren' && ($_GET['search-value'] != '')){
-                        PdoAccess::adminAccountTable($_GET['search-value'], null);
-                    } else if($_GET['search-mod'] == 'name' && ($_GET['search-value'] != '')){
-                        PdoAccess::adminAccountTable(null, $_GET['search-value']);
-                    } else {
-                        PdoAccess::adminAccountTable(null, null);
-                    }
+				// Mise en commentaire pour eviter de se connecter, sorry si j'oublie de le décommenter
+				if ($_GET['search-mod'] == 'siren' && ($_GET['search-value'] != '')) {
+					PdoAccess::adminAccountTable($_GET['search-value'], null);
+				} else if ($_GET['search-mod'] == 'name' && ($_GET['search-value'] != '')) {
+					PdoAccess::adminAccountTable(null, $_GET['search-value']);
+				} else {
+					PdoAccess::adminAccountTable(null, null);
+				}
 
 				?>
 			</tbody>
@@ -100,36 +100,38 @@ if (isset($_POST['delete'])) {
 		<!-- Choix de la page des résultats -->
 		<?php echoPageChoice() ?>
 
-		<script>initPageManager()</script>
+		<script>
+			initPageManager()
+		</script>
 
 		<hr>
 
 		<!-- Formulaire de création de compte -->
 		<div class="row justify-content-md-center">
 			<div class="col-md-6">
-				
+
 				<h1 class="centered">Créer un compte</h1>
-                <?php
-                if (isset($_GET['error'])) {
-                    switch ($_GET['error']){
-                        case "empty":
-                            echo '<div class="alert alert-danger" role="alert">
+				<?php
+				if (isset($_GET['error'])) {
+					switch ($_GET['error']) {
+						case "empty":
+							echo '<div class="alert alert-danger" role="alert">
                                     <strong>Erreur !</strong> Vous devez remplir tous les champs.
                                   </div>';
-                            break;
-                        case "password":
-                            echo '<div class="alert alert-danger" role="alert">
+							break;
+						case "password":
+							echo '<div class="alert alert-danger" role="alert">
                                     <strong>Erreur !</strong> Les mots de passe ne correspondent pas.
                                   </div>';
-                            break;
-                    }
-                }
-                if (isset($_GET['success'])) {
-                    echo '<div class="alert alert-success" role="alert">
+							break;
+					}
+				}
+				if (isset($_GET['success'])) {
+					echo '<div class="alert alert-success" role="alert">
                             <strong>Succès !</strong> Le compte a bien été créé.
                         </div>';
-                }
-                ?>
+				}
+				?>
 				<form action="account.php" method="post">
 
 					<!-- Type du nouveau compte -->
@@ -141,19 +143,19 @@ if (isset($_POST['delete'])) {
 							<option value="admin">Admin</option>
 						</select>
 					</div>
-					
+
 					<!-- Pseudo -->
 					<div class="form-group">
 						<label for="name">Nom d'utilisateur</label>
 						<input type="text" class="form-control" name="name" id="name" placeholder="Nom du nouvel utilisateur" required>
 					</div>
-					
+
 					<!-- Mdp -->
 					<div class="form-group">
 						<label for="password">Mot de passe</label>
 						<input type="password" class="form-control" name="password" id="password" placeholder="Mot de passe de l'utilisateur" required>
 					</div>
-					
+
 					<!-- Confirmation du mdp -->
 					<div class="form-group">
 						<label for="passwordConfirm">Confirmer le mot de passe</label>
@@ -165,7 +167,7 @@ if (isset($_POST['delete'])) {
 						<label for="businessName">Nom de société (raison sociale)</label>
 						<input type="text" class="form-control" name="businessName" id="businessName" placeholder="Raison sociale">
 					</div>
-					
+
 					<!-- Numéro de Siren (client uniquement) -->
 					<div class="form-group client-only">
 						<label for="siren">Numéro de Siren</label>
@@ -178,4 +180,5 @@ if (isset($_POST['delete'])) {
 		</div>
 	</div>
 </body>
+
 </html>

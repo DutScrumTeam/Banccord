@@ -71,7 +71,7 @@ function exportToCSV(lines, title) {
 		data.push(lineArray.join(';') + ";");
 	}
 	const content = data.join('\n');
-	// console.log(content);
+	console.log("Contenu CSV exporté:\n\n"+content);
 
 	// Création d'une nouvelle page
 	let csvFile = new Blob([content], {type: "text/csv"});

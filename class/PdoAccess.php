@@ -141,8 +141,8 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "<form action='admin.php/?id=" . $row['id'] . "' method='post'>";
 				echo "<td>" . $row['id'] . "</td>";
 				echo "<td>" . $row['num_siren'] . "</td>";
-				echo "<td>" . $row['raison_sociale'] . "</td>";
-				echo "<td><input type='submit' class='btn btn-danger' value='Supprimer' name='delete'></td>";
+				echo "<td style='position: relative;'>" . $row['raison_sociale'];
+				echo "<input type='submit' class='btn btn-danger button-more-content' value='Supprimer' name='delete'></td>";
 				echo "</form>";
 				echo "</tr>";
 			}
@@ -335,8 +335,8 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo '<td style="position:relative;">' . $nbTransaction;
 				echo '<button
 					class="btn btn-primary button-more-content"
-					onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>
-				</td>';
+					onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>';
+				echo '</td>';
 				echo "</tr>";
 				self::transactionTable($row['num_remise']);
 			}
@@ -455,8 +455,8 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo '<td style="position: relative">' . $compte
 					.'<button
 						class="btn btn-primary button-more-content"
-						onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>
-					</td>';
+						onclick="switchDisplayMoreContent(this.parentNode.parentNode.id)">+</button>';
+				echo '</td>';
 				self::remiseTable($row['num_siren']);
 				echo "</tr>";
 			}
