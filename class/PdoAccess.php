@@ -271,7 +271,7 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 		{
 			$pdo = self::getPdo();
 			$siren = self::getSiren($pseudo);
-			$sql = "SELECT num_dossier,date_debut,date_fin,libelle from banque.di where id_client=:id AND date_debut >= :start AND date_fin <= :end";
+			$sql = "SELECT num_dossier,date_debut,date_fin,devise,montant,libelle from banque.di where id_client=:id AND date_debut >= :start AND date_fin <= :end";
 			$stmt = $pdo->prepare($sql);
 			$stmt->bindParam(':id', $siren);
 			$stmt->bindParam(':start', $date_start);
