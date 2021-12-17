@@ -66,8 +66,17 @@ if (isset($_POST['pseudo']) && isset($_POST['password'])) {
 							<button class="btn-eye" type="button" onclick="switchPasswordView()"></button>
                             <?php
                             if (isset($_SESSION['passTry'])) {
-                                if ($_SESSION['passTry'] >= 3) {
-                                    echo '<p class="text-danger">Vous avez atteint le nombre maximum de tentatives de connexion. Veuillez réessayer dans quelques minutes.</p>';
+                                switch ($_SESSION['passTry']){
+                                    case 1:
+                                        echo "<div class='alert alert-warning'>Mot de passe ou nom d'utilisateur incorrect (2 tentatives restantes)</div>";
+                                        break;
+                                    case 2:
+                                        echo "<div class='alert alert-warning'>Mot de passe ou nom d'utilisateur incorrect  (dernière tentative)</div>";
+	                                    echo "<div class='alert alert-danger'>Attention dernière tentative</div>";
+                                        break;
+                                    default:
+                                        echo "<div class='alert alert-danger'>Vous avez été bloqué</div>";
+                                        break;
                                 }
                             }
                             ?>

@@ -329,7 +329,14 @@ if (!defined("DEFINE_PDO_ACCESS")) {
 				echo "</tr>";
 			}
 		}
-
+		public static function getTotalTransactions($num_remise){
+			$pdo = self::getpdo();
+			$sql = "SELECT count(*) as c from banque.transactions where num_remise=:num_remise ";
+			$stmt = $pdo->prepare($sql);
+			$stmt->bindParam(':num_remise',$num_remise);
+			$stmt->execute();
+			return $stmt->fetchAll()[0]['c'];
+		}
 		public static function getTotalAmountTresorerie($siren)
 		{
 			$pdo = self::getPdo();
